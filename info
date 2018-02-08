@@ -1,0 +1,36 @@
+	";" -> renvoyer la commande jusqu'a pos a l'execution 
+		-> pas de pipe
+	
+	">" -> tout ce qui aller a la sortie standard va dans le fichier decrit;
+		-> fdout = mypipe[1]
+	
+	"0>" -> redirige STDIN
+			->fdin = mypipe[1]
+
+	"1>" -> redirige STDOUT
+			-> fdout = mypipe[1]
+
+	"2>" -> redirige STDERR
+			-> fderr = mypipe[1]
+
+	">>" -> idem mais a la fin du fichier
+	
+	"<"  -> redirection d'entrée: prendre en entree ce qu'il ya. a droite;
+	
+	"|"  -> utiliser la sortie standard de gauche en tant qu'entree a droite;
+	 "|&" - > rediriger la sortie d'erreur aussi
+	 	-> fdout = mypipe[1]
+	 	-> fdin(next) = mypipe[0]
+
+	">&" -> redirige vers un autre 
+
+	"\" -> escape le prochain caractere
+
+	""" -> transforme la suite en chaine de caracteres interpretable
+
+	"'" -> transforme la suite en chaine de caracteres non interpretable
+
+
+pour les pipes:
+
+PIPE
