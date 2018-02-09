@@ -4,7 +4,7 @@ t_dlist		*hlget_last(t_dlist *list)
 {
 	if (list == NULL)
 		return (NULL);
-	while (list->next != NULL && list->next->next != NULL)
+	while (list->next != NULL)
 		list = list->next;
 	return (list);
 }

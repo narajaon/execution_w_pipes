@@ -1,15 +1,17 @@
 #include "../../inc/header.h"
 
-void		write_next(pid_t *input, pid_t *output)
+void		write_next(pid_t *reading, pid_t *writting)
 {
-	dup2(*output, STDOUT_FILENO);
-	(void)input;
-	close(*output);
+	dup2(*reading, STDOUT_FILENO);
+	(void)reading;
+	close(*reading);
+	(void)writting;
 }
 
-void		read_prev(pid_t *input, pid_t *output)
+void		read_prev(pid_t *reading, pid_t *writting)
 {
-	dup2(*input, STDIN_FILENO);
-	(void)output;
-	close(*input);
+	dup2(*writting, STDIN_FILENO);
+	(void)reading;
+	close(*reading);
+	(void)writting;
 }

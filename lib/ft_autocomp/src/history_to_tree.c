@@ -19,7 +19,7 @@ t_dlist		*history_to_tree(int fd)
 	new = NULL;
 	history = NULL;
 	if ((fd = open(HISTORY, O_RDONLY | O_CREAT)) < 0)
-		exit(printf("bad fd\n"));
+		exit(printf("[HIST] Bad file descriptor\n"));
 	while ((ret = get_next_line(fd, &str)) > 0)
 	{
 		new = str_to_dlist(str);
@@ -80,7 +80,7 @@ t_dlist		*history_to_list(int fd)
 	new = NULL;
 	history = NULL;
 	if ((fd = open(HISTORY, O_RDONLY | O_CREAT)) < 0)
-		exit(printf("bad fd\n"));
+		exit(printf("[HIST] Bad file descriptor\n"));
 	while ((ret = get_next_line(fd, &str)) > 0)
 		ft_hlstadd_void(&history, str);
 	free_str(&str);
