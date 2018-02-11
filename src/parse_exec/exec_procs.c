@@ -22,34 +22,39 @@ int				pipe_processes(t_dlist *curr, int *pfd)
 {
 	int			status;
 	int			pid1;
+	int			cpfd[4];
 
 	status = 0;
+	pipe(cpfd);
+	pipe(cpfd + 2);
 	if ((pid1 = fork()) == 0)
 	{
 		if (curr->prev == NULL && curr->next != NULL)
 		{
-			dprintf(g_fd, "\n\n1 == %s\n\n", curr->content);
-			dup2(pfd[1], STDOUT_FILENO);
+			dup2(cpfd[1], STDOUT_FILENO);
+			dprintf(g_fd, "\n\nfirst == %s fd = %d\n\n", curr->content, cpfd[1]);
 		}
 		else if (curr->prev != NULL && curr->next != NULL)
 		{
-			dprintf(g_fd, "\n\n2 == %s\n\n", curr->content);
 			dup2(pfd[0], STDIN_FILENO);
-			dup2(pfd[3], STDOUT_FILENO);
+			dup2(cpfd[1], STDOUT_FILENO);
+			dprintf(g_fd, "\n\nmid == %s fd = %d %d\n\n", curr->content, pfd[0], cpfd[1]);
 		}
 		else if (curr->prev != NULL && curr->next == NULL)
 		{
-			dprintf(g_fd, "\n\n3 == %s\n\n", curr->content);
-			dup2(pfd[2], STDIN_FILENO);
+			dup2(pfd[0], STDIN_FILENO);
+			dprintf(g_fd, "\n\nlast == %s fd = %d\n\n", curr->content, pfd[0]);
 		}
 		close_fd(pfd);
+		close_fd(cpfd);
 		exec_prog(curr->content);
 	}
 	else
 	{
 		if (curr->next != NULL)
-			pipe_processes(curr->next, pfd);
+			pipe_processes(curr->next, cpfd);
 		close_fd(pfd);
+		close_fd(cpfd);
 	}
 	return (status);
 }
@@ -64,12 +69,9 @@ void			exec_procs(t_dlist *pipes)
 	pipe(pfd);
 	pipe(&pfd[2]);
 	status = pipe_processes(pipes, pfd);
-	close(pfd[0]);
-	close(pfd[1]);
-	close(pfd[2]);
-	close(pfd[3]);
+	close_fd(pfd);
 	while (wait(&status) > 0)
-		printf("Kill [%d]\n", status);
+		printf("Kill [%#x]\n", status);
 }
 
 int				iter_thru_procs(t_proc *process)
