@@ -7,7 +7,6 @@ int			exec_prog(char *input)
 	char	**bin_paths;
 	char	*path;
 
-	dprintf(g_fd, "<<<<< %s >>>>\n", input);
 	split = ft_strsplit(input, ' ');
 	bin_paths = ft_strsplit(ft_getenv(g_sh->env.env, "PATH"), ':');
 	if (!(path = check_bin(bin_paths, split[0])))
@@ -22,27 +21,32 @@ int			exec_prog(char *input)
 int				pipe_processes(t_dlist *curr, int *pfd)
 {
 	int			status;
-	int			cpfd[2];
-	int			pid;
+	int			pid1;
 
-	(void)pfd;
 	status = 0;
 	if (curr == NULL)
 		return (status);
-	pipe(cpfd);
-	close(cpfd[0]);
-	if (pfd != NULL)
+	if (curr->next != NULL)
 	{
-		dup2(pfd[0], STDIN_FILENO);
-		close(pfd[1]);
+		if ((pid1 = fork()) == 0)
+		{
+			dprintf(g_fd, "\n\ncmd1 name = <%s>\n\n", curr->content);
+			dup2(pfd[1], STDOUT_FILENO);
+			close(pfd[0]);
+			close(pfd[1]);
+			status = exec_prog(curr->content);
+		}
+		else
+		{
+			dprintf(g_fd, "\n\ncmd2 name = <%s>\n\n", curr->next->content);
+			dup2(pfd[0], STDIN_FILENO);
+			close(pfd[0]);
+			close(pfd[1]);
+			status = exec_prog(curr->next->content);
+		}
+	}
+	else
 		status = exec_prog(curr->content);
-	}
-	if ((pid = fork()) == 0)
-	{
-		close(cpfd[1]);
-		dup2(cpfd[1], STDOUT_FILENO);
-		pipe_processes(curr->next, cpfd);
-	}
 	return (status);
 }
 
@@ -50,16 +54,16 @@ void			exec_procs(t_dlist *pipes)
 {
 	int			status;
 	int			pid;
+	int			pfd[2];
 
-	if (pipes->next != NULL)
-		status = pipe_processes(pipes, NULL);
-	else
-	{
-		if ((pid = fork()) == 0)
-			status = exec_prog(pipes->content);
-	}
+	status = 0;
+	pipe(pfd);
+	if ((pid = fork()) == 0)
+		status = pipe_processes(pipes, pfd);
+	close(pfd[0]);
+	close(pfd[1]);
 	while (wait(&status) > 0)
-		printf("Kill [%d]\n", status);
+		printf("Kill [%#x]\n", status);
 }
 
 int				iter_thru_procs(t_proc *process)
