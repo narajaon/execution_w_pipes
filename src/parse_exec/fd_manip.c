@@ -15,3 +15,11 @@ void		read_prev(pid_t *reading, pid_t *writting)
 	close(*reading);
 	(void)writting;
 }
+
+void		close_fd(int *pfd)
+{
+	close(pfd[0]);
+	close(pfd[1]);
+	close(pfd[2]);
+	close(pfd[3]);
+}

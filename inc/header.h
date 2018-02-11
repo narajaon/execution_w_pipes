@@ -373,6 +373,7 @@ char					*check_bin(char **paths, char *input);
 char					*get_cmd_name(char *input);
 void					write_next(pid_t *input, pid_t *output);
 void					read_prev(pid_t *input, pid_t *output);
+void					close_fd(int *pfd);
 
 void					*g_handlenonchar[SCHAR_MAX];
 t_schar					g_spec_char[SCHAR_NB];
