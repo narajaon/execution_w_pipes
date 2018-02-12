@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 07:46:03 by awyart            #+#    #+#             */
-/*   Updated: 2018/02/12 16:30:01 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/12 18:03:21 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int		ft_exit(t_sh *sh, char **av)
 		ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO);
 		return (1);
 	}
-	kill(0, SIGKILL);
+	kill(g_cur_pid, SIGKILL);
 	return (0);
 }

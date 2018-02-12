@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 11:46:12 by vbastion          #+#    #+#             */
-/*   Updated: 2018/02/12 14:47:57 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/12 18:28:24 by narajaon         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "header.h"
@@ -26,7 +26,6 @@ void			flush_sh(t_sh *sh)
 
 void			ft_start_process(t_sh *sh)
 {
-	g_sh = sh;
 	while (1)
 	{
 		ft_prompt(sh);

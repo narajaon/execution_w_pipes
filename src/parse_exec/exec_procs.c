@@ -31,12 +31,12 @@ int			exec_prog(char *input)
 int				pipe_processes(t_dlist *curr, int *pfd)
 {
 	int			status;
-	int			pid1;
 	int			cpfd[2];
+	int			pid;
 
 	status = 0;
 	pipe(cpfd);
-	if ((pid1 = fork()) == 0)
+	if ((pid = fork()) == 0)
 	{
 		if (curr->next != NULL)
 			dup2(cpfd[1], STDOUT_FILENO);
@@ -44,7 +44,7 @@ int				pipe_processes(t_dlist *curr, int *pfd)
 			dup2(pfd[0], STDIN_FILENO);
 		close_fd(pfd);
 		close_fd(cpfd);
-		exec_prog(curr->content);
+		status = exec_prog(curr->content);
 	}
 	else
 	{
