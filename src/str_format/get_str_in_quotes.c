@@ -37,12 +37,8 @@ char		*get_str_in_quotes(char *str)
 	if (*str != '\'')
 		return (str);
 	str++;
-	while (str[i])
-	{
-		if (str[i] == '\'')
-			break ;
+	while (str[i] && str[i] != '\'')
 		i++;
-	}
 	content = ft_strsub(str, 0, i);
 	free_str(&str);
 	return (content);

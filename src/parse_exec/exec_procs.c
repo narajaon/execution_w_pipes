@@ -2,16 +2,18 @@
 
 int			exec_prog(char *input)
 {
-	int		status;
-	char	**split;
-	char	**bin_paths;
-	char	*path;
+	int			status;
+	char		**split;
+	char		**bin_paths;
+	char		*path;
 
 	split = ft_strsplit(input, ' ');
+	//pas opti, devrait se faire a l'initialisation
 	bin_paths = ft_strsplit(ft_getenv(g_sh->env.env, "PATH"), ':');
-	if (!(path = check_bin(bin_paths, split[0])))
+	path = check_bin(bin_paths, split[0]);
+	if (path == NULL)
 	{
-		ft_putstr("cmd not found\n");
+		ft_putstr_fd("cmd not found\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 	status = execve(path, split, g_sh->env.env);
@@ -56,7 +58,7 @@ void			exec_procs(t_dlist *pipes)
 	status = pipe_processes(pipes, pfd);
 	close_fd(pfd);
 	while (wait(&status) > 0)
-		printf("Kill [%d]\n", status);
+		;
 }
 
 int				iter_thru_procs(t_proc *process)
@@ -69,7 +71,7 @@ int				iter_thru_procs(t_proc *process)
 	{
 		pipes = init_proc_list(semi->content, '|');
 		exec_procs(pipes);
-		//free(pipes);
+		free_hlist(&pipes);
 		semi = semi->next;
 	}
 	return (EXIT_SUCCESS);
@@ -86,8 +88,9 @@ int				exec_cmd(t_dlist *input)
 		return (EXIT_FAILURE);
 	input_to_buff(buffer, input);
 	process.semicol = init_proc_list(buffer, ';');
-	//	hl_print_next(process.semicol, hl_print_str);
 	process.pipes = NULL;
 	iter_thru_procs(&process);
+	free_hlist(&process.semicol);
+	free_str(&buffer);
 	return (EXIT_SUCCESS);
 }

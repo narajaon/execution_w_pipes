@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 19:10:42 by awyart            #+#    #+#             */
-/*   Updated: 2018/01/11 14:42:42 by awyart           ###   ########.fr       */
+/*   Updated: 2018/02/12 14:29:39 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int		ft_lexer(t_sh *sh)
 	token = NULL;
 	new = NULL;
 	line = sh->list;
+	hl_print_next(line, print_hlst_content);
 	ft_handle_backslash(&line);
 	ft_print_lexinput(&line);
 	while (line != NULL)

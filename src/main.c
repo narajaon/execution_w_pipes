@@ -6,12 +6,23 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 11:46:12 by vbastion          #+#    #+#             */
-/*   Updated: 2018/02/05 13:35:08 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/12 14:47:57 by narajaon         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "header.h"
 
 t_sh			*g_sh;
+
+void			flush_sh(t_sh *sh)
+{
+	free_hlist(&sh->list);
+	free_hlist(&sh->hist->cur_branch);
+	free_autocmp_res(&sh->hist->branch_root);
+	//free btree
+	//free process
+	//free token
+	//free yanked list in list_wrap
+}
 
 void			ft_start_process(t_sh *sh)
 {
@@ -23,21 +34,10 @@ void			ft_start_process(t_sh *sh)
 		ft_read(sh);
 		write(STDOUT_FILENO, "\n", 1);
 		dprintf(g_fd, "\n --<Read OK>---\n ");
-		ft_lexer(sh);
-		dprintf(g_fd, "\n --<Lexer OK>---\n ");
-		//here
-		if (ft_parser(sh) == 0)
-		 {
-		 	ft_printf("\n");
-		 	continue;
-		}
-		dprintf(g_fd, "\n --<Parser ok>---\n ");
-		//ft_extension();
-//		ft_execution(sh);
 		exec_cmd(sh->list);
-		//exec_cmd(sh
-		dprintf(g_fd, "\n --<Exec ok>---\n ");
+		dprintf(g_fd, "\n --<Exec OK>---\n ");
 		update_history(sh->hist, sh->list);
+		flush_sh(sh);
 		//free needed sh
 	}
 }
@@ -52,17 +52,6 @@ int				ft_init(t_sh *sh)
 	ft_init_keytab();
 	ft_setupenv(&sh->env);
 	return (1);
-}
-
-void			flush_sh(t_sh *sh)
-{
-	free_hlist(&sh->list);
-	free_hlist(&sh->hist->cur_branch);
-	free_autocmp_res(&sh->hist->branch_root);
-	//free btree
-	//free process
-	//free token
-	//free yanked list in list_wrap
 }
 
 int				main(void)

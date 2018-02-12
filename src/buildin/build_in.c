@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 07:26:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/01/26 14:46:18 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/12 15:05:04 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ int		detect_bi(char *str)
 	int			i;
 
 	i = -1;
-	if (str == NULL)
-	{
-		dprintf(g_fd, "a l'aide??");
-		return (-1);
-	}
 	while (++i < BUILD_IN_SIZE - 1)
 	{
 		if (ft_strcmp(str, g_build_in[i].cmd) == 0)
