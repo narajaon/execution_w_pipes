@@ -6,41 +6,45 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 07:26:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/02/12 15:05:04 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/12 16:11:26 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../inc/header.h"
 
-t_op	g_build_in[] =
+const t_op	g_build_in[] =
 {
-	{"echo", B_ECHO, &ft_echo},
-	{"cd", B_CD, &ft_cd},
-	{"env", B_ENV, &ft_env},
-	{"setenv", B_SETENV, &ft_setenv},
-	{"unsetenv", B_UNSETENV, &ft_unsetenv},
-	{"exit", B_EXIT, &ft_exit}
+	{"echo", &ft_echo},
+	{"cd", &ft_cd},
+	{"env", &ft_env},
+	{"setenv", &ft_setenv},
+	{"unsetenv", &ft_unsetenv},
+	{"exit", &ft_exit},
+	{NULL, NULL}
 };
 
-int		detect_bi(char *str)
+int			detect_bi(char *cmd, const t_op *cmd_tab)
 {
-	int			i;
+	int		i;
+	int		ret;
 
-	i = -1;
-	while (++i < BUILD_IN_SIZE - 1)
+	i = 0;
+	if (cmd == NULL)
+		return (-1);
+	while (cmd_tab[i].fun_ptr != NULL)
 	{
-		if (ft_strcmp(str, g_build_in[i].cmd) == 0)
-			return (g_build_in[i].type);
+		if ((ret = ft_strcmp(cmd, cmd_tab[i].name)) == 0)
+			return (i);
+		i++;
 	}
-	return (B_NONE);
+	return (-1);
 }
 
-int		ft_exec_build_in(t_sh *sh, t_process *process)
+int			is_builtin(char **av)
 {
-	int			(*ptr)();
-	int			ret;
+	int		i;
 
-	ptr = g_build_in[process->bi - 1].f;
-	ret = ptr(sh, process->argv);
-	return (ret);
+	if ((i = detect_bi(av[0], g_build_in)) < 0)
+		return (EXIT_FAILURE);
+	return (g_build_in[i].fun_ptr(g_sh, av));
 }

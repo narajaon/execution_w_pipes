@@ -124,7 +124,6 @@ enum 					e_type
 
 enum 					e_build_in
 {
-	B_NONE,
 	B_ECHO,
 	B_CD,
 	B_ENV,
@@ -136,9 +135,8 @@ enum 					e_build_in
 
 typedef struct			s_op
 {
-	char				*cmd;
-	enum e_build_in		type;
-	int					(*f)(t_sh *, char **);
+	char				*name;
+	int					(*fun_ptr)(t_sh *, char **);
 }						t_op;
 
 typedef struct			s_terms
@@ -259,8 +257,8 @@ int						ft_setenv(t_sh *sh, char **av);
 int						ft_exit(t_sh *sh, char **av);
 int						ft_unsetenv(t_sh *sh, char **av);
 int						ft_echo(t_sh *sh, char **av);
-int 					ft_exec_build_in(t_sh *sh, t_process *process);
-int 					detect_bi(char *str);
+int 					detect_bi(char *str, const t_op *cmd_tab);
+int						is_builtin(char **av);
 
 //arg_formating
 char					*get_str_in_quotes(char *str);
@@ -375,6 +373,8 @@ void					write_next(pid_t *input, pid_t *output);
 void					read_prev(pid_t *input, pid_t *output);
 void					close_fd(int *pfd);
 void					flush_sh(t_sh *sh);
+bool					is_binary_file(char *bin_name);
+bool					is_valid_path(char *path_bin);
 
 void					*g_handlenonchar[SCHAR_MAX];
 t_schar					g_spec_char[SCHAR_NB];

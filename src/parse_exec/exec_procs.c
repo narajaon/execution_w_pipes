@@ -7,17 +7,25 @@ int			exec_prog(char *input)
 	char		**bin_paths;
 	char		*path;
 
+	status = 0;
 	split = ft_strsplit(input, ' ');
 	//pas opti, devrait se faire a l'initialisation
 	bin_paths = ft_strsplit(ft_getenv(g_sh->env.env, "PATH"), ':');
+	if ((status = is_builtin(split)) != EXIT_FAILURE)
+		return (status);
 	path = check_bin(bin_paths, split[0]);
 	if (path == NULL)
 	{
-		ft_putstr_fd("cmd not found\n", STDERR_FILENO);
-		exit(EXIT_FAILURE);
+		if ((is_binary_file(split[0]) == TRUE) &&
+			(is_valid_path(split[0]) == TRUE))
+			path = split[0];
+		else
+		{
+			ft_putstr_fd("cmd not found\n", STDERR_FILENO);
+			exit(EXIT_FAILURE);
+		}
 	}
-	status = execve(path, split, g_sh->env.env);
-	return (status);
+	return (status = execve(path, split, g_sh->env.env));
 }
 
 int				pipe_processes(t_dlist *curr, int *pfd)

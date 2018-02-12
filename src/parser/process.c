@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 17:24:25 by awyart            #+#    #+#             */
-/*   Updated: 2018/01/19 17:46:12 by awyart           ###   ########.fr       */
+/*   Updated: 2018/02/12 15:39:40 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_process *ft_new_process(t_token **token)
 	//dprintf(g_fd, "\nbonjour05\n");
 	process->argv[i] =  NULL;
 	//dprintf(g_fd, "\nbonjour051\n");
-	process->bi = detect_bi(process->argv[0]);
+	//process->bi = detect_bi(process->argv[0]);
 	//dprintf(g_fd, "\nbonjour052\n");
 	process->status = 0;
 	//dprintf(g_fd, "\nbonjour06\n");

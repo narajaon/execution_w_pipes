@@ -54,7 +54,6 @@ ITEM = main.o \
 		process.o \
 		utility.o \
 		launchjob.o \
-		execution.o \
 		info_cursor.o \
 		cd.o \
 		echo.o \
@@ -83,7 +82,6 @@ vpath %.c src \
 		src/lexer \
 		src/parser \
 		src/job \
-		src/execution \
 		src/buildin \
 		src/parse_exec \
 		src/str_format
