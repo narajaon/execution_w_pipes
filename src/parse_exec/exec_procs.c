@@ -22,38 +22,25 @@ int				pipe_processes(t_dlist *curr, int *pfd)
 {
 	int			status;
 	int			pid1;
-	int			cpfd[4];
+	int			cpfd[2];
 
 	status = 0;
 	pipe(cpfd);
-	pipe(cpfd + 2);
 	if ((pid1 = fork()) == 0)
 	{
-		if (curr->prev == NULL && curr->next != NULL)
-		{
+		if (curr->next != NULL)
 			dup2(cpfd[1], STDOUT_FILENO);
-			dprintf(g_fd, "\n\nfirst == %s fd = %d\n\n", curr->content, cpfd[1]);
-		}
-		else if (curr->prev != NULL && curr->next != NULL)
-		{
+		if (curr->prev != NULL)
 			dup2(pfd[0], STDIN_FILENO);
-			dup2(cpfd[1], STDOUT_FILENO);
-			dprintf(g_fd, "\n\nmid == %s fd = %d %d\n\n", curr->content, pfd[0], cpfd[1]);
-		}
-		else if (curr->prev != NULL && curr->next == NULL)
-		{
-			dup2(pfd[0], STDIN_FILENO);
-			dprintf(g_fd, "\n\nlast == %s fd = %d\n\n", curr->content, pfd[0]);
-		}
 		close_fd(pfd);
 		close_fd(cpfd);
 		exec_prog(curr->content);
 	}
 	else
 	{
+		close_fd(pfd);
 		if (curr->next != NULL)
 			pipe_processes(curr->next, cpfd);
-		close_fd(pfd);
 		close_fd(cpfd);
 	}
 	return (status);
@@ -62,16 +49,14 @@ int				pipe_processes(t_dlist *curr, int *pfd)
 void			exec_procs(t_dlist *pipes)
 {
 	int			status;
-	//int			pid;
-	int			pfd[4];
+	int			pfd[2];
 
 	status = 0;
 	pipe(pfd);
-	pipe(&pfd[2]);
 	status = pipe_processes(pipes, pfd);
 	close_fd(pfd);
 	while (wait(&status) > 0)
-		printf("Kill [%#x]\n", status);
+		printf("Kill [%d]\n", status);
 }
 
 int				iter_thru_procs(t_proc *process)
