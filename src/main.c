@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 11:46:12 by vbastion          #+#    #+#             */
-/*   Updated: 2018/02/12 18:28:24 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/13 14:42:07 by narajaon         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "header.h"
@@ -58,6 +58,7 @@ int				main(void)
 	t_sh				sh;
 	t_hist				hist;
 
+	g_cur_pid = getpid();
 	g_fd = open("/dev/ttys001", O_WRONLY);
 	history_init(&hist);
 	sh.hist = &hist;

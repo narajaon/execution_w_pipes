@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 13:03:12 by awyart            #+#    #+#             */
-/*   Updated: 2018/02/12 14:17:33 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/13 14:42:08 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ bool		jump_loop(void)
 void		ft_signal(int sig)
 {
 	if (sig == SIGINT)
+	{
 		ft_putstr("\n");
-	// need to free stuff here
-	ft_prompt(g_sh);
+		// need to free stuff here
+		ft_prompt(g_sh);
+	}
 }
 
 void		ft_getsignal(void)

@@ -11,14 +11,16 @@ int			exec_prog(char *input)
 	split = ft_strsplit(input, ' ');
 	//pas opti, devrait se faire a l'initialisation
 	bin_paths = ft_strsplit(ft_getenv(g_sh->env.env, "PATH"), ':');
-	if ((status = is_builtin(split)) != EXIT_FAILURE)
+	if ((status = is_builtin(split)) >= 0)
 		return (status);
 	path = check_bin(bin_paths, split[0]);
 	if (path == NULL)
 	{
 		if ((is_binary_file(split[0]) == TRUE) &&
 			(is_valid_path(split[0]) == TRUE))
+		{
 			path = split[0];
+		}
 		else
 		{
 			ft_putstr_fd("cmd not found\n", STDERR_FILENO);
@@ -91,6 +93,7 @@ int				exec_cmd(t_dlist *input)
 	int			buff_size;
 	t_proc		process;
 
+	g_cur_pid = getpid();
 	buff_size = hlst_size(input);
 	if (!(buffer = (char *)malloc(sizeof(char) * (buff_size  + 1))))
 		return (EXIT_FAILURE);
