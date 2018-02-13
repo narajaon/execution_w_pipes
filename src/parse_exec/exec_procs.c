@@ -93,7 +93,6 @@ int				exec_cmd(t_dlist *input)
 	int			buff_size;
 	t_proc		process;
 
-	g_cur_pid = getpid();
 	buff_size = hlst_size(input);
 	if (!(buffer = (char *)malloc(sizeof(char) * (buff_size  + 1))))
 		return (EXIT_FAILURE);
