@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 07:26:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/02/13 14:49:16 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/13 17:26:34 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ int			detect_bi(char *cmd, const t_op *cmd_tab)
 int			is_builtin(char **av)
 {
 	int		i;
+	int		ret;
 
 	if ((i = detect_bi(av[0], g_build_in)) < 0)
 		return (-1);
-	return (g_build_in[i].fun_ptr(g_sh, av));
+	ret = g_build_in[i].fun_ptr(g_sh, av);
+	return (ret);
 }
