@@ -37,7 +37,6 @@ int							g_tmp2;
 bool						g_loop;
 int							g_cur_pid;
 t_sh						*g_sh;
-pid_t						g_pfd[2];
 
 /*
 unsigned short ws_row;	
@@ -258,7 +257,7 @@ int						ft_exit(t_sh *sh, char **av);
 int						ft_unsetenv(t_sh *sh, char **av);
 int						ft_echo(t_sh *sh, char **av);
 int 					detect_bi(char *str, const t_op *cmd_tab);
-int						is_builtin(char **av);
+int						is_builtin(char *av);
 
 //arg_formating
 char					*get_str_in_quotes(char *str);
@@ -375,6 +374,8 @@ void					close_fd(int *pfd);
 void					flush_sh(t_sh *sh);
 bool					is_binary_file(char *bin_name);
 bool					is_valid_path(char *path_bin);
+int						exec_builtin(int index, char *input);
+int						pipe_processes(t_dlist *curr, int *pfd);
 
 void					*g_handlenonchar[SCHAR_MAX];
 t_schar					g_spec_char[SCHAR_NB];
