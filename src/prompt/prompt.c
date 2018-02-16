@@ -25,9 +25,9 @@ int	ft_prompt(t_sh *sh)
 	else if (sh->ret == Q_OK)
 	{
 		if (sh->dir.dir_name != NULL)
-			ft_dprintf(STDERR_FILENO, "%s%s%s %C ", KGRN, sh->dir.dir_name, KNRM, EMJ_ARRW);
+			ft_dprintf(STDERR_FILENO, "%s > ",sh->dir.dir_name);
 		else
-			ft_dprintf(STDERR_FILENO, "%sInvalidDir%s %C ", KRED, KNRM, EMJ_ARRW);
+			ft_dprintf(STDERR_FILENO, "InvalidDir > ");
 	}
 	return (1);
 }
@@ -45,8 +45,8 @@ int	len_prompt(t_sh *sh)
 	else if (sh->ret == Q_OK)
 	{
 		if (sh->dir.dir_name != NULL)
-			return (ft_strlen(sh->dir.dir_name) + 2);
-		return (12);
+			return (ft_strlen(sh->dir.dir_name) + 3);
+		return (13);
 	}
 	return (0);
 }

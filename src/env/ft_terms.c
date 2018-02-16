@@ -21,6 +21,7 @@ int		ft_terms_init(t_terms *terms)
 	terms->this_term.c_cc[VTIME] = 0;
 	ioctl(STDIN_FILENO, TIOCGWINSZ, &(terms->win));
 	terms->status = TERM_READY;
+	tcsetattr(0, TCSANOW, &(terms->this_term));
 	return (1);
 }
 
