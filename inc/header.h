@@ -147,6 +147,22 @@ enum 					e_cap
 	CAP_SIZE
 };
 
+enum					e_redir
+{
+	R_LEFT,
+	R_RIGHT,
+	R_DLEFT,
+	R_DRIGHT,
+	R_NB
+};
+
+typedef struct			s_red
+{
+	char				*redir;
+	int					index;
+	void				(*funct)();
+}						t_red;
+
 typedef struct			s_op
 {
 	char				*name;
@@ -184,14 +200,6 @@ typedef struct			s_cap
 	char				cap[3];
 	int					(*f)();
 }						t_cap;
-
-
-typedef struct			s_redir
-{
-	char 				**name;
-	t_redir				*next;
-	enum e_type			type;
-}						t_redir;
 
 typedef struct			s_dir
 {
@@ -312,14 +320,19 @@ int						exec_cmd(t_dlist *input);
 t_dlist					*init_proc_list(char *input, char token);
 char					*check_bin(char **paths, char *input);
 char					*get_cmd_name(char *input);
-void					write_next(pid_t *input, pid_t *output);
-void					read_prev(pid_t *input, pid_t *output);
 void					close_fd(int *pfd);
 void					flush_sh(t_sh *sh);
 bool					is_binary_file(char *bin_name);
 bool					is_valid_path(char *path_bin);
 int						exec_builtin(int index, char *input);
 int						pipe_processes(t_dlist *curr, int *pfd);
+
+//redirections
+void					redir_left(char **av);
+void					redir_right(char **av);
+void					redir_dleft(char **av);
+void					redir_dright(char **av);
+char					**parse_redir(char *av);
 
 void					*g_handlenonchar[SCHAR_MAX];
 t_schar					g_spec_char[SCHAR_NB];

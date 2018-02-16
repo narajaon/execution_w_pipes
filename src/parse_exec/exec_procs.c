@@ -8,7 +8,7 @@ int				exec_prog(char *input)
 	char		*path;
 
 	status = 0;
-	split = ft_strsplit(input, ' ');
+	split = parse_redir(input);
 	//pas opti, devrait se faire a l'initialisation
 	bin_paths = ft_strsplit(ft_getenv(g_sh->env.env, "PATH"), ':');
 	path = check_bin(bin_paths, split[0]);
@@ -52,7 +52,7 @@ int				exec_in_parent(t_dlist *curr, int *cpfd, int *pfd, int cmd_id)
 
 	status = 0;
 	close_fd(pfd);
-	if (cmd_id  >= 0)
+	if (cmd_id >= 0)
 	{
 		if (cmd_id == B_CD)
 			status = exec_builtin(cmd_id, curr->content);
