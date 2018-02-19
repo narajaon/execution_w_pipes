@@ -66,5 +66,6 @@ char			**parse_redir(char *input)
 	}
 	free_tab_str(&av);
 	parsed[i] = NULL;
+	ft_print_tab(parsed);
 	return (parsed);
 }
