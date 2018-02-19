@@ -5,6 +5,8 @@ char		*get_cmd_name(char *input)
 	int		i;
 
 	i = 0;
+	while (*input != '\0' && ft_isspace(*input) == TRUE)
+		input++;
 	while (input[i] != '\0' && ft_isspace(input[i]) == FALSE)
 		i++;
 	return (ft_strndup(input, i));

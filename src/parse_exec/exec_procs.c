@@ -1,6 +1,6 @@
 #include "../../inc/header.h"
 
-int			exec_prog(char *input)
+int				exec_prog(char *input)
 {
 	int			status;
 	char		**split;
@@ -11,23 +11,58 @@ int			exec_prog(char *input)
 	split = ft_strsplit(input, ' ');
 	//pas opti, devrait se faire a l'initialisation
 	bin_paths = ft_strsplit(ft_getenv(g_sh->env.env, "PATH"), ':');
-	//if ((status = is_builtin(split)) >= 0)
-	//	return (status);
 	path = check_bin(bin_paths, split[0]);
 	if (path == NULL)
 	{
 		if ((is_binary_file(split[0]) == TRUE) &&
-			(is_valid_path(split[0]) == TRUE))
+				(is_valid_path(split[0]) == TRUE))
 		{
 			path = split[0];
 		}
 		else
 		{
-			ft_putstr_fd("cmd not found\n", STDERR_FILENO);
+			ft_putstr_fd("command not found\n", STDERR_FILENO);
 			exit(EXIT_FAILURE);
 		}
 	}
-	return (status = execve(path, split, g_sh->env.env));
+	return (execve(path, split, g_sh->env.env));
+}
+
+int				exec_in_child(t_dlist *curr, int *cpfd, int *pfd, int cmd_id)
+{
+	int			status;
+
+	status = 0;
+	if (curr->next != NULL)
+		dup2(cpfd[1], STDOUT_FILENO);
+	if (curr->prev != NULL)
+		dup2(pfd[0], STDIN_FILENO);
+	close_fd(pfd);
+	close_fd(cpfd);
+	if (cmd_id < 0)
+		status = exec_prog(curr->content);
+	if (curr->next != NULL)
+		status = exec_builtin(cmd_id, curr->content);
+	return (status);
+}
+
+int				exec_in_parent(t_dlist *curr, int *cpfd, int *pfd, int cmd_id)
+{
+	int			status;
+
+	status = 0;
+	close_fd(pfd);
+	if (cmd_id  >= 0)
+	{
+		if (cmd_id == B_CD)
+			status = exec_builtin(cmd_id, curr->content);
+		else if (curr->next == NULL)
+			status = exec_builtin(cmd_id, curr->content);
+	}
+	if (curr->next != NULL)
+		status = pipe_processes(curr->next, cpfd);
+	close_fd(cpfd);
+	return (status);
 }
 
 int				pipe_processes(t_dlist *curr, int *pfd)
@@ -35,26 +70,18 @@ int				pipe_processes(t_dlist *curr, int *pfd)
 	int			status;
 	int			cpfd[2];
 	int			pid;
+	int			cmd_id;
 
 	status = 0;
 	pipe(cpfd);
+	cmd_id = is_builtin(curr->content);
 	if ((pid = fork()) == 0)
 	{
-		if (curr->next != NULL)
-			dup2(cpfd[1], STDOUT_FILENO);
-		if (curr->prev != NULL)
-			dup2(pfd[0], STDIN_FILENO);
-		close_fd(pfd);
-		close_fd(cpfd);
-		status = exec_prog(curr->content);
+		status = exec_in_child(curr, cpfd, pfd, cmd_id);
+		exit(status);
 	}
 	else
-	{
-		close_fd(pfd);
-		if (curr->next != NULL)
-			pipe_processes(curr->next, cpfd);
-		close_fd(cpfd);
-	}
+		exec_in_parent(curr, cpfd, pfd, cmd_id);
 	return (status);
 }
 
