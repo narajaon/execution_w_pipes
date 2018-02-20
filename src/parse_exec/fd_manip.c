@@ -2,10 +2,10 @@
 
 const t_red		g_redir[R_NB + 1] =
 {
-	{"<", R_LEFT, &redir_left},
-	{">", R_RIGHT, &redir_right},
-	{"<<", R_DLEFT, &redir_dleft},
-	{">>", R_DRIGHT, &redir_dright},
+	{"<", R_LEFT, NULL},
+	{">", R_RIGHT, NULL},
+	{"<<", R_DLEFT, NULL},
+	{">>", R_DRIGHT, NULL},
 	{NULL, -1, NULL}
 };
 
@@ -15,57 +15,26 @@ void			close_fd(int *pfd)
 	close(pfd[1]);
 }
 
-int				get_redir(char *av, void (**redir)())
+int				get_redir(char *av)
 {
-	int			i;
-
-	i = 0;
-	while (g_redir[i].redir != NULL)
-	{
-		if (ft_strncmp(g_redir[i].redir, av, 2) == 0)
-			break ;
-		i++;
-	}
-	*redir = g_redir[i].funct;
-	return (i);
+	if (*av == '>')
+		return ((*(av + 1) == '>') ? R_DRIGHT : R_RIGHT);
+	if (*av == '<')
+		return ((*(av + 1) == '<') ? R_DLEFT : R_LEFT);
+	return (-1);
 }
 
-void			redir_left(char **av)
+void			redir_fd(int old_fd, int new_fd)
 {
-	(void)av;
+	dup2(old_fd, new_fd);
+	close(old_fd);
 }
 
-void			redir_right(char **av)
+int				fd_to_file(int fd, int o_right, int o_perm, char *file)
 {
-	(void)av;
-}
+	int			new_fd;
 
-void			redir_dleft(char **av)
-{
-	(void)av;
-}
-
-void			redir_dright(char **av)
-{
-	(void)av;
-}
-
-char			**parse_redir(char *input)
-{
-	char		**parsed;
-	char		**av;
-	void		(*redir)(char **);
-	int			i;
-
-	i = 0;
-	av = ft_strsplit(input, ' ');
-	parsed = (char **)malloc(sizeof(char *) * (ft_tablen(av) + 1));
-	while (av[i] != NULL)
-	{
-		i += get_redir(av[i], &redir);
-	}
-	free_tab_str(&av);
-	parsed[i] = NULL;
-	ft_print_tab(parsed);
-	return (parsed);
+	new_fd = open(file, o_right, o_perm);
+	redir_fd(fd, new_fd);
+	return (new_fd);
 }

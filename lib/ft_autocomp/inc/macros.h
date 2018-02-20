@@ -24,9 +24,9 @@
 
 # define EMJ_ARRW 0x27A1
 
-# define STR(x)		ft_printf(#x " = <%s>\n", x)
-# define NBR(x)		ft_printf(#x " = <%d>\n", x)
-# define CHAR(x)	ft_printf(#x " = <%c>\n", x)
+# define STR(x)		ft_printf(#x " = ~%s~\n", x)
+# define NBR(x)		ft_printf(#x " = ~%d~\n", x)
+# define CHAR(x)	ft_printf(#x " = ~%c~\n", x)
 # define EX			exit(1);
 # define ICI		ft_printf("ICI\n");
 # define LA			ft_printf("LA\n");

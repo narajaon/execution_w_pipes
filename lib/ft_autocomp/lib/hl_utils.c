@@ -22,6 +22,20 @@ int			hlst_size(t_dlist *list)
 	return (i);
 }
 
+void		free_hlist_not_content(t_dlist **list)
+{
+	t_dlist		*to_free;
+	t_dlist		*next;
+
+	to_free = *list;
+	while (to_free)
+	{
+		next = to_free->next;
+		free(to_free);
+		to_free = to_free->next;
+	}
+}
+
 void		free_hlist(t_dlist **list)
 {
 	t_dlist		*to_free;

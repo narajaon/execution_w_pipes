@@ -49,6 +49,7 @@ int						input_to_buff(char *buff, t_dlist *input);
 int						hlst_size(t_dlist *list);
 void					free_str(char **str);
 void					free_hlist(t_dlist **list);
+void					free_hlist_not_content(t_dlist **list);
 
 t_dlist					*history_up(t_dlist *word, t_dlist *cur_branch,
 		t_dlist *history);

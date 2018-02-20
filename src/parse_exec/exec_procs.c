@@ -8,7 +8,7 @@ int				exec_prog(char *input)
 	char		*path;
 
 	status = 0;
-	split = parse_redir(input);
+	split = extract_redir(input);
 	//pas opti, devrait se faire a l'initialisation
 	bin_paths = ft_strsplit(ft_getenv(g_sh->env.env, "PATH"), ':');
 	path = check_bin(bin_paths, split[0]);

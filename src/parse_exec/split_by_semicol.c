@@ -4,7 +4,7 @@ void		hl_print_str(t_dlist *list)
 {
 	if (list == NULL)
 		return ;
-	printf("##%s\n##", list->content);
+	printf("-> |%s|\n", list->content);
 }
 
 int			skip_quotes(char *str, char quote)

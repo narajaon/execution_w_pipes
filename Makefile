@@ -58,6 +58,8 @@ ITEM = \
 		fd_manip.o \
 		split_by_semicol.o \
 		utils.o \
+		parse_redir.o \
+		str_conversion.o \
 		spec_char.o
 
 OBJ:=$(addprefix $(OBJ_D)/, $(ITEM))

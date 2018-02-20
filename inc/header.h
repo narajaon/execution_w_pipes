@@ -282,10 +282,12 @@ int						move_sup(t_dlist_wrap *wrap);
 int 					apply_cap(char buf[3], t_dlist_wrap *wrap, t_sh *sh);
 int						cut_list(t_dlist_wrap *wrap);
 int						paste_list(t_dlist_wrap *wrap);
+
 //arg_formating
 char					*get_str_in_quotes(char *str);
 char					**fmt_input_quote(char **av);
 void					fmt_input_spec_chr(char **str);
+char					**ft_list_to_tab(t_dlist *list);
 
 //env
 int						ft_setupenv(t_environ *env);
@@ -317,6 +319,7 @@ int						ft_init(t_sh *sh);
 void 					ft_execution(t_sh *sh);
 void					hl_print_str(t_dlist *list);
 int						exec_cmd(t_dlist *input);
+int						skip_quotes(char *str, char quote);
 t_dlist					*init_proc_list(char *input, char token);
 char					*check_bin(char **paths, char *input);
 char					*get_cmd_name(char *input);
@@ -332,7 +335,8 @@ void					redir_left(char **av);
 void					redir_right(char **av);
 void					redir_dleft(char **av);
 void					redir_dright(char **av);
-char					**parse_redir(char *av);
+char					**extract_redir(char *input);
+int						get_redir(char *av);
 
 void					*g_handlenonchar[SCHAR_MAX];
 t_schar					g_spec_char[SCHAR_NB];
