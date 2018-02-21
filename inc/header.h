@@ -58,7 +58,8 @@ unsigned short ws_ypixel;	vertical size, pixels
 
 # define ERR_MALLOC "erreur dans l'attribution de memoire malloc \n"
 
-# define SCHAR_NB 11
+# define MAX_FD		9
+# define SCHAR_NB	11
 //(char c,  int (*f)(t_dlist_wrap *, t_sh *))
 
 typedef struct			s_schar
@@ -331,12 +332,17 @@ int						exec_builtin(int index, char *input);
 int						pipe_processes(t_dlist *curr, int *pfd);
 
 //redirections
-void					redir_left(char **av);
-void					redir_right(char **av);
-void					redir_dleft(char **av);
-void					redir_dright(char **av);
+void					r_right(char *input);
+void					r_dright(char *input);
+void					r_left(char *input);
 char					**extract_redir(char *input);
 int						get_redir(char *av);
+int						redir_id(char *str);
+void					redir_fd(int old_fd, int new_fd);
+int						fd_to_file(char *file, int perm);
+int						check_src_fd(char *input, int default_fd);
+void					do_redirs(t_dlist *redirs);
+bool					next_is_fd(char *input, int src);
 
 void					*g_handlenonchar[SCHAR_MAX];
 t_schar					g_spec_char[SCHAR_NB];

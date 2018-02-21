@@ -25,6 +25,8 @@ int				is_file_redir(char *input)
 	i = 0;
 	if (*input == '&')
 	{
+		if (*(input + 1) == '-')
+			return (i + 2);
 		while (input[++i] && ft_isdigit(input[i]) == TRUE)
 			;
 		return (i);
@@ -111,7 +113,12 @@ t_dlist			*parse_arg_redirs(char *input)
 	input = skip_cmd_name(&arg, input);
 	while (*input != '\0')
 		input = get_next_arg(&arg, &redirs, input);
-	//do_redirs(redirs);
+	while (redirs != NULL)
+	{
+		do_redirs(redirs);
+		redirs = redirs->next;
+	}
+	free_hlist(&redirs);
 	return (arg);
 }
 
@@ -119,11 +126,7 @@ char			**extract_redir(char *input)
 {
 	t_dlist		*av_lst;
 	char		**av_str;
-	int			stdio[3];
 
-	stdio[STDIN_FILENO] = STDIN_FILENO;
-	stdio[STDOUT_FILENO] = STDOUT_FILENO;
-	stdio[STDERR_FILENO] = STDERR_FILENO;
 	av_lst = parse_arg_redirs(input);
 	av_str = ft_list_to_tab(av_lst);
 	free_hlist_not_content(&av_lst);

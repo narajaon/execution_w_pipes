@@ -60,6 +60,8 @@ ITEM = \
 		utils.o \
 		parse_redir.o \
 		str_conversion.o \
+		redir_funs.o \
+		redir_funs2.o \
 		spec_char.o
 
 OBJ:=$(addprefix $(OBJ_D)/, $(ITEM))

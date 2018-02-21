@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 13:51:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/02/12 16:03:19 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/21 09:31:33 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	ft_prompt(t_sh *sh)
 	else if (sh->ret == Q_OK)
 	{
 		if (sh->dir.dir_name != NULL)
-			ft_dprintf(STDERR_FILENO, "%s > ",sh->dir.dir_name);
+			ft_dprintf(STDOUT_FILENO, "%s > ",sh->dir.dir_name);
 		else
-			ft_dprintf(STDERR_FILENO, "InvalidDir > ");
+			ft_dprintf(STDOUT_FILENO, "InvalidDir > ");
 	}
 	return (1);
 }
