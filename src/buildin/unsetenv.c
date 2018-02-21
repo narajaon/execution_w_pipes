@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 07:46:17 by awyart            #+#    #+#             */
-/*   Updated: 2018/01/26 14:19:06 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/21 16:32:16 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int			ft_unsetenv(t_sh *sh, char **var)
 {
-	char		*res;
 	int			var_len;
 
 	if (var[1] == NULL)
@@ -25,7 +24,6 @@ int			ft_unsetenv(t_sh *sh, char **var)
 		return (1);
 	}
 	var_len = ft_strlen(var[1]);
-	res = add_eq_between(var);
 	sh->env.env = tab_str_remove(sh->env.env, &cmp_env_var, var[1], var_len);
 	return (0);
 }

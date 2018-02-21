@@ -1,0 +1,13 @@
+total 216
+-rwxr-xr-x   1 narajaon  2017_paris  87628 Feb 21 19:06 21sh
+-rw-r--r--   1 narajaon  2017_paris   1961 Feb 21 13:22 Makefile
+-rw-r--r--   1 narajaon  2017_paris     87 Feb 16 14:59 README.md
+-rw-r--r--   1 narajaon  2017_paris     16 Feb 16 14:59 auteur
+-rw-r--r--   1 narajaon  2017_paris      0 Feb 21 19:06 coucou
+drwxr-xr-x   3 narajaon  2017_paris    102 Feb 21 17:31 inc
+-rw-r--r--   1 narajaon  2017_paris    845 Feb 16 14:59 info
+drwxr-xr-x   6 narajaon  2017_paris    204 Feb 16 14:59 lib
+drwxr-xr-x  37 narajaon  2017_paris   1258 Feb 21 19:06 obj
+-rw-r--r--   1 narajaon  2017_paris      0 Feb 21 09:00 pipe.txt
+drwxr-xr-x  12 narajaon  2017_paris    408 Feb 21 18:24 src
+-rw-r--r--   1 narajaon  2017_paris     74 Feb 16 14:59 test.c

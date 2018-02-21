@@ -6,30 +6,20 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 13:03:12 by awyart            #+#    #+#             */
-/*   Updated: 2018/02/13 15:10:27 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/21 18:37:14 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-bool		jump_loop(void)
-{
-	if (g_loop == FALSE)
-	{
-		ft_putchar('\n');
-		g_loop = TRUE;
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
 void		ft_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_putstr("\n");
+		NBR(g_cur_pid);
+		NBR(g_shlvl);
+	//	ft_putstr("\n");
 		// need to free stuff here
-		ft_prompt(g_sh);
 	}
 }
 

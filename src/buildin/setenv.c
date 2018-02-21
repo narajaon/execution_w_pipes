@@ -1,8 +1,9 @@
-#include "header.h"
+#include "../../inc/header.h"
 
 char		**tab_str_add(char **base, char *to_add)
 {
 	char		**res;
+	char		**to_free;
 	int			i;
 	int			size;
 
@@ -10,17 +11,17 @@ char		**tab_str_add(char **base, char *to_add)
 	if (base == NULL || *base == NULL)
 		return (NULL);
 	size = ft_tablen(base) + 2;
+	to_free = base;
 	if (!(res = (char **)malloc(sizeof(char *) * size)))
 		return (NULL);
 	while (*base)
 	{
-		res[i++] = *base;
+		res[i++] = ft_strdup(*base);
 		base++;
 	}
 	res[i++] = to_add;
 	res[i] = NULL;
-	//not sure why it segv some times
-	//beware, may have leaks when NULL terminating
+	free_tab_str(&to_free);
 	return (res);
 }
 
@@ -42,13 +43,11 @@ char		**tab_str_remove(char **base, int (*cmp)(), char *to_cmp,
 	while (*base)
 	{
 		if (cmp(*base, to_cmp, limit) != 0)
-			res[i++] = *base;
-		else
-			free(*base);
+			res[i++] = ft_strdup(*base);
 		base++;
 	}
 	res[i] = NULL;
-	//beware, may have leaks when NULL terminating
+	free_tab_str(&tab_tmp);
 	return (res);
 }
 
@@ -83,7 +82,7 @@ int			ft_setenv(t_sh *sh, char **av)
 	if (av[1] == NULL)
 	{
 		ft_env(sh, av);
-		return (1);
+		return (0);
 	}
 	if (av[1] != NULL && av[2] != NULL && av[3] != NULL)
 	{

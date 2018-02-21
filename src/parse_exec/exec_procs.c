@@ -69,19 +69,21 @@ int				pipe_processes(t_dlist *curr, int *pfd)
 {
 	int			status;
 	int			cpfd[2];
-	int			pid;
+	//int			pid;
 	int			cmd_id;
 
 	status = 0;
 	pipe(cpfd);
 	cmd_id = is_builtin(curr->content);
-	if ((pid = fork()) == 0)
+	if ((g_cur_pid = fork()) == 0)
 	{
 		status = exec_in_child(curr, cpfd, pfd, cmd_id);
 		exit(status);
 	}
 	else
+	{
 		exec_in_parent(curr, cpfd, pfd, cmd_id);
+	}
 	return (status);
 }
 
@@ -120,6 +122,8 @@ int				exec_cmd(t_dlist *input)
 	int			buff_size;
 	t_proc		process;
 
+	g_cur_pid = 0;
+	g_shlvl++;
 	buff_size = hlst_size(input);
 	if (!(buffer = (char *)malloc(sizeof(char) * (buff_size  + 1))))
 		return (EXIT_FAILURE);

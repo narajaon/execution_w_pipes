@@ -22,7 +22,7 @@ void			r_right(char *input)
 		return ;
 	while (*input && ft_isspace(*input) == TRUE)
 		input++;
-	dst = fd_to_file(input, O_RDWR | O_CREAT);
+	dst = fd_to_file(input, O_RDWR | O_TRUNC | O_CREAT);
 	redir_fd(dst, src);
 }
 

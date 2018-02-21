@@ -32,7 +32,7 @@ typedef struct s_cap		t_cap;
 typedef struct s_op 		t_op;
 typedef int					(*t_intfunc)();
 
-bool						g_loop;
+int							g_shlvl;
 int							g_cur_pid;
 int							g_fd;
 t_sh						*g_sh;
