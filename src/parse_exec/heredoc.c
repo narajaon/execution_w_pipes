@@ -17,7 +17,7 @@ static char		*list_to_str(t_dlist *list)
 		list = list->next;
 	}
 	str[count] = '\0';
-	return(str);
+	return (str);
 }
 
 t_dlist 		*heredoc(char *str, t_sh *sh)
@@ -25,7 +25,7 @@ t_dlist 		*heredoc(char *str, t_sh *sh)
 	t_dlist_wrap 	wrap;
 	char 			*ref;
 	char 			buf[3];
-	
+
 	ft_bzero(&wrap, sizeof(t_dlist_wrap));
 	ioctl(1, TIOCGWINSZ, &(sh->term.win));
 	wrap.col = sh->term.win.ws_col;
@@ -46,5 +46,6 @@ t_dlist 		*heredoc(char *str, t_sh *sh)
 		return (NULL);
 	}
 	ft_strdel(&ref);
+	STR(wrap.head);
 	return (wrap.head);
 }
