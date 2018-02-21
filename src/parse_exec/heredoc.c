@@ -46,6 +46,5 @@ t_dlist 		*heredoc(char *str, t_sh *sh)
 		return (NULL);
 	}
 	ft_strdel(&ref);
-	STR(wrap.head);
 	return (wrap.head);
 }

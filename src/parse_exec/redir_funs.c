@@ -4,7 +4,7 @@ const t_red		g_redir[R_NB + 1] =
 {
 	{"<", R_LEFT, &r_left},
 	{">", R_RIGHT, &r_right},
-	{"<<", R_DLEFT, NULL},
+	{"<<", R_DLEFT, &r_dleft},
 	{">>", R_DRIGHT, &r_dright},
 	{NULL, -1, NULL}
 };
@@ -58,6 +58,18 @@ void			r_left(char *input)
 		input++;
 	dst = fd_to_file(input, O_RDWR | O_CREAT);
 	redir_fd(dst, src);
+}
+
+void			r_dleft(char *input)
+{
+	int			src;
+	//int			dst;
+
+	src = check_src_fd(input, STDIN_FILENO);
+	while (*input && ft_isdigit(*input) == TRUE)
+		input++;
+	input += 2; /*skip character '<<'*/
+	//heredoc_err_handler(input);
 }
 
 void			do_redirs(t_dlist *redirs)

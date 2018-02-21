@@ -335,6 +335,7 @@ int						pipe_processes(t_dlist *curr, int *pfd);
 void					r_right(char *input);
 void					r_dright(char *input);
 void					r_left(char *input);
+void					r_dleft(char *input);
 char					**extract_redir(char *input);
 int						get_redir(char *av);
 int						redir_id(char *str);

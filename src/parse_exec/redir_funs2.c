@@ -23,3 +23,8 @@ bool		next_is_fd(char *input, int src)
 	}
 	return (TRUE);
 }
+
+void		heredoc_err_handler(char *input)
+{
+	(void)input;
+}
