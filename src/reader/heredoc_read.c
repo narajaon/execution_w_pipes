@@ -7,6 +7,7 @@ int		ft_quote(t_dlist_wrap *wrap, t_sh *sh)
 	if (sh->ret == Q_OK)
 		return (sh->ret);
 	wrap->pos = wrap->size;
+	wrap->tmp = cur_list(wrap);
 	ft_terms_toggle_key("cr");
 	ft_terms_toggle_key("do");
 	ft_prompt(sh);
@@ -21,6 +22,8 @@ int		ft_quote(t_dlist_wrap *wrap, t_sh *sh)
 	}
 	if ((sh->ret = ft_handle_quote(wrap->head)) != Q_OK)
 		sh->ret = ft_quote(wrap, sh);
+	if (sh->ret == Q_OK)
+		wrap->tmp = NULL;
 	return (sh->ret);
 }
 

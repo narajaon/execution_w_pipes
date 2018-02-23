@@ -32,11 +32,12 @@ typedef struct s_cap		t_cap;
 typedef struct s_op 		t_op;
 typedef int					(*t_intfunc)();
 
-bool						g_loop;
+int							g_shlvl;
 int							g_cur_pid;
+int 						g_lvl;
 int							g_fd;
 t_sh						*g_sh;
-
+t_dlist_wrap 				*g_wrap;
 /*
 unsigned short ws_row;	
 unsigned short ws_col;	
@@ -58,7 +59,8 @@ unsigned short ws_ypixel;	vertical size, pixels
 
 # define ERR_MALLOC "erreur dans l'attribution de memoire malloc \n"
 
-# define SCHAR_NB 11
+# define MAX_FD		9
+# define SCHAR_NB	11
 //(char c,  int (*f)(t_dlist_wrap *, t_sh *))
 
 typedef struct			s_schar
@@ -141,11 +143,28 @@ enum 					e_cap
 	K_PDOWN,
 	K_DEL,
 	K_DELR,
+	K_CTRLD,
 	K_CUT,
 	K_YANK,
 	K_QUIT,
 	CAP_SIZE
 };
+
+enum					e_redir
+{
+	R_LEFT,
+	R_RIGHT,
+	R_DLEFT,
+	R_DRIGHT,
+	R_NB
+};
+
+typedef struct			s_red
+{
+	char				*redir;
+	int					index;
+	int					(*funct)();
+}						t_red;
 
 typedef struct			s_op
 {
@@ -184,14 +203,6 @@ typedef struct			s_cap
 	char				cap[3];
 	int					(*f)();
 }						t_cap;
-
-
-typedef struct			s_redir
-{
-	char 				**name;
-	t_redir				*next;
-	enum e_type			type;
-}						t_redir;
 
 typedef struct			s_dir
 {
@@ -239,6 +250,7 @@ int						ft_unsetenv(t_sh *sh, char **av);
 int						ft_echo(t_sh *sh, char **av);
 int 					detect_bi(char *str, const t_op *cmd_tab);
 int						is_builtin(char *av);
+t_op					g_built_in[BUILD_IN_SIZE + 1];
 
 //reader
 int						ft_count_string(t_dlist *lst);
@@ -261,6 +273,8 @@ t_dlist 				*cur_list(t_dlist_wrap *wrap);
 int 					move_updown(t_dlist_wrap *wrap, char buf[3], t_sh *sh);
 int						ft_handle_quote(t_dlist *list);
 int						ft_quote(t_dlist_wrap *wrap, t_sh *sh);
+int 					count_tmp(t_dlist_wrap *wrap, int pos);
+int						ft_print_list(t_dlist_wrap *wrap, t_sh *sh);
 
 //cap
 int						handle_del(t_dlist_wrap *wrap);
@@ -274,10 +288,12 @@ int						move_sup(t_dlist_wrap *wrap);
 int 					apply_cap(char buf[3], t_dlist_wrap *wrap, t_sh *sh);
 int						cut_list(t_dlist_wrap *wrap);
 int						paste_list(t_dlist_wrap *wrap);
+
 //arg_formating
 char					*get_str_in_quotes(char *str);
 char					**fmt_input_quote(char **av);
 void					fmt_input_spec_chr(char **str);
+char					**ft_list_to_tab(t_dlist *list);
 
 //env
 int						ft_setupenv(t_environ *env);
@@ -303,23 +319,45 @@ int						len_prompt(t_sh *sh);
 void					sig_intercepter(void);
 bool					jump_loop(void);
 void					ft_start_process(t_sh *sh);
-int						ft_init(t_sh *sh);
+int						ft_init(t_sh *sh, t_hist *hist);
 
 //execution
 void 					ft_execution(t_sh *sh);
 void					hl_print_str(t_dlist *list);
 int						exec_cmd(t_dlist *input);
+int						skip_quotes(char *str, char quote);
 t_dlist					*init_proc_list(char *input, char token);
 char					*check_bin(char **paths, char *input);
 char					*get_cmd_name(char *input);
-void					write_next(pid_t *input, pid_t *output);
-void					read_prev(pid_t *input, pid_t *output);
 void					close_fd(int *pfd);
 void					flush_sh(t_sh *sh);
 bool					is_binary_file(char *bin_name);
 bool					is_valid_path(char *path_bin);
-int						exec_builtin(int index, char *input);
+int						exec_builtin(int index, t_dlist *curr, int *save);
 int						pipe_processes(t_dlist *curr, int *pfd);
+char 					*handle_heredoc(char *str, t_sh *sh);
+
+//redirections
+int					r_right(char *input);
+int					r_dright(char *input);
+int					r_left(char *input);
+int					r_dleft(char *input);
+char					**extract_redir(t_dlist *curr, int *save);
+int						get_redir(char *av);
+int						redir_id(char *str);
+void					redir_fd(int old_fd, int new_fd);
+int						fd_to_file(char *file, int perm);
+int						check_src_fd(char *input, int default_fd);
+int						do_redirs(t_dlist *redirs);
+bool					next_is_fd(char *input, int src);
+int						save_builtin_stdio(int index, t_dlist *curr);
+
+//parsing
+char					*is_redir(t_dlist **redir, char *input);
+char					*is_arg(t_dlist **arg, char *input);
+char					*skip_cmd_name(t_dlist **arg, char *input);
+
+int						ft_quit(void);
 
 void					*g_handlenonchar[SCHAR_MAX];
 t_schar					g_spec_char[SCHAR_NB];

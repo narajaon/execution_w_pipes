@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:39:39 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/14 16:59:34 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/23 18:04:49 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_output(char *conv, int *i,
 		t_env *e)
 {
-	(conv) ? write(1, conv, ft_strlen(conv)) : 0;
+	(conv) ? write(e->cur_fd, conv, ft_strlen(conv)) : 0;
 	(conv) ? ft_bzero(conv, *i) : 0;
 	e->output_size += *i;
 	*i = 0;

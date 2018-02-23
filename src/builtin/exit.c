@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unsetenv.c                                         :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/08 07:46:17 by awyart            #+#    #+#             */
-/*   Updated: 2018/01/26 14:19:06 by narajaon         ###   ########.fr       */
+/*   Created: 2018/01/08 07:46:03 by awyart            #+#    #+#             */
+/*   Updated: 2018/02/21 17:23:13 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../inc/header.h"
 
-int			ft_unsetenv(t_sh *sh, char **var)
+int		ft_exit(t_sh *sh, char **av)
 {
-	char		*res;
-	int			var_len;
-
-	if (var[1] == NULL)
-		return (1);
-	if (var[1] != NULL && var[2] != NULL)
+	(void)sh;
+	if (av[1] != NULL && av[2] != NULL)
 	{
-		ft_putstr("unsetenv: too many arguments\n");
+		ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO);
 		return (1);
 	}
-	var_len = ft_strlen(var[1]);
-	res = add_eq_between(var);
-	sh->env.env = tab_str_remove(sh->env.env, &cmp_env_var, var[1], var_len);
+	if (av[1] == NULL)
+		ft_quit();
+	exit(ft_atoi(av[1]));
 	return (0);
 }

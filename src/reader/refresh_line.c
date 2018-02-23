@@ -38,7 +38,10 @@ int			ft_print_list(t_dlist_wrap *wrap, t_sh *sh)
 	t_dlist	*list;
 
 	ft_prompt(sh);
-	list = wrap->head;
+	if (sh->ret == Q_OK || wrap->tmp == NULL)
+		list = wrap->head;
+	else
+		list = wrap->tmp->next;
 	while (list != NULL)
 	{
 		schar = list->content;

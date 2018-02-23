@@ -1,6 +1,6 @@
 #include "../inc/header.h"
 
-const t_op	g_built_in[BUILD_IN_SIZE + 1] =
+t_op	g_built_in[BUILD_IN_SIZE + 1] =
 {
 	{"echo", &ft_echo},
 	{"cd", &ft_cd},
@@ -26,17 +26,6 @@ int			detect_bi(char *cmd, const t_op *cmd_tab)
 		i++;
 	}
 	return (-1);
-}
-
-int			exec_builtin(int index, char *input)
-{
-	char	**av;
-	int		ret;
-
-	av = ft_strsplit(input, ' ');
-	ret = g_built_in[index].fun_ptr(g_sh, av);
-	free_tab_str(&av);
-	return (ret);
 }
 
 int			is_builtin(char *input)

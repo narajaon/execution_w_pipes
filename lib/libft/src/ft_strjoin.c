@@ -30,3 +30,23 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		*ptr++ = s2[j++];
 	return (str);
 }
+
+char	*ft_strjoin_spe(char const *s1, char const *s2, char c)
+{
+	char	*str;
+	char	*ptr;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!(str = ft_strnew(ft_strlen(s1) + ft_strlen(s2) + 1)))
+		return (NULL);
+	ptr = str;
+	while (s1[i])
+		*ptr++ = s1[i++];
+	*ptr++ = c;
+	while (s2[j])
+		*ptr++ = s2[j++];
+	return (str);
+}

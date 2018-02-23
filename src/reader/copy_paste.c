@@ -18,6 +18,7 @@ int		cut_list(t_dlist_wrap *wrap)
 		saved = wrap->head;
 		wrap->head = NULL;
 	}
+	wrap->size -= ft_count_string(saved);
 	free_hlist(&wrap->yanked);
 	wrap->yanked = saved;
 	return (1);
@@ -25,29 +26,30 @@ int		cut_list(t_dlist_wrap *wrap)
 
 int		paste_list(t_dlist_wrap *wrap)
 {
+	t_dlist *yank_dup;
+	t_dlist *part_1;
+	t_dlist *part_2;
+
 	if (wrap->yanked == NULL)
 		return (0);
-		write(STDIN_FILENO, wrap->yanked, hlst_size(wrap->yanked));
+	yank_dup = ft_dlist_dup(wrap->yanked, sizeof(t_chr));
+	part_1 = wrap->head;
+	part_2 = cur_list(wrap);
+	if (part_2 != NULL)
+		part_2 = part_2->next;
+	wrap->pos += hlst_size(yank_dup);
+	if (part_2 != NULL && part_2->prev != NULL)
+	{
+		part_2->prev->next = NULL;
+		ft_hlstadd_back(&part_1, yank_dup);
+	}
+	else if (part_2 != NULL && part_2->prev == NULL)
+		part_1 = yank_dup;
+	else
+		part_2 = yank_dup;
+	if (part_2 != NULL)
+		ft_hlstadd_back(&part_1, part_2);
+	wrap->head = part_1;
+	wrap->size += ft_count_string(yank_dup);
 	return (1);
-	// yank_dup = ft_dlist_dup(wrap->yanked, sizeof(t_chr));
-	// part_1 = wrap->head;
-	// part_2 = wrap->cursor;
-	// wrap->pos += hlst_size(yank_dup);
-	// wrap->cursor = part_2;
-	// if (part_2 != NULL && part_2->prev != NULL)
-	// {
-	// 	part_2->prev->next = NULL;
-	// 	ft_hlstadd_back(&part_1, yank_dup);
-	// }
-	// else if (part_2 != NULL && part_2->prev == NULL)
-	// 	part_1 = yank_dup;
-	// else
-	// {
-	// 	part_2 = yank_dup;
-	// 	wrap->cursor = NULL;
-	// }
-	// if (part_2 != NULL)
-	// 	ft_hlstadd_back(&part_1, part_2);
-	// wrap->head = part_1;
-	// wrap->last = ft_dlist_last(wrap->head);
 }

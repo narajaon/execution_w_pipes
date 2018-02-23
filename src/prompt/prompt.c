@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 13:51:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/02/12 16:03:19 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/21 14:57:06 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	ft_prompt(t_sh *sh)
 		ft_dprintf(STDERR_FILENO, "> ");
 	else if (sh->ret == Q_PIPE)
 		ft_dprintf(STDERR_FILENO, "pipe> ");
+	else if (sh->ret == Q_HEREDOC)
+		ft_dprintf(STDERR_FILENO, "heredoc> ");
 	else if (sh->ret == Q_OK)
 	{
 		if (sh->dir.dir_name != NULL)
@@ -42,6 +44,8 @@ int	len_prompt(t_sh *sh)
 		return (2);
 	else if (sh->ret == Q_PIPE)
 		return (6);
+	else if (sh->ret == Q_HEREDOC)
+		return (9);
 	else if (sh->ret == Q_OK)
 	{
 		if (sh->dir.dir_name != NULL)

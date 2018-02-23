@@ -35,7 +35,7 @@ ITEM = \
 		ft_terms_get.o\
 		signal.o \
 		prompt.o \
-		heredoc.o \
+		heredoc_read.o \
 		utility.o \
 		cd.o \
 		echo.o \
@@ -43,7 +43,7 @@ ITEM = \
 		exit.o \
 		setenv.o \
 		unsetenv.o \
-		build_in.o \
+		built_in.o \
 		get_str_in_quotes.o \
 		add_char.o \
 		buf.o \
@@ -53,12 +53,19 @@ ITEM = \
 		mv.o \
 		read.o \
 		refresh_line.o \
-		visu.o \
 		exec_procs.o \
 		fd_manip.o \
 		split_by_semicol.o \
 		utils.o \
-		spec_char.o
+		parse_redir.o \
+		str_conversion.o \
+		redir_funs.o \
+		redir_funs2.o \
+		spec_char.o \
+		split_into_args.o \
+		exec_bins.o \
+		exec_builtins.o \
+		heredoc.o
 
 OBJ:=$(addprefix $(OBJ_D)/, $(ITEM))
 
@@ -66,10 +73,12 @@ vpath %.c src \
 		src/env \
 		src/signal \
 		src/prompt \
-		src/buildin \
+		src/builtin \
 		src/str_format \
 		src/reader \
-		src/parse_exec
+		src/redirs \
+		src/exec \
+		src/parser
 
 vpath %.h inc ../libft/inc
 

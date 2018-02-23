@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 07:46:36 by awyart            #+#    #+#             */
-/*   Updated: 2018/01/31 14:39:48 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/23 16:24:19 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int			ft_echo(t_sh *sh, char **av)
 
 	i = 1;
 	(void)sh;
-	//av = fmt_input_quote(av);
 	while (av[i] != NULL)
 	{
 		ft_putstr(av[i++]);

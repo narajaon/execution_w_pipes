@@ -63,7 +63,6 @@ int				ft_env(t_sh *sh, char **av)
 	if (av[1] == 0)
 		ft_print_tab_fd(sh->env.env);
 	else
-		//apply_env_options();
 		ft_putstr_fd("env: too many arguments\n", STDERR_FILENO);
 	return (0);
 }

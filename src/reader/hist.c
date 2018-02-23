@@ -9,7 +9,7 @@ static void	printlist(t_dlist *list)
 		schar = list->content;
 		if (schar  == NULL)
 			exit(3);
-		dprintf(1, "%c", schar->c);
+		ft_printf("%s%c%s", KGRN, schar->c, KNRM);
 		list = list->next;
 	}
 }
@@ -39,10 +39,7 @@ static int move_down(t_dlist_wrap *wrap, t_sh *sh, int mode)
 	ft_terms_toggle_key("cd");
 	ft_terms_toggle_key("al");
 	ft_prompt(sh);
-	if (list == NULL)
-		printlist(wrap->head);
-	else
-		printlist(list);
+	printlist((list == NULL) ? wrap->head : list);
 	return (1);
 }
 
@@ -77,9 +74,9 @@ static int move_up(t_dlist_wrap *wrap, t_sh *sh, int mode)
 
 int move_updown(t_dlist_wrap *wrap, char buf[3], t_sh *sh)
 {
+	t_dlist *todel;
 	
-	if (buf == NULL)
-		exit(0);
+	todel = NULL;
 	if (buf[2] == 65)
 		move_up(wrap, sh, 0);
 	else if (buf[2] == 66)
@@ -94,11 +91,16 @@ int move_updown(t_dlist_wrap *wrap, char buf[3], t_sh *sh)
 		else if (buf[2] == 66)
 			move_down(wrap, sh, 1);
 	}
-	wrap->head = sh->hist->cur_branch;
-	wrap->pos = ft_count_string(wrap->head) + 1;
-	//free ancien wrap->head
+	if (sh->hist->cur_branch != NULL)
+	{
+		todel = wrap->head;
+		wrap->head = sh->hist->cur_branch;
+		wrap->pos = ft_count_string(wrap->head);
+		wrap->size = ft_count_string(wrap->head);
+		wrap->tmp = NULL;
+		free_hlist(&todel);
+	}
 	sh->hist->cur_branch = NULL;
 	completion_res(2, NULL, NULL);
-	apply_cap(buf, wrap, sh);
-	return (1);
+	return (apply_cap(buf, wrap, sh));
 }

@@ -35,6 +35,8 @@ char		*check_bin(char **paths, char *input)
 	if (paths == NULL)
 		return (NULL);
 	path = input;
+	if ((ft_strcmp(path, "..") == 0) ||(ft_strcmp(path, ".") == 0))
+		return (NULL);
 	while (*paths != NULL)
 	{
 		slashed = ft_strjoin(*paths, "/");

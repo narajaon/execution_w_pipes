@@ -1,4 +1,4 @@
-#include "header.h"
+#include "../../inc/header.h"
 
 bool		has_env_var(char **env, char *var)
 {
@@ -23,14 +23,14 @@ char		*get_next_dir(char **av, char *prev_dir, t_environ *env)
 		next_dir = ft_getenv(env->env, "HOME");
 	else if (av[0] != NULL && av[1] != NULL)
 	{
-		ft_putstr("cd: too many arguments\n");
+		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
 		return (NULL);
 	}
 	else if (ft_strcmp(av[0], "-") == 0 || ft_strcmp(av[0], "-1") == 0)
 		next_dir = prev_dir;
 	if (next_dir == NULL || chdir(next_dir) < 0)
 	{
-		ft_putstr("cd: can't change directory\n");
+		ft_putstr_fd("cd: can't change directory\n", STDERR_FILENO);
 		chdir(prev_dir);
 		return (prev_dir);
 	}

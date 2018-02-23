@@ -1,7 +1,9 @@
 #include "header.h"
 
-int ft_quit()
+int ft_quit(void)
 {
+	tcsetattr(0, TCSANOW, &(g_sh->term.prev_term));
+	//flush_sh(g_sh);
 	exit(0);
 }
 
@@ -38,6 +40,7 @@ int init_cap_shift(char a, char b, int i, int (*f)())
 	return (1);
 }
 
+
 int 	init_cap(void)
 {
 	int i;
@@ -50,8 +53,8 @@ int 	init_cap(void)
 		g_handleinput[i].cap[1] = 0;
 		g_handleinput[i].cap[2] = 0;
 	}
-	//init_cap_esc(91, 65, K_UP, &move_updown);
-	//init_cap_esc(91, 66, K_DOWN, &move_updown);
+	init_cap_esc(91, 65, K_UP, &move_updown);
+	init_cap_esc(91, 66, K_DOWN, &move_updown);
 	init_cap_esc(91, 67, K_RIGHT, &move_right);
 	init_cap_esc(91, 68, K_LEFT, &move_left);
 	init_cap_esc(91, 70, K_END, &move_end);
@@ -60,11 +63,10 @@ int 	init_cap(void)
 	init_cap_shift(50 ,66, K_PDOWN, &move_sdown);
 	init_cap_del(127, 0, K_DEL, &handle_del);
 	init_cap_del(126, 0, K_DELR, &handle_del_right);
-	//./init_cap_del(28, 0, K_QUIT, &ft_quit);
-	// init_cap_del(, 0, K_SIGINT, &ctrlc);
-	// init_cap_del(, 0, K_CTRLD, &ctrlD);
-	// init_cap_del(11, 0, K_CUT, &cut_list);
-	// init_cap_del(12, 0, K_YANK, &paste_list);
+	init_cap_del(28, 0, K_QUIT, &ft_quit);
+	init_cap_del(4, 0, K_CTRLD, &ft_quit);
+	init_cap_del(11, 0, K_CUT, &cut_list);
+	init_cap_del(12, 0, K_YANK, &paste_list);
 	return (0);
 }
 
@@ -91,7 +93,7 @@ int 	apply_cap(char buf[3], t_dlist_wrap *wrap, t_sh *sh)
 	int ret = 0;
 	int (*ptr)() = NULL;
 
-	if (is_break(buf))
+	if (buf[0] == 10)
 	{
 		refresh_line(wrap, sh);
 		return (0);
@@ -115,6 +117,7 @@ int			ft_read(t_sh *sh)
 	t_dlist_wrap	wrap;
 
 	ft_bzero(&wrap, sizeof(t_dlist_wrap));
+	g_wrap = &wrap;
 	init_cap();
 	while (1)
 	{
@@ -129,5 +132,6 @@ int			ft_read(t_sh *sh)
 	if (sh->ret != Q_OK)
 		ft_quote(&wrap, sh);
 	sh->list = wrap.head;
+	free_hlist(&wrap.yanked);
 	return (1);
 }
