@@ -71,6 +71,7 @@ int			r_dleft(char *input) /*heredoc*/
 	int			src;
 	int			dst;
 	char		*str;
+	int			output;
 
 	src = check_src_fd(input, STDIN_FILENO);
 	while (*input && ft_isdigit(*input) == TRUE)
@@ -78,7 +79,12 @@ int			r_dleft(char *input) /*heredoc*/
 	input += 2; /*skip character '<<'*/
 	while (*input && ft_isspace(*input) == TRUE)
 		input++;
+	output = dup(STDOUT_FILENO);
+	close(STDOUT_FILENO);
+	dup2(g_sh->stdio[STDOUT_FILENO], STDOUT_FILENO);
 	str = handle_heredoc(input, g_sh);
+	dup2(output, STDOUT_FILENO);
+	close(output);
 	if ((dst = fd_to_file(HEREFILE, O_RDWR | O_TRUNC)) < 0)
 		return (EXIT_FAILURE);
 	write(dst, str, ft_strlen(str));
@@ -87,7 +93,7 @@ int			r_dleft(char *input) /*heredoc*/
 	if ((dst = fd_to_file(HEREFILE, O_RDONLY)) < 0)
 		return (EXIT_FAILURE);
 	redir_fd(dst, src);
-//	close(dst);
+	close(dst);
 	return (EXIT_SUCCESS);
 }
 

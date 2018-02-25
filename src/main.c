@@ -46,6 +46,9 @@ int				ft_init(t_sh *sh, t_hist *hist)
 	ft_terms_init(&(sh->term));
 	ft_terms_toggle(&(sh->term), 1);
 	ft_setupenv(&sh->env);
+	sh->stdio[0] = dup(STDIN_FILENO);
+	sh->stdio[1] = dup(STDOUT_FILENO);
+	sh->stdio[2] = dup(STDERR_FILENO);
 	return (1);
 }
 

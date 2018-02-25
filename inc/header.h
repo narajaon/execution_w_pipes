@@ -230,6 +230,7 @@ typedef struct			s_sh
 	t_dir				dir;
 	t_dlist				*list;
 	t_hist				*hist;
+	int					stdio[3];
 	int 				ret;
 }						t_sh;
 

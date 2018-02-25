@@ -30,8 +30,6 @@ char 		*heredoc(t_sh *sh)
 	ft_bzero(&wrap, sizeof(t_dlist_wrap));
 	ioctl(1, TIOCGWINSZ, &(sh->term.win));
 	wrap.col = sh->term.win.ws_col;
-	ft_terms_toggle_key("cr");
-	ft_terms_toggle_key("do");
 	ft_prompt(sh);
 	while (1)
 	{
@@ -43,6 +41,8 @@ char 		*heredoc(t_sh *sh)
 			break ;
 	}
 	ref = list_to_str(wrap.head);
+	ft_terms_toggle_key("cr");
+	ft_terms_toggle_key("do");
 	return (ref);
 }
 
@@ -70,7 +70,5 @@ char 	*handle_heredoc(char *str, t_sh *sh)
 		}
 	}
 	ft_strdel(&ref);
-	ft_terms_toggle_key("cr");
-	ft_terms_toggle_key("do");
 	return (line);
 }
