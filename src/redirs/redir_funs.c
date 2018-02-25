@@ -87,8 +87,7 @@ int			r_dleft(char *input) /*heredoc*/
 	close(output);
 	if ((dst = fd_to_file(HEREFILE, O_RDWR | O_TRUNC)) < 0)
 		return (EXIT_FAILURE);
-	write(dst, str, ft_strlen(str));
-	write(dst, "\n", 1);
+	ft_putendl_fd(str, dst);
 	close(dst);
 	if ((dst = fd_to_file(HEREFILE, O_RDONLY)) < 0)
 		return (EXIT_FAILURE);

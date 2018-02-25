@@ -69,6 +69,7 @@ char 	*handle_heredoc(char *str, t_sh *sh)
 			line2 = NULL;
 		}
 	}
+	sh->ret = Q_OK;
 	ft_strdel(&ref);
 	return (line);
 }
