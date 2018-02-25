@@ -15,6 +15,7 @@ void			flush_sh(t_sh *sh)
 {
 	free_hlist(&sh->list);
 	free_hlist(&sh->hist->cur_branch);
+	//free_str(&g_heredoc);
 	//free_autocmp_res(&sh->hist->branch_root);
 	//free yanked list in list_wrap
 }

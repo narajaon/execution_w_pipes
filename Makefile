@@ -65,6 +65,7 @@ ITEM = \
 		split_into_args.o \
 		exec_bins.o \
 		exec_builtins.o \
+		exit_erro.o \
 		heredoc.o
 
 OBJ:=$(addprefix $(OBJ_D)/, $(ITEM))

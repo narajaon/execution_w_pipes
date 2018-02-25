@@ -16,11 +16,12 @@ int			save_builtin_stdio(int index, t_dlist *curr)
 {
 	int		ret;
 	int		saved_fd[3];
+	int		filler[2];
 
 	saved_fd[0] = dup(STDIN_FILENO);
 	saved_fd[1] = dup(STDOUT_FILENO);
 	saved_fd[2] = dup(STDERR_FILENO);
-	ret = exec_builtin(index, curr, 0);
+	ret = exec_builtin(index, curr, filler);
 	dup2(saved_fd[0], STDIN_FILENO);
 	dup2(saved_fd[1], STDOUT_FILENO);
 	dup2(saved_fd[2], STDERR_FILENO);

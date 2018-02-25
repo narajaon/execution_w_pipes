@@ -40,6 +40,7 @@ char	*ft_strjoin_spe(char const *s1, char const *s2, char c)
 
 	i = 0;
 	j = 0;
+	/*heoredoc*/
 	if (!(str = ft_strnew(ft_strlen(s1) + ft_strlen(s2) + 1)))
 		return (NULL);
 	ptr = str;

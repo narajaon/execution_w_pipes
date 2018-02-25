@@ -2,20 +2,18 @@
 
 int				exec_prog(t_dlist *curr, int *save)
 {
-	int			status;
 	char		**split;
 	char		**bin_paths;
+	char		*path_dirs;
 	char		*path;
 
-	status = 0;
 	if (!(split = extract_redir(curr, save)))
-		exit(EXIT_FAILURE);
+		exit_error("bad redirection\n", EXIT_FAILURE);
 	//pas opti, devrait se faire a l'initialisation
-	if (!(bin_paths = ft_strsplit(ft_getenv(g_sh->env.env, "PATH"), ':')))
-	{
-		ft_putstr_fd("PATH not valid\n", STDERR_FILENO);
-		exit(EXIT_FAILURE);
-	}
+	if (!(path_dirs = ft_getenv(g_sh->env.env, "PATH")))
+		exit_error("PATH not set\n", EXIT_FAILURE);;
+	if (!(bin_paths = ft_strsplit(path_dirs, ':')))
+		exit_error("PATH not valid\n", EXIT_FAILURE);;
 	path = check_bin(bin_paths, split[0]);
 	if (path == NULL)
 	{
@@ -23,10 +21,7 @@ int				exec_prog(t_dlist *curr, int *save)
 				(is_valid_path(split[0]) == TRUE))
 			path = split[0];
 		else
-		{
-			ft_putstr_fd("command not found\n", STDERR_FILENO);
-			exit(EXIT_FAILURE);
-		}
+			exit_error("command not found\n", EXIT_FAILURE);;
 	}
 	return (execve(path, split, g_sh->env.env));
 }
@@ -78,7 +73,8 @@ int				pipe_processes(t_dlist *curr, int *pfd)
 
 	status = 0;
 	pipe(cpfd);
-	cmd_id = is_builtin(curr->content);
+	if ((cmd_id = is_builtin(curr->content)) >= 0 && curr->next == NULL)
+		return (status = exec_in_parent(curr, cpfd, pfd, cmd_id));
 	g_lvl++;
 	if ((g_cur_pid = fork()) == 0)
 	{

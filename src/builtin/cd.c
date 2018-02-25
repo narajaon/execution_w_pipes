@@ -61,7 +61,10 @@ int			ft_cd(t_sh *sh, char **av)
 	get_cur_dir(sh->dir.cur_dir);
 	add_var_to_env(sh, (char *[2]){"OLDPWD", sh->dir.cur_dir});
 	if ((next_dir = get_next_dir(&av[1], sh->dir.prev_dir, &sh->env)) == NULL)
+	{
+		sh->dir.dir_name = get_cur_dir(sh->dir.cur_dir);
 		return (1);
+	}
 	getcwd(sh->dir.prev_dir, PATH_MAX + 1);
 	add_var_to_env(sh, (char *[2]){"PWD", sh->dir.prev_dir});
 	ft_strcpy(sh->dir.prev_dir, sh->dir.cur_dir);

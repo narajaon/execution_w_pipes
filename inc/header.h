@@ -19,6 +19,11 @@
 # include "../lib/ft_dlist/inc/ft_dlist.h"
 # include "../lib/ft_autocomp/inc/autocompletion.h"
 
+# define DICI dprintf(g_fd, "ICI\n");
+# define DLA dprintf(g_fd, "LA\n");
+# define DSTR(x) dprintf(g_fd, #x " = %s\n", x);
+# define HEREFILE ".myherefile"
+
 extern char					**environ;
 
 typedef struct termios		t_termios;
@@ -184,6 +189,7 @@ typedef struct			s_terms
 typedef struct			s_environ
 {	
 	char				**env;
+	char				**split_path;
 	int 				size;
 }						t_environ;
 
@@ -357,6 +363,7 @@ char					*is_redir(t_dlist **redir, char *input);
 char					*is_arg(t_dlist **arg, char *input);
 char					*skip_cmd_name(t_dlist **arg, char *input);
 
+void					exit_error(char *erro_msg, int exit_id);
 int						ft_quit(void);
 
 void					*g_handlenonchar[SCHAR_MAX];

@@ -66,20 +66,28 @@ int			r_left(char *input)
 	return (EXIT_SUCCESS);
 }
 
-int			r_dleft(char *input)
+int			r_dleft(char *input) /*heredoc*/
 {
 	int			src;
-	//int			dst;
-	char *str;
+	int			dst;
+	char		*str;
 
 	src = check_src_fd(input, STDIN_FILENO);
 	while (*input && ft_isdigit(*input) == TRUE)
 		input++;
 	input += 2; /*skip character '<<'*/
-	while (*input == ' ')
+	while (*input && ft_isspace(*input) == TRUE)
 		input++;
 	str = handle_heredoc(input, g_sh);
-	write(src, str, ft_strlen(str));
+	if ((dst = fd_to_file(HEREFILE, O_RDWR | O_TRUNC)) < 0)
+		return (EXIT_FAILURE);
+	write(dst, str, ft_strlen(str));
+	write(dst, "\n", 1);
+	close(dst);
+	if ((dst = fd_to_file(HEREFILE, O_RDONLY)) < 0)
+		return (EXIT_FAILURE);
+	redir_fd(dst, src);
+//	close(dst);
 	return (EXIT_SUCCESS);
 }
 
