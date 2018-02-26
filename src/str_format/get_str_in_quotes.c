@@ -40,7 +40,6 @@ char		*get_str_in_quotes(char *str)
 	while (str[i] && str[i] != '\'')
 		i++;
 	content = ft_strsub(str, 0, i);
-	free_str(&str);
 	return (content);
 }
 
@@ -60,5 +59,7 @@ char		**fmt_input_quote(char **av)
 			*av_tmp = get_str_in_quotes(*av_tmp);
 		av_tmp++;
 	}
-	return (av);
+	av_tmp = ft_tab_dup(av);
+	free_tab_str(&av);
+	return (av_tmp);
 }

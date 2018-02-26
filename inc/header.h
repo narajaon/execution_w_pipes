@@ -48,7 +48,9 @@ int 						g_fd;
 # define ERR_MALLOC "erreur dans l'attribution de memoire malloc \n"
 
 # define MAX_FD		9
-# define SCHAR_NB	11
+# define SCHAR_NB	8
+//(char c,  int (*f)(t_dlist_wrap *, t_sh *))
+
 
 typedef struct			s_schar
 {

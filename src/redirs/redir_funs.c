@@ -66,7 +66,7 @@ int			r_left(char *input)
 	return (EXIT_SUCCESS);
 }
 
-int			r_dleft(char *input) /*heredoc*/
+int			r_dleft(char *input) /*heredoc handler*/
 {
 	int			src;
 	int			dst;
@@ -87,7 +87,7 @@ int			r_dleft(char *input) /*heredoc*/
 	close(output);
 	if ((dst = fd_to_file(HEREFILE, O_RDWR | O_TRUNC)) < 0)
 		return (EXIT_FAILURE);
-	ft_putendl_fd(str, dst);
+	ft_putendl_fd(&str[1], dst); /*skip useless '\n' in the begining*/
 	close(dst);
 	if ((dst = fd_to_file(HEREFILE, O_RDONLY)) < 0)
 		return (EXIT_FAILURE);
