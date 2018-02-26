@@ -51,6 +51,9 @@ ITEM = \
 		del_char.o \
 		hist.o \
 		mv.o \
+		mv_home.o\
+		mv_multi.o \
+		mv_word.o \
 		read.o \
 		refresh_line.o \
 		exec_procs.o \

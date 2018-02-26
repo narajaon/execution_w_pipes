@@ -35,6 +35,7 @@ typedef int					(*t_intfunc)();
 int							g_shlvl;
 int							g_lvl;
 t_sh						*g_sh;
+int 						g_cur_pid;
 
 # define ERR_MALLOC "erreur dans l'attribution de memoire malloc \n"
 
@@ -143,7 +144,7 @@ typedef struct			s_red
 {
 	char				*redir;
 	int					index;
-	void				(*funct)();
+	int					(*funct)();
 }						t_red;
 
 typedef struct			s_op
@@ -202,6 +203,7 @@ typedef struct			s_sh
 	t_environ			env;
 	t_terms				term;
 	t_dir				dir;
+	int 				stdio[3];
 	t_dlist_wrap 		*wrap;
 	t_dlist				*list;
 	t_hist				*hist;
@@ -289,6 +291,7 @@ char					*ft_getenv(char **env, char *var);
 //signal
 void					ft_getsignal(void);
 void					ft_signal(int sig);
+void					exit_error(char *erro_msg, int exit_id);
 
 bool					jump_loop(void);
 void					sig_intercepter(void);
@@ -314,24 +317,30 @@ void					close_fd(int *pfd);
 void					flush_sh(t_sh *sh);
 bool					is_binary_file(char *bin_name);
 bool					is_valid_path(char *path_bin);
-int						exec_builtin(int index, char *input);
+int						exec_builtin(int index, t_dlist *curr, int *save);
 int						pipe_processes(t_dlist *curr, int *pfd);
 char					*handle_heredoc(char *str, t_sh *sh);
 void					exec_procs(t_dlist *pipes);
 
 //redirections
-void					r_right(char *input);
-void					r_dright(char *input);
-void					r_left(char *input);
-void					r_dleft(char *input);
-char					**extract_redir(char *input);
+int					r_right(char *input);
+int					r_dright(char *input);
+int					r_left(char *input);
+int					r_dleft(char *input);
+char					**extract_redir(t_dlist *curr, int *save);
 int						get_redir(char *av);
 int						redir_id(char *str);
 void					redir_fd(int old_fd, int new_fd);
 int						fd_to_file(char *file, int perm);
 int						check_src_fd(char *input, int default_fd);
-void					do_redirs(t_dlist *redirs);
+int						do_redirs(t_dlist *redirs);
 bool					next_is_fd(char *input, int src);
+int						save_builtin_stdio(int index, t_dlist *curr);
+
+//parsing
+char					*is_redir(t_dlist **redir, char *input);
+char					*is_arg(t_dlist **arg, char *input);
+char					*skip_cmd_name(t_dlist **arg, char *input);
 
 int						ft_quit(void);
 void					ft_signal2(int sig);
@@ -339,5 +348,6 @@ void					ft_signal2(int sig);
 void					*g_handlenonchar[SCHAR_MAX];
 t_schar					g_spec_char[SCHAR_NB];
 t_cap					g_handleinput[CAP_SIZE + 1];
+t_op					g_built_in[BUILD_IN_SIZE + 1];
 
 #endif
