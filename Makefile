@@ -43,7 +43,7 @@ ITEM = \
 		exit.o \
 		setenv.o \
 		unsetenv.o \
-		build_in.o \
+		built_in.o \
 		get_str_in_quotes.o \
 		add_char.o \
 		buf.o \
