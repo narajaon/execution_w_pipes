@@ -7,7 +7,7 @@ int			exec_builtin(int index, t_dlist *curr, int *save)
 
 	if (!(av = extract_redir(curr, save)))
 		return (-1);
-	av = ft_strsplit(curr->content, ' ');
+	av = fmt_input_quote(av);
 	ret = g_built_in[index].fun_ptr(g_sh, av);
 	free_tab_str(&av);
 	return (ret);

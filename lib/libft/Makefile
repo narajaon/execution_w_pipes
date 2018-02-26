@@ -19,6 +19,7 @@ LIB_D:=..
 INCLUDES:= -I inc
 
 ITEM:=\
+	ft_tab_dup.o \
 	ft_print_tab.o\
 	free_str.o\
 	free_tab.o \
