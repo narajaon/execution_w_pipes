@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 11:46:12 by vbastion          #+#    #+#             */
-/*   Updated: 2018/02/23 18:40:36 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/26 14:14:00 by narajaon         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "../inc/header.h"
@@ -15,8 +15,6 @@ void			flush_sh(t_sh *sh)
 {
 	free_hlist(&sh->list);
 	free_hlist(&sh->hist->cur_branch);
-	//free_str(&g_heredoc);
-	//free_autocmp_res(&sh->hist->branch_root);
 	//free yanked list in list_wrap
 }
 

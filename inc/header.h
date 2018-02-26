@@ -43,6 +43,7 @@ int 						g_lvl;
 int							g_fd;
 t_sh						*g_sh;
 t_dlist_wrap 				*g_wrap;
+
 /*
 unsigned short ws_row;	
 unsigned short ws_col;	
