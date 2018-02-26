@@ -51,14 +51,9 @@ ITEM = \
 		del_char.o \
 		hist.o \
 		mv.o \
-		mv_word.o \
-		mv_home.o \
-		mv_multi.o \
 		read.o \
-		init_cap.o \
 		refresh_line.o \
 		exec_procs.o \
-		exec_procs2.o \
 		fd_manip.o \
 		split_by_semicol.o \
 		utils.o \
@@ -67,6 +62,10 @@ ITEM = \
 		redir_funs.o \
 		redir_funs2.o \
 		spec_char.o \
+		split_into_args.o \
+		exec_bins.o \
+		exec_builtins.o \
+		exit_erro.o \
 		heredoc.o
 
 OBJ:=$(addprefix $(OBJ_D)/, $(ITEM))
@@ -78,7 +77,9 @@ vpath %.c src \
 		src/builtin \
 		src/str_format \
 		src/reader \
-		src/parse_exec
+		src/redirs \
+		src/exec \
+		src/parser
 
 vpath %.h inc ../libft/inc
 
