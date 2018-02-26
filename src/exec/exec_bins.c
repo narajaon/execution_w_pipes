@@ -84,6 +84,7 @@ int				pipe_processes(t_dlist *curr, int *pfd)
 	}
 	else
 		exec_in_parent(curr, cpfd, pfd, cmd_id);
+	dprintf(g_fd, "salut");
 	g_lvl--;
 	return (status);
 }

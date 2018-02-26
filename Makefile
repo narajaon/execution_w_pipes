@@ -54,6 +54,7 @@ ITEM = \
 		mv_home.o\
 		mv_multi.o \
 		mv_word.o \
+		init_cap.o \
 		read.o \
 		refresh_line.o \
 		exec_procs.o \
@@ -69,7 +70,8 @@ ITEM = \
 		exec_bins.o \
 		exec_builtins.o \
 		exit_erro.o \
-		heredoc.o
+		heredoc.o \
+		shlvl.o \
 
 OBJ:=$(addprefix $(OBJ_D)/, $(ITEM))
 

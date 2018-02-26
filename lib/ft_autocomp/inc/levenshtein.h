@@ -33,6 +33,7 @@ typedef struct			s_chr
 typedef struct			s_hist
 {
 	t_dlist				*cur_branch;
+	t_dlist 			*last;
 	t_dlist				*branch_root;
 	t_dlist				*history_root;
 	char				*hist_path;

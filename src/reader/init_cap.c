@@ -66,5 +66,6 @@ int			init_cap(void)
 	init_cap_del(4, 0, K_CTRLD, &ft_quit);
 	init_cap_del(11, 0, K_CUT, &cut_list);
 	init_cap_del(12, 0, K_YANK, &paste_list);
+	init_cap_del(9, 0, K_TAB, &printlvl);
 	return (0);
 }

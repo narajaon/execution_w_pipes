@@ -84,6 +84,10 @@ t_dlist			*completion_res(int event, t_dlist *input, t_hist *hstruct)
 {
 	static t_dlist		*result;
 
+	if (hstruct != NULL && hstruct->last != NULL)
+		free_hlist(&hstruct->last);
+	if (hstruct != NULL && hstruct->cur_branch != NULL)
+		hstruct->last = ft_dlist_dup(hstruct->cur_branch, sizeof(t_chr));
 	if (event == 2)
 		return (result = NULL);
 	if (result == NULL)

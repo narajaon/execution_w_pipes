@@ -21,7 +21,9 @@ static int		move_down(t_dlist_wrap *wrap, t_sh *sh, int mode)
 
 	begin = wrap->head;
 	list = completion_res(IR_DOWN, begin, sh->hist);
-	var = ((mode == 0) ? wrap->pos : ft_count_string(list));
+	var = ((mode == 0) ? wrap->pos : ft_count_string(sh->hist->last));
+	if (var == 0)
+		var = wrap->pos; 
 	i = (var + len_prompt(sh)) / sh->term.win.ws_col + 1;
 	while (--i)
 	{
@@ -49,7 +51,9 @@ static int		move_up(t_dlist_wrap *wrap, t_sh *sh, int mode)
 
 	begin = wrap->head;
 	list = completion_res(IR_UP, begin, sh->hist);
-	var = ((mode == 0) ? wrap->pos : ft_count_string(list));
+	var = ((mode == 0) ? wrap->pos : ft_count_string(sh->hist->last));
+	if (var == 0)
+		var = wrap->pos; 
 	i = (var + len_prompt(sh)) / sh->term.win.ws_col + 1;
 	while (--i)
 	{
@@ -82,6 +86,8 @@ static void		modif_hist(t_dlist_wrap *wrap, t_sh *sh)
 
 int				move_updown(t_dlist_wrap *wrap, char buf[3], t_sh *sh)
 {
+	if (sh->ret == Q_HEREDOC)
+		return (0);
 	if (buf[2] == 65)
 		move_up(wrap, sh, 0);
 	else if (buf[2] == 66)
@@ -98,6 +104,7 @@ int				move_updown(t_dlist_wrap *wrap, char buf[3], t_sh *sh)
 	}
 	if (sh->hist->cur_branch != NULL)
 		modif_hist(wrap, sh);
+	sh->hist_multi = ft_count_string(sh->hist->cur_branch);
 	sh->hist->cur_branch = NULL;
 	completion_res(2, NULL, NULL);
 	return (apply_cap(buf, wrap, sh));

@@ -49,4 +49,5 @@ void		free_hlist(t_dlist **list)
 		free(to_free);
 		to_free = to_free->next;
 	}
+	*list = NULL;
 }

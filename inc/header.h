@@ -19,6 +19,13 @@
 # include "../lib/ft_dlist/inc/ft_dlist.h"
 # include "../lib/ft_autocomp/inc/autocompletion.h"
 
+
+# define DICI dprintf(g_fd, "ICI\n");
+# define DLA dprintf(g_fd, "LA\n");
+# define DSTR(x) dprintf(g_fd, #x " = %s\n", x);
+
+# define HEREFILE ".myherefile"
+
 extern char					**environ;
 
 typedef struct termios		t_termios;
@@ -36,6 +43,7 @@ int							g_shlvl;
 int							g_lvl;
 t_sh						*g_sh;
 int 						g_cur_pid;
+int 						g_fd;
 
 # define ERR_MALLOC "erreur dans l'attribution de memoire malloc \n"
 
@@ -127,6 +135,7 @@ enum 					e_cap
 	K_CTRLD,
 	K_CUT,
 	K_YANK,
+	K_TAB,
 	K_QUIT,
 	CAP_SIZE
 };
@@ -208,11 +217,14 @@ typedef struct			s_sh
 	t_dlist				*list;
 	t_hist				*hist;
 	int					ret;
+	int 				test;
+	int 				hist_multi;
 }						t_sh;
 
 //init
 void					ft_init_keytab(void);
 int						init_cap(void);
+int 					get_sh_lvl(t_sh *sh);
 
 //term
 char					*ft_getterm(char **env);
@@ -341,7 +353,7 @@ int						save_builtin_stdio(int index, t_dlist *curr);
 char					*is_redir(t_dlist **redir, char *input);
 char					*is_arg(t_dlist **arg, char *input);
 char					*skip_cmd_name(t_dlist **arg, char *input);
-
+int						printlvl(void);
 int						ft_quit(void);
 void					ft_signal2(int sig);
 

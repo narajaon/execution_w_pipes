@@ -4,15 +4,19 @@ void			exec_procs(t_dlist *pipes)
 {
 	int			status;
 	int			pfd[2];
+	int 		ret;
 
 	status = 0;
 	pipe(pfd);
-	status = pipe_processes(pipes, pfd);
+	ret = pipe_processes(pipes, pfd);
 	close_fd(pfd);
-	while (wait(&status) > 0)
+	while (waitpid(ret, &status, 0) > 0)
 		;
-	if (WTERMSIG(status) == SIGSEGV)
-		ft_dprintf(STDERR_FILENO, "child killed by segfault\n");
+	if ((WIFSIGNALED(status)))
+	{
+		ft_printf("le process s'est terminé anormalement :\n");
+		ft_signal2(WTERMSIG(status));
+	}
 }
 
 int				iter_thru_procs(t_proc *process)

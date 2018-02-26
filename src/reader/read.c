@@ -46,6 +46,7 @@ int			apply_cap(char buf[3], t_dlist_wrap *wrap, t_sh *sh)
 		handle_char(buf, wrap);
 	refresh_line(wrap, sh);
 	reset_cursor(wrap, sh);
+	sh->test = 0;
 	return (1);
 }
 

@@ -1,7 +1,7 @@
 int main(int argc, const char *argv[])
 {
-	int		*a;
+	int		a;
 
-	*a = 2;
-	return 0;
+	a = 0;
+	return (1/a);
 }

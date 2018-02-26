@@ -3,7 +3,7 @@
 void		ft_doprompt(t_sh *sh)
 {
 	t_dlist_wrap *wrap;
-	t_dlist 		*todel = NULL;
+	t_dlist 	*todel = NULL;
 
 	wrap = sh->wrap;
 	ft_terms_toggle_key("cr");
@@ -11,40 +11,43 @@ void		ft_doprompt(t_sh *sh)
 	if (wrap != NULL)
 	{
 		wrap->pos = 0;
-	 	wrap->size = 0;
-	 	todel = wrap->yanked;
-	 	free_hlist(&todel);
+		wrap->size = 0;
+		todel = wrap->yanked;
+		if (todel)
+			free_hlist(&todel);
 		todel = wrap->head;
-		free_hlist(&todel);
-	  	ft_memdel((void **)&(sh->wrap));
-	 	//wrap->head = NULL;
+		if (todel)
+			free_hlist(&todel);
+		wrap->head = NULL;
+		wrap->yanked = NULL;
 	}
 	ft_prompt(sh);
 }
 
 void		ft_signal(int sig)
 {
-	if (g_lvl == g_shlvl)
+	dprintf(g_fd, "lvl <%d> sh_lvl<%d> pid<%d>\n", g_lvl, g_shlvl, g_cur_pid);
+	if (sig == SIGWINCH)
 	{
-		if (sig == SIGWINCH)
-		{
-			ioctl(1, TIOCGWINSZ, &(g_sh->term.win));
-			return ;
-		}
-		else if (sig == SIGTSTP)
-		{
-			ft_printf("Ne pas mettre de shell en fg, merci");
-			ft_doprompt(g_sh);
-		}
-		else if (sig == SIGINT)
-		{
-			ft_doprompt(g_sh);
-		}
-		else
-		{
-			ft_printf("ERREUR : 21sh : <%d>", sig);
-			ft_doprompt(g_sh);
-		}
+		ioctl(1, TIOCGWINSZ, &(g_sh->term.win));
+		return ;
+	}
+	else if (sig == SIGTSTP)
+	{
+		ft_printf("Ne pas mettre de shell en fg, merci");
+		ft_doprompt(g_sh);
+	}
+	else if (sig == SIGINT)
+	{
+		dprintf(g_fd, "must kill <%d>", g_cur_pid);
+		if (g_cur_pid > 0 && g_shlvl != g_lvl)
+			kill(g_cur_pid, SIGQUIT);
+		ft_doprompt(g_sh);
+	}
+	else
+	{
+		ft_printf("ERREUR : 21sh : <%d>", sig);
+		ft_doprompt(g_sh);
 	}
 }
 

@@ -69,6 +69,13 @@ int			refresh_line(t_dlist_wrap *wrap, t_sh *sh)
 	int			col;
 	static int	pos = 0;
 
+	if (sh->test == 1)
+		pos = 0;
+	if (sh->hist_multi != 0)
+	{
+		dprintf(g_fd, "salut<%d>", sh->hist_multi);
+		pos = sh->hist_multi;
+	}
 	col = wrap->col;
 	if (sh->ret == Q_OK)
 		i = (pos + len_prompt(sh)) / (col) + 1;
@@ -88,5 +95,6 @@ int			refresh_line(t_dlist_wrap *wrap, t_sh *sh)
 	ft_terms_toggle_key("al");
 	ft_print_list(wrap, sh);
 	pos = wrap->pos;
+	sh->hist_multi = 0;
 	return (1);
 }
