@@ -15,21 +15,21 @@
 int	ft_prompt(t_sh *sh)
 {
 	if (sh->ret == DQUOTE)
-		ft_dprintf(STDERR_FILENO, "dquote> ");
+		ft_dprintf(STDERR_FILENO, "%sdquote%s > ", KYEL, KNRM);
 	else if (sh->ret == QUOTE)
-		ft_dprintf(STDERR_FILENO, "quote> ");
+		ft_dprintf(STDERR_FILENO, "%squote%s > ", KYEL, KNRM);
 	else if (sh->ret == SLASH)
-		ft_dprintf(STDERR_FILENO, "> ");
+		ft_dprintf(STDERR_FILENO, " > ");
 	else if (sh->ret == Q_PIPE)
-		ft_dprintf(STDERR_FILENO, "pipe> ");
+		ft_dprintf(STDERR_FILENO, "%spipe%s > ", KYEL, KNRM);
 	else if (sh->ret == Q_HEREDOC)
-		ft_dprintf(STDERR_FILENO, "heredoc> ");
+		ft_dprintf(STDERR_FILENO, "%sheredoc %s> ", KBLU, KNRM);
 	else if (sh->ret == Q_OK)
 	{
 		if (sh->dir.dir_name != NULL)
-			ft_dprintf(STDERR_FILENO, "%s > ",sh->dir.dir_name);
+			ft_dprintf(STDERR_FILENO, "%s%s%s > ", KCYN, sh->dir.dir_name, KNRM);
 		else
-			ft_dprintf(STDERR_FILENO, "InvalidDir > ");
+			ft_dprintf(STDERR_FILENO, "%sInvalidDir%s > ", KRED, KNRM);
 	}
 	return (1);
 }
@@ -37,15 +37,15 @@ int	ft_prompt(t_sh *sh)
 int	len_prompt(t_sh *sh)
 {
 	if (sh->ret == DQUOTE)
-		return (8);
+		return (9);
 	else if (sh->ret == QUOTE)
-		return (7);
+		return (8);
 	else if (sh->ret == SLASH)
 		return (2);
 	else if (sh->ret == Q_PIPE)
-		return (6);
+		return (7);
 	else if (sh->ret == Q_HEREDOC)
-		return (9);
+		return (10);
 	else if (sh->ret == Q_OK)
 	{
 		if (sh->dir.dir_name != NULL)

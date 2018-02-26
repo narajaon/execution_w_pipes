@@ -1,8 +1,8 @@
 #include "header.h"
 
-int		ft_quote(t_dlist_wrap *wrap, t_sh *sh)
+int				ft_quote(t_dlist_wrap *wrap, t_sh *sh)
 {
-	char buf[3];
+	char	buf[3];
 
 	if (sh->ret == Q_OK)
 		return (sh->ret);
@@ -16,7 +16,7 @@ int		ft_quote(t_dlist_wrap *wrap, t_sh *sh)
 		ioctl(1, TIOCGWINSZ, &(sh->term.win));
 		wrap->col = sh->term.win.ws_col;
 		ft_bzero(buf, 3);
-		read(STDIN_FILENO, buf,  3);
+		read(STDIN_FILENO, buf, 3);
 		if (apply_cap(buf, wrap, sh) == 0)
 			break ;
 	}
@@ -27,11 +27,23 @@ int		ft_quote(t_dlist_wrap *wrap, t_sh *sh)
 	return (sh->ret);
 }
 
-static char 	check_quote(t_dlist *list)
+static void		change_last(t_chr *schar, char *last)
 {
-	t_chr *schar;
-	t_chr *prev;
-	char last;
+	if (schar->c == '\"' && *last == '\"')
+		*last = '.';
+	else if (schar->c == '\'' && *last == '\'')
+		*last = '.';
+	else if (schar->c == '\"' && *last == '.')
+		*last = '\"';
+	else if (schar->c == '\'' && *last == '.')
+		*last = '\'';
+}
+
+static char		check_quote(t_dlist *list)
+{
+	t_chr	*schar;
+	t_chr	*prev;
+	char	last;
 
 	schar = NULL;
 	prev = NULL;
@@ -42,23 +54,14 @@ static char 	check_quote(t_dlist *list)
 	{
 		schar = list->content;
 		if (prev && prev->c != '\\')
-		{
-			if (schar->c == '\"' && last == '\"')
-				last = '.';
-			else if (schar->c == '\'' && last == '\'')
-				last = '.';
-			else if (schar->c == '\"' && last == '.')
-				last = '\"';
-			else if (schar->c == '\'' && last == '.')
-				last = '\'';
-		}
+			change_last(schar, &last);
 		prev = schar;
 		list = list->next;
 	}
 	return (last);
 }
 
-int		ft_handle_quote(t_dlist *list)
+int				ft_handle_quote(t_dlist *list)
 {
 	char	last;
 	t_chr	*schar;

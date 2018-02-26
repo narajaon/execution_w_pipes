@@ -1,36 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/27 13:03:12 by awyart            #+#    #+#             */
-/*   Updated: 2018/02/26 15:10:52 by narajaon         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "header.h"
 
-void 	ft_doprompt(t_sh *sh)
+void		ft_doprompt(t_sh *sh)
 {
 	t_dlist_wrap *wrap;
+	t_dlist 		*todel = NULL;
 
-	wrap = g_wrap;
+	wrap = sh->wrap;
 	ft_terms_toggle_key("cr");
 	ft_terms_toggle_key("do");
-	free_hlist(&wrap->head);
-	if (sh->hist->cur_branch != NULL)
-	{
-		hl_print_next(sh->hist->cur_branch, print_hlst_content);
-		hl_print_next(sh->hist->branch_root, print_hlst_content);
-		//sh->hist->cur_branch = sh->hist->branch_root;
-	}
-	if (wrap)
+	if (wrap != NULL)
 	{
 		wrap->pos = 0;
-		wrap->size = 0;
-		wrap->head = NULL;
+	 	wrap->size = 0;
+	 	todel = wrap->yanked;
+	 	free_hlist(&todel);
+		todel = wrap->head;
+		free_hlist(&todel);
+	  	ft_memdel((void **)&(sh->wrap));
+	 	//wrap->head = NULL;
 	}
 	ft_prompt(sh);
 }
@@ -46,7 +33,7 @@ void		ft_signal(int sig)
 		}
 		else if (sig == SIGTSTP)
 		{
-			ft_dprintf(STDERR_FILENO, "Ne pas mettre de shell en fg, merci\n");
+			ft_printf("Ne pas mettre de shell en fg, merci");
 			ft_doprompt(g_sh);
 		}
 		else if (sig == SIGINT)
@@ -55,10 +42,26 @@ void		ft_signal(int sig)
 		}
 		else
 		{
-			ft_dprintf(STDERR_FILENO, "ERREUR : 21sh : <%d>\n", sig);
+			ft_printf("ERREUR : 21sh : <%d>", sig);
 			ft_doprompt(g_sh);
 		}
 	}
+}
+
+void		ft_signal2(int sig)
+{
+	if (sig == SIGINT)
+		ft_printf("Vous avez cliqué sur Ctrl + C\n");
+	else if (sig == SIGABRT)
+		ft_printf("Abort\n");
+	else if (sig == SIGSEGV)
+		ft_printf("AHAHAHA c'est un segfault\n");
+	else if (sig == SIGBUS)
+		ft_printf("BUS ERROR\n");
+	else if (sig == SIGFPE)
+		ft_printf("Floating point exception\n");
+	else
+		ft_printf("ERREUR non identifiée par awsh <%d>\n", sig);
 }
 
 void		ft_getsignal(void)

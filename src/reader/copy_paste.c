@@ -1,6 +1,6 @@
-#include "../../inc/header.h"
+#include "header.h"
 
-int		cut_list(t_dlist_wrap *wrap)
+int			cut_list(t_dlist_wrap *wrap)
 {
 	t_dlist		*saved;
 	int			i;
@@ -24,11 +24,17 @@ int		cut_list(t_dlist_wrap *wrap)
 	return (1);
 }
 
-int		paste_list(t_dlist_wrap *wrap)
+static void	resize(t_dlist_wrap *wrap, int nbr)
 {
-	t_dlist *yank_dup;
-	t_dlist *part_1;
-	t_dlist *part_2;
+	wrap->pos += nbr;
+	wrap->size += nbr;
+}
+
+int			paste_list(t_dlist_wrap *wrap)
+{
+	t_dlist	*yank_dup;
+	t_dlist	*part_1;
+	t_dlist	*part_2;
 
 	if (wrap->yanked == NULL)
 		return (0);
@@ -37,7 +43,7 @@ int		paste_list(t_dlist_wrap *wrap)
 	part_2 = cur_list(wrap);
 	if (part_2 != NULL)
 		part_2 = part_2->next;
-	wrap->pos += hlst_size(yank_dup);
+	resize(wrap, hlst_size(yank_dup));
 	if (part_2 != NULL && part_2->prev != NULL)
 	{
 		part_2->prev->next = NULL;
@@ -50,6 +56,5 @@ int		paste_list(t_dlist_wrap *wrap)
 	if (part_2 != NULL)
 		ft_hlstadd_back(&part_1, part_2);
 	wrap->head = part_1;
-	wrap->size += ft_count_string(yank_dup);
 	return (1);
 }

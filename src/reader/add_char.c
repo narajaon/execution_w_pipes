@@ -1,6 +1,6 @@
 #include "header.h"
 
-static t_dlist		*create_node(char c)
+static t_dlist	*create_node(char c)
 {
 	t_dlist	*tmp;
 	t_chr	*schar;
@@ -18,27 +18,28 @@ static t_dlist		*create_node(char c)
 	return (tmp);
 }
 
-t_dlist 	*cur_list(t_dlist_wrap *wrap)
+t_dlist			*cur_list(t_dlist_wrap *wrap)
 {
-	int pos;
-	t_dlist *list;
+	int		pos;
+	t_dlist	*list;
 
+	if (wrap == NULL || wrap->head == NULL)
+		return (NULL);
 	list = wrap->head;
 	pos = wrap->pos;
 	while (--pos && list != NULL)
 	{
 		if (pos <= 0)
-			break;
+			break ;
 		list = list->next;
 	}
 	return (list);
 }
 
-static int add_in_list(t_dlist_wrap *wrap, t_dlist *new)
+static int		add_in_list(t_dlist_wrap *wrap, t_dlist *new)
 {
-	t_dlist *list;
-	t_dlist *next;
-
+	t_dlist	*list;
+	t_dlist	*next;
 
 	if (wrap->pos == 0)
 	{
@@ -63,7 +64,7 @@ static int add_in_list(t_dlist_wrap *wrap, t_dlist *new)
 	return (1);
 }
 
-int			handle_char(char buf[3], t_dlist_wrap *wrap)
+int				handle_char(char buf[3], t_dlist_wrap *wrap)
 {
 	t_dlist *new;
 

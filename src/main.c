@@ -6,15 +6,16 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 11:46:12 by vbastion          #+#    #+#             */
-/*   Updated: 2018/02/26 14:14:00 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/02/21 18:24:22 by narajaon         ###   ########.fr       */
 /* ************************************************************************** */
 
-#include "../inc/header.h"
+#include "header.h"
 
 void			flush_sh(t_sh *sh)
 {
 	free_hlist(&sh->list);
 	free_hlist(&sh->hist->cur_branch);
+	//free_autocmp_res(&sh->hist->branch_root);
 	//free yanked list in list_wrap
 }
 
@@ -44,9 +45,6 @@ int				ft_init(t_sh *sh, t_hist *hist)
 	ft_terms_init(&(sh->term));
 	ft_terms_toggle(&(sh->term), 1);
 	ft_setupenv(&sh->env);
-	sh->stdio[0] = dup(STDIN_FILENO);
-	sh->stdio[1] = dup(STDOUT_FILENO);
-	sh->stdio[2] = dup(STDERR_FILENO);
 	return (1);
 }
 
@@ -56,11 +54,10 @@ int				main(void)
 	t_hist				hist;
 
 	g_sh = &sh;
-	g_fd = open("/dev/ttys001", O_WRONLY);
 	if (!(ft_init(&sh, &hist)))
 		return (0);
 	ft_getsignal();
-	//tputs(tgetstr("cl", NULL), 1, &ft_putc);
+	tputs(tgetstr("cl", NULL), 1, &ft_putc);
 	g_shlvl = g_lvl;
 	ft_start_process(&sh);
 	return (0);

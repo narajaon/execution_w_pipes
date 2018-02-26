@@ -42,7 +42,7 @@ char		*get_env_var(char *val, char **environ)
 {
 	int		size;
 	char	*str;
-	char 	*new;
+	char	*new;
 
 	size = ft_tablen(environ);
 	new = ft_strjoin(val, "=");

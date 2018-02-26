@@ -1,6 +1,6 @@
 #include "header.h"
 
-int is_printable(char buf[3])
+int	is_printable(char buf[3])
 {
 	char c;
 
@@ -12,7 +12,7 @@ int is_printable(char buf[3])
 	return (1);
 }
 
-int is_break(char buf[3])
+int	is_break(char buf[3])
 {
 	if (buf[0] == 13 && buf[1] == 0 && buf[2] == 0)
 		return (1);
@@ -21,7 +21,7 @@ int is_break(char buf[3])
 	return (0);
 }
 
-int is_updown(char buf[3])
+int	is_updown(char buf[3])
 {
 	if (buf[0] == 27 && buf[1] == 91 && buf[2] == 66)
 		return (1);

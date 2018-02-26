@@ -19,11 +19,6 @@
 # include "../lib/ft_dlist/inc/ft_dlist.h"
 # include "../lib/ft_autocomp/inc/autocompletion.h"
 
-# define DICI dprintf(g_fd, "ICI\n");
-# define DLA dprintf(g_fd, "LA\n");
-# define DSTR(x) dprintf(g_fd, #x " = %s\n", x);
-# define HEREFILE ".myherefile"
-
 extern char					**environ;
 
 typedef struct termios		t_termios;
@@ -34,40 +29,17 @@ typedef struct s_dlist_wrap	t_dlist_wrap;
 typedef struct s_process	t_process;
 typedef struct s_redir		t_redir;
 typedef struct s_cap		t_cap;
-typedef struct s_op 		t_op;
+typedef struct s_op			t_op;
 typedef int					(*t_intfunc)();
 
 int							g_shlvl;
-int							g_cur_pid;
-int 						g_lvl;
-int							g_fd;
+int							g_lvl;
 t_sh						*g_sh;
-t_dlist_wrap 				*g_wrap;
-
-/*
-unsigned short ws_row;	
-unsigned short ws_col;	
-unsigned short ws_xpixel;	 horizontal size, pixels 
-unsigned short ws_ypixel;	vertical size, pixels 
-*/
-
-// # define K_UP		65
-// # define K_DOWN		66
-// # define K_RIGHT	67
-// # define K_LEFT		68
-// # define K_END		70
-// # define K_HOME		72
-// # define K_PUP		53
-// # define K_PDOWN	54
-// # define K_DEL		51 
-// # define K_CUT		11
-// # define K_YANK		12
 
 # define ERR_MALLOC "erreur dans l'attribution de memoire malloc \n"
 
 # define MAX_FD		9
 # define SCHAR_NB	11
-//(char c,  int (*f)(t_dlist_wrap *, t_sh *))
 
 typedef struct			s_schar
 {
@@ -123,7 +95,7 @@ int						ft_setenv(t_sh *sh, char **av);
 int						ft_exit(t_sh *sh, char **av);
 int						ft_unsetenv(t_sh *sh, char **av);
 int						ft_echo(t_sh *sh, char **av);
-int 					detect_bi(char *str, const t_op *cmd_tab);
+int						detect_bi(char *str, const t_op *cmd_tab);
 int						is_builtin(char *av);
 
 enum					e_built
@@ -147,6 +119,8 @@ enum 					e_cap
 	K_HOME,
 	K_PUP,
 	K_PDOWN,
+	K_PRIGHT,
+	K_PLEFT,
 	K_DEL,
 	K_DELR,
 	K_CTRLD,
@@ -169,7 +143,7 @@ typedef struct			s_red
 {
 	char				*redir;
 	int					index;
-	int					(*funct)();
+	void				(*funct)();
 }						t_red;
 
 typedef struct			s_op
@@ -190,18 +164,17 @@ typedef struct			s_terms
 typedef struct			s_environ
 {	
 	char				**env;
-	char				**split_path;
-	int 				size;
+	int					size;
 }						t_environ;
 
 typedef struct			s_dlist_wrap
 {
 	t_dlist				*head;
-	t_dlist 			*tmp;
+	t_dlist				*tmp;
 	t_dlist				*yanked;
-	int 				pos;
-	int 				size;
-	int 				col;
+	int					pos;
+	int					size;
+	int					col;
 }						t_dlist_wrap;
 
 
@@ -229,14 +202,15 @@ typedef struct			s_sh
 	t_environ			env;
 	t_terms				term;
 	t_dir				dir;
+	t_dlist_wrap 		*wrap;
 	t_dlist				*list;
 	t_hist				*hist;
-	int					stdio[3];
-	int 				ret;
+	int					ret;
 }						t_sh;
 
 //init
-void 					ft_init_keytab(void);
+void					ft_init_keytab(void);
+int						init_cap(void);
 
 //term
 char					*ft_getterm(char **env);
@@ -256,9 +230,8 @@ int						ft_setenv(t_sh *sh, char **av);
 int						ft_exit(t_sh *sh, char **av);
 int						ft_unsetenv(t_sh *sh, char **av);
 int						ft_echo(t_sh *sh, char **av);
-int 					detect_bi(char *str, const t_op *cmd_tab);
+int						detect_bi(char *str, const t_op *cmd_tab);
 int						is_builtin(char *av);
-t_op					g_built_in[BUILD_IN_SIZE + 1];
 
 //reader
 int						ft_count_string(t_dlist *lst);
@@ -267,21 +240,23 @@ int						handle_del(t_dlist_wrap *wrap);
 int						handle_del_right(t_dlist_wrap *wrap);
 int						move_left(t_dlist_wrap *wrap);
 int						move_right(t_dlist_wrap *wrap);
+int						move_sright(t_dlist_wrap *wrap);
+int						move_sleft(t_dlist_wrap *wrap);
 int						ft_read(t_sh *sh);
 int						get_func(char buf[3]);
 int						is_printable(char buf[3]);
 int						is_break(char buf[3]);
-int 					is_updown(char buf[3]);
+int						is_updown(char buf[3]);
 int						refresh_line(t_dlist_wrap *wrap, t_sh *sh);
 // int						ft_printlist(t_dlist_wrap *wrap, t_sh *sh, char buf[3]);
 int						reset_cursor(t_dlist_wrap *wrap, t_sh *sh);
 int						move_end(t_dlist_wrap  *wrap);
 int						move_home(t_dlist_wrap  *wrap);
-t_dlist 				*cur_list(t_dlist_wrap *wrap);
-int 					move_updown(t_dlist_wrap *wrap, char buf[3], t_sh *sh);
+t_dlist					*cur_list(t_dlist_wrap *wrap);
+int						move_updown(t_dlist_wrap *wrap, char buf[3], t_sh *sh);
 int						ft_handle_quote(t_dlist *list);
 int						ft_quote(t_dlist_wrap *wrap, t_sh *sh);
-int 					count_tmp(t_dlist_wrap *wrap, int pos);
+int						count_tmp(t_dlist_wrap *wrap, int pos);
 int						ft_print_list(t_dlist_wrap *wrap, t_sh *sh);
 
 //cap
@@ -289,11 +264,9 @@ int						handle_del(t_dlist_wrap *wrap);
 int						handle_del_right(t_dlist_wrap *wrap);
 int						move_right(t_dlist_wrap *wrap);
 int						move_left(t_dlist_wrap *wrap);
-int						init_cap_del(char a, char b, int i, int (*f)());
-int						init_cap_esc(char b, char c, int i, int (*f)());
 int						move_sdown(t_dlist_wrap *wrap);
 int						move_sup(t_dlist_wrap *wrap);
-int 					apply_cap(char buf[3], t_dlist_wrap *wrap, t_sh *sh);
+int						apply_cap(char buf[3], t_dlist_wrap *wrap, t_sh *sh);
 int						cut_list(t_dlist_wrap *wrap);
 int						paste_list(t_dlist_wrap *wrap);
 
@@ -305,12 +278,12 @@ char					**ft_list_to_tab(t_dlist *list);
 
 //env
 int						ft_setupenv(t_environ *env);
-char 					*get_env_var(char *str, char **environ);
+char					*get_env_var(char *str, char **environ);
 int						cmp_env_var(char *var, char *to_cmp, size_t n);
 void					add_var_to_env(t_sh *sh, char **var);
 char					*add_eq_between(char **arg);
 char					**tab_str_remove(char **base, int (*cmp)(),
-		char *to_cmp, size_t limit);
+						char *to_cmp, size_t limit);
 char					*ft_getenv(char **env, char *var);
 
 //signal
@@ -330,7 +303,7 @@ void					ft_start_process(t_sh *sh);
 int						ft_init(t_sh *sh, t_hist *hist);
 
 //execution
-void 					ft_execution(t_sh *sh);
+void					ft_execution(t_sh *sh);
 void					hl_print_str(t_dlist *list);
 int						exec_cmd(t_dlist *input);
 int						skip_quotes(char *str, char quote);
@@ -341,35 +314,30 @@ void					close_fd(int *pfd);
 void					flush_sh(t_sh *sh);
 bool					is_binary_file(char *bin_name);
 bool					is_valid_path(char *path_bin);
-int						exec_builtin(int index, t_dlist *curr, int *save);
+int						exec_builtin(int index, char *input);
 int						pipe_processes(t_dlist *curr, int *pfd);
-char 					*handle_heredoc(char *str, t_sh *sh);
+char					*handle_heredoc(char *str, t_sh *sh);
+void					exec_procs(t_dlist *pipes);
 
 //redirections
-int					r_right(char *input);
-int					r_dright(char *input);
-int					r_left(char *input);
-int					r_dleft(char *input);
-char					**extract_redir(t_dlist *curr, int *save);
+void					r_right(char *input);
+void					r_dright(char *input);
+void					r_left(char *input);
+void					r_dleft(char *input);
+char					**extract_redir(char *input);
 int						get_redir(char *av);
 int						redir_id(char *str);
 void					redir_fd(int old_fd, int new_fd);
 int						fd_to_file(char *file, int perm);
 int						check_src_fd(char *input, int default_fd);
-int						do_redirs(t_dlist *redirs);
+void					do_redirs(t_dlist *redirs);
 bool					next_is_fd(char *input, int src);
-int						save_builtin_stdio(int index, t_dlist *curr);
 
-//parsing
-char					*is_redir(t_dlist **redir, char *input);
-char					*is_arg(t_dlist **arg, char *input);
-char					*skip_cmd_name(t_dlist **arg, char *input);
-
-void					exit_error(char *erro_msg, int exit_id);
 int						ft_quit(void);
+void					ft_signal2(int sig);
 
 void					*g_handlenonchar[SCHAR_MAX];
 t_schar					g_spec_char[SCHAR_NB];
-
 t_cap					g_handleinput[CAP_SIZE + 1];
+
 #endif

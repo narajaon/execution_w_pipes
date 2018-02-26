@@ -12,24 +12,6 @@
 
 #include "header.h"
 
-/*
-static char	*ft_getenv_term(void)
-{
-	int		size;
-	char	*str;
-
-	size = ft_tablen(environ);
-	while (size--)
-	{
-		if ((ft_strncmp("TERM=", environ[size - 1], 5) == 0))
-		{
-			str = environ[size - 1] + 5;
-			return (str);
-		}
-	}
-	return (NULL);
-}*/
-
 int			ft_init_term(void)
 {
 	int		success;
