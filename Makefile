@@ -75,7 +75,7 @@ vpath %.c src \
 		src/env \
 		src/signal \
 		src/prompt \
-		src/buildin \
+		src/builtin \
 		src/str_format \
 		src/reader \
 		src/parse_exec
