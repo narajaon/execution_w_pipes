@@ -12,7 +12,7 @@ void			exec_procs(t_dlist *pipes)
 	while (wait(&status) > 0)
 		;
 	if (WTERMSIG(status) == SIGSEGV)
-		ft_dprintf(STDERR_FILENO, "child killed by segfault\n");
+		ft_dprintf(STDERR_FILENO, "[%d] killed by segfault\n", g_cur_pid);
 }
 
 int				iter_thru_procs(t_proc *process)
