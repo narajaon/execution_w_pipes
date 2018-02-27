@@ -9,6 +9,9 @@ t_schar		g_spec_char[SCHAR_NB] =
 	{"\\r", '\r'},
 	{"\\t", '\t'},
 	{"\\v", '\v'},
+	//{"\\\\", '\\'},
+	//{"\\'", '\''},
+	//{"\\\"", '\"'},
 	{"", 0},
 };
 
@@ -43,8 +46,11 @@ char		*replace_spec_char(char *user_in, int size)
 		return (NULL);
 	while (*user_in != '\0')
 	{
-		if (*user_in == '\\' && converted_spe_char(*(user_in + 1)) == 0)
-			formated[i] = *(++user_in);
+		if (*user_in == '\\' && converted_spe_char(user_in[1]) == 0)
+		{
+			formated[i] = user_in[1];
+			user_in++;
+		}
 		else if ((esc_index = is_esc_char(user_in)) >= 0)
 		{
 			formated[i] = g_spec_char[esc_index].asc;
