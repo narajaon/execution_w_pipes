@@ -43,7 +43,7 @@ int							g_shlvl;
 int							g_lvl;
 t_sh						*g_sh;
 int 						g_cur_pid;
-int 						g_fd;
+int 						g_test;
 
 # define ERR_MALLOC "erreur dans l'attribution de memoire malloc \n"
 
@@ -217,6 +217,7 @@ typedef struct			s_sh
 	int 				stdio[3];
 	t_dlist_wrap 		*wrap;
 	t_dlist				*list;
+	t_dlist 			*yanked;
 	t_hist				*hist;
 	int					ret;
 	int 				test;

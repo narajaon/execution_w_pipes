@@ -15,6 +15,7 @@ void			flush_sh(t_sh *sh)
 {
 	free_hlist(&sh->list);
 	free_hlist(&sh->hist->cur_branch);
+	free(sh->wrap);
 	//free_autocmp_res(&sh->hist->branch_root);
 	//free yanked list in list_wrap
 }
@@ -32,6 +33,7 @@ void			ft_start_process(t_sh *sh)
 		update_history(sh->hist, sh->list);
 		flush_sh(sh);
 	}
+	free_hlist(&sh->yanked);
 }
 
 int				ft_init(t_sh *sh, t_hist *hist)
@@ -46,6 +48,7 @@ int				ft_init(t_sh *sh, t_hist *hist)
 	ft_terms_init(&(sh->term));
 	ft_terms_toggle(&(sh->term), 1);
 	ft_setupenv(&sh->env);
+	init_cap();
 	get_sh_lvl(sh);
 	return (1);
 }
@@ -57,14 +60,11 @@ int				main(void)
 
 	ft_bzero(&sh, sizeof(t_sh));
 	g_sh = &sh;
-	g_fd = open("/dev/ttys002", O_WRONLY);
-	dprintf(g_fd, "\33[H\33[2J");
 	if (!(ft_init(&sh, &hist)))
 		return (0);
 	ft_getsignal();
 	tputs(tgetstr("cl", NULL), 1, &ft_putc);
 	g_shlvl = g_lvl;
-	dprintf(g_fd, "lvl <%d> sh_lvl<%d>\n", g_lvl, g_shlvl);
 	ft_start_process(&sh);
 	return (0);
 }

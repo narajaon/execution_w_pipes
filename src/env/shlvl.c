@@ -19,7 +19,6 @@ static char	*ft_strjoinc(char *s1, char s2)
 
 int 	printlvl(void)
 {
-	dprintf(g_fd, "le niveau sh_lvl vaut <%d>", g_lvl);
 	return (g_lvl);
 }
 

@@ -24,6 +24,7 @@ int				iter_thru_procs(t_proc *process)
 	t_dlist		*semi;
 	t_dlist		*pipes;
 
+	pipes = NULL;
 	semi = process->semicol;
 	while (semi != NULL)
 	{

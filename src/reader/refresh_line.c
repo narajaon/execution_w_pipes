@@ -72,10 +72,7 @@ int			refresh_line(t_dlist_wrap *wrap, t_sh *sh)
 	if (sh->test == 1)
 		pos = 0;
 	if (sh->hist_multi != 0)
-	{
-		dprintf(g_fd, "salut<%d>", sh->hist_multi);
 		pos = sh->hist_multi;
-	}
 	col = wrap->col;
 	if (sh->ret == Q_OK)
 		i = (pos + len_prompt(sh)) / (col) + 1;

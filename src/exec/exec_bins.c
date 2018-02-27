@@ -12,9 +12,9 @@ int				exec_prog(t_dlist *curr, int *save)
 	split = fmt_input_quote(split);
 	//pas opti, devrait se faire a l'initialisation
 	if (!(path_dirs = ft_getenv(g_sh->env.env, "PATH")))
-		exit_error("PATH not set\n", EXIT_FAILURE);;
+		exit_error("PATH not set\n", EXIT_FAILURE);
 	if (!(bin_paths = ft_strsplit(path_dirs, ':')))
-		exit_error("PATH not valid\n", EXIT_FAILURE);;
+		exit_error("PATH not valid\n", EXIT_FAILURE);
 	path = check_bin(bin_paths, split[0]);
 	if (path == NULL)
 	{
@@ -22,7 +22,10 @@ int				exec_prog(t_dlist *curr, int *save)
 				(is_valid_path(split[0]) == TRUE))
 			path = split[0];
 		else
-			exit_error("command not found\n", EXIT_FAILURE);;
+		{
+			ft_putstr_fd(split[0], STDERR_FILENO);
+			exit_error(": command not found\n", EXIT_FAILURE);;
+		}
 	}
 	return (execve(path, split, g_sh->env.env));
 }
@@ -84,7 +87,6 @@ int				pipe_processes(t_dlist *curr, int *pfd)
 	}
 	else
 		exec_in_parent(curr, cpfd, pfd, cmd_id);
-	dprintf(g_fd, "salut");
 	g_lvl--;
 	return (status);
 }

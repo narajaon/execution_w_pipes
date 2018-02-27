@@ -52,7 +52,8 @@ char 	*handle_heredoc(char *str, t_sh *sh)
 	char *line;
 	char *line2;
 	int i;
-	
+
+	g_test = 1;
 	ref = NULL;
 	line = ft_strdup("\0");
 	while (1)
@@ -70,6 +71,7 @@ char 	*handle_heredoc(char *str, t_sh *sh)
 		}
 	}
 	sh->ret = Q_OK;
+	g_test = 0;
 	ft_strdel(&ref);
 	return (line);
 }

@@ -3,7 +3,6 @@
 void		ft_doprompt(t_sh *sh)
 {
 	t_dlist_wrap *wrap;
-	t_dlist 	*todel = NULL;
 
 	wrap = sh->wrap;
 	ft_terms_toggle_key("cr");
@@ -12,21 +11,16 @@ void		ft_doprompt(t_sh *sh)
 	{
 		wrap->pos = 0;
 		wrap->size = 0;
-		todel = wrap->yanked;
-		if (todel)
-			free_hlist(&todel);
-		todel = wrap->head;
-		if (todel)
-			free_hlist(&todel);
+		free_hlist(&wrap->head);
 		wrap->head = NULL;
-		wrap->yanked = NULL;
 	}
 	ft_prompt(sh);
 }
 
 void		ft_signal(int sig)
 {
-	dprintf(g_fd, "lvl <%d> sh_lvl<%d> pid<%d>\n", g_lvl, g_shlvl, g_cur_pid);
+	if (g_test == 1)
+		return ;
 	if (sig == SIGWINCH)
 	{
 		ioctl(1, TIOCGWINSZ, &(g_sh->term.win));
@@ -39,9 +33,9 @@ void		ft_signal(int sig)
 	}
 	else if (sig == SIGINT)
 	{
-		dprintf(g_fd, "must kill <%d>", g_cur_pid);
 		if (g_cur_pid > 0 && g_shlvl != g_lvl)
 			kill(g_cur_pid, SIGQUIT);
+		g_sh->ret = Q_OK;
 		ft_doprompt(g_sh);
 	}
 	else

@@ -55,9 +55,10 @@ int			ft_read(t_sh *sh)
 	char			buf[3];
 	t_dlist_wrap	*wrap;
 
-	if (!(wrap = ft_memalloc(sizeof(t_dlist_wrap))))
+	if (!(wrap = (t_dlist_wrap *)ft_memalloc(sizeof(t_dlist_wrap))))
 		return (0);
 	sh->wrap = wrap;
+	wrap->yanked = sh->yanked;
 	init_cap();
 	while (1)
 	{
@@ -71,8 +72,10 @@ int			ft_read(t_sh *sh)
 	sh->ret = ft_handle_quote(wrap->head);
 	if (sh->ret != Q_OK)
 		ft_quote(wrap, sh);
-	sh->list = wrap->head;
-	free_hlist(&(wrap->yanked));
-	ft_memdel((void **)&wrap);
+	sh->list = ft_dlist_dup(wrap->head, sizeof(t_chr));
+	sh->yanked = ft_dlist_dup(wrap->yanked, sizeof(t_chr));
+	free_hlist(&wrap->yanked);
+	free_hlist(&wrap->head);
+	wrap->tmp = NULL;
 	return (1);
 }
