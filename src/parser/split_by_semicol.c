@@ -44,7 +44,7 @@ char		*split_by_token(t_dlist **procs, char *input, char token)
 	ft_hlstadd_back_void(procs, sub);
 	if (input[i] == '\0')
 		return (&input[i]);
-	return (&input[i + 1]);
+	return (&input[i]);
 }
 
 t_dlist		*init_proc_list(char *input, char token)

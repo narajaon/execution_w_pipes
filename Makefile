@@ -7,7 +7,7 @@ MKDIR:=mkdir -p
 ifeq ($(DEBUG),yes)
 CFLAGS:=-g3 -fsanitize=address
 else
-CFLAGS:= -O2 -Wall -Wextra -Werror
+CFLAGS:= -g -O2 -Wall -Wextra -Werror
 endif
 INC_D:=inc
 SCR_D:=src

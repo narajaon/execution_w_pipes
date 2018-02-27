@@ -46,20 +46,27 @@ char		*get_str_in_quotes(char *str)
 char		**fmt_input_quote(char **av)
 {
 	char	**av_tmp;
+	char	**stock_av;
+	char	*formated;
 
-	av_tmp = av;
-	while (*av_tmp != NULL)
+	av_tmp = (char **)malloc(sizeof(char *) * (ft_tablen(av) + 1));
+	stock_av = av_tmp;
+	while (*av != NULL)
 	{
-		if (**av_tmp == '\"')
+		if (**av == '\"')
 		{
-			fmt_input_spec_chr(av_tmp);
-			*av_tmp = get_str_in_dquotes(*av_tmp);
+			formated = ft_strdup(*av);
+			fmt_input_spec_chr(&formated);
+			*av_tmp = get_str_in_dquotes(formated);
+			free_str(&formated);
 		}
-		else if (**av_tmp == '\'')
-			*av_tmp = get_str_in_quotes(*av_tmp);
+		else if (**av == '\'')
+			*av_tmp = get_str_in_quotes(*av);
+		else
+			*av_tmp = ft_strdup(*av);
+		av++;
 		av_tmp++;
 	}
-	av_tmp = ft_tab_dup(av);
-	free_tab_str(&av);
-	return (av_tmp);
+	*av_tmp = NULL;
+	return (stock_av);
 }

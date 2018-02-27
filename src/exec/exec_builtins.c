@@ -3,12 +3,14 @@
 int			exec_builtin(int index, t_dlist *curr, int *save)
 {
 	char	**av;
+	char		**to_free;
 	int		ret;
 
 	if (!(av = extract_redir(curr, save)))
 		return (-1);
-	av = fmt_input_quote(av);
-	ret = g_built_in[index].fun_ptr(g_sh, av);
+	to_free = fmt_input_quote(av);
+	ret = g_built_in[index].fun_ptr(g_sh, to_free);
+	free_tab_str(&to_free);
 	free_tab_str(&av);
 	return (ret);
 }
