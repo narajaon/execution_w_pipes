@@ -29,13 +29,14 @@ char		*split_by_token(t_dlist **procs, char *input, char token)
 	char		*sub;
 
 	i = 0;
-	//need to check if between quotes
 	while (input[i] && input[i] != token)
 	{
 		if (input[i] == '\\' && input[i + 1] == token)
 			i++;
 		i += skip_quotes(&input[i], '\"');
 		i += skip_quotes(&input[i], '\'');
+		if (input[i] == '\0')
+			break ;
 		i++;
 	}
 	if (i == 0)
@@ -44,7 +45,7 @@ char		*split_by_token(t_dlist **procs, char *input, char token)
 	ft_hlstadd_back_void(procs, sub);
 	if (input[i] == '\0')
 		return (&input[i]);
-	return (&input[i]);
+	return (&input[i + 1]);
 }
 
 t_dlist		*init_proc_list(char *input, char token)

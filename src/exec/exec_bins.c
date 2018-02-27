@@ -15,7 +15,11 @@ int				exec_prog(t_dlist *curr, int *save)
 		exit_error("PATH not set\n", EXIT_FAILURE);
 	if (!(bin_paths = ft_strsplit(path_dirs, ':')))
 		exit_error("PATH not valid\n", EXIT_FAILURE);
-	path = check_bin(bin_paths, split[0]);
+	if (check_bin(sh->hash, split[0]) == NULL)
+	{
+		path = check_bin(bin_paths, split[0]);
+		//add_in_ash(path, split, sh->hash)
+	}
 	if (path == NULL)
 	{
 		if ((is_binary_file(split[0]) == TRUE) &&

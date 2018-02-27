@@ -28,6 +28,7 @@ typedef struct			s_chr
 {
 	char				c;
 	char				is_escaped;
+	int 				color;
 }						t_chr;
 
 typedef struct			s_hist

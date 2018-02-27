@@ -14,7 +14,7 @@ void			exec_procs(t_dlist *pipes)
 		;
 	if ((WIFSIGNALED(status)))
 	{
-		ft_printf("le process s'est terminé anormalement :\n");
+		ft_printf("le process <%d> s'est terminé anormalement :\n", g_cur_pid);
 		ft_signal2(WTERMSIG(status));
 	}
 }

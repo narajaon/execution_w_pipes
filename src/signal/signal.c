@@ -36,7 +36,8 @@ void		ft_signal(int sig)
 		if (g_cur_pid > 0 && g_shlvl != g_lvl)
 			kill(g_cur_pid, SIGQUIT);
 		g_sh->ret = Q_OK;
-		ft_doprompt(g_sh);
+		if (g_lvl == 2)
+			ft_doprompt(g_sh);
 	}
 	else
 	{

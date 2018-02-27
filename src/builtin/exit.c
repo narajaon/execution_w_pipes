@@ -22,6 +22,8 @@ int		ft_exit(t_sh *sh, char **av)
 	}
 	if (av[1] == NULL)
 		ft_quit();
+	tcsetattr(0, TCSANOW, &(g_sh->term.prev_term));
+	flush_sh(g_sh);
 	exit(ft_atoi(av[1]));
 	return (0);
 }

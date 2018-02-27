@@ -3,7 +3,7 @@
 int			ft_quit(void)
 {
 	tcsetattr(0, TCSANOW, &(g_sh->term.prev_term));
-	//flush_sh(g_sh);
+	flush_sh(g_sh);
 	exit(0);
 }
 

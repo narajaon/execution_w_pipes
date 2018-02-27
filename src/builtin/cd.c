@@ -31,7 +31,6 @@ char		*get_next_dir(char **av, char *prev_dir, t_environ *env)
 	if (next_dir == NULL || chdir(next_dir) < 0)
 	{
 		ft_putstr_fd("cd: can't change directory\n", STDERR_FILENO);
-		chdir(prev_dir);
 		return (prev_dir);
 	}
 	return (next_dir);

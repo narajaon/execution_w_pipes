@@ -56,14 +56,18 @@ char		**fmt_input_quote(char **av)
 		if (**av == '\"')
 		{
 			formated = ft_strdup(*av);
-			fmt_input_spec_chr(&formated);
 			*av_tmp = get_str_in_dquotes(formated);
+			fmt_input_spec_chr(av_tmp);
 			free_str(&formated);
 		}
 		else if (**av == '\'')
 			*av_tmp = get_str_in_quotes(*av);
 		else
-			*av_tmp = ft_strdup(*av);
+		{
+			formated = ft_strdup(*av);
+			fmt_input_spec_chr(&formated);
+			*av_tmp = formated;
+		}
 		av++;
 		av_tmp++;
 	}

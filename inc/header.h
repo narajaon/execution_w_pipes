@@ -222,6 +222,7 @@ typedef struct			s_sh
 	int					ret;
 	int 				test;
 	int 				hist_multi;
+	int 				col;
 }						t_sh;
 
 //init

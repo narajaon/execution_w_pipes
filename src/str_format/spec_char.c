@@ -39,11 +39,11 @@ char		*replace_spec_char(char *user_in, int size)
 	int			i;
 
 	i = 0;
-	if ((formated = ft_memalloc(size)) == NULL)
+	if ((formated = ft_memalloc(size * sizeof(char))) == NULL)
 		return (NULL);
 	while (*user_in != '\0')
 	{
-		if (*user_in == '\\' && converted_spe_char(*(user_in + 1)) == 0)
+		if (*user_in == '\\' && *(user_in + 1) && converted_spe_char(user_in[1]) == 0)
 			formated[i] = *(++user_in);
 		else if ((esc_index = is_esc_char(user_in)) >= 0)
 		{
