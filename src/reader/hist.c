@@ -45,7 +45,7 @@ static int move_down(t_dlist_wrap *wrap, t_sh *sh, int mode)
 
 static int move_up(t_dlist_wrap *wrap, t_sh *sh, int mode)
 {
-	t_dlist		*begin;
+	t_dlist     *begin;
 	t_dlist 	*list;
 	int			var;
 	int 		i;
