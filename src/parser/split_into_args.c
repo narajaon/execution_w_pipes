@@ -21,6 +21,7 @@ t_dlist			*parse_arg_redirs(char *input)
 	t_dlist		*arg;
 	t_dlist		*redirs;
 	t_dlist		*to_free;
+	int			stdio[3];
 
 	arg = NULL;
 	redirs = NULL;
@@ -28,9 +29,10 @@ t_dlist			*parse_arg_redirs(char *input)
 	while (*input != '\0')
 		input = get_next_arg(&arg, &redirs, input);
 	to_free = redirs;
+	init_stdio(stdio);
 	while (redirs != NULL)
 	{
-		if (do_redirs(redirs) == EXIT_FAILURE)
+		if (do_redirs(redirs, stdio) == EXIT_FAILURE)
 		{
 			free_hlist(&to_free);
 			return (NULL);

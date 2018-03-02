@@ -97,11 +97,14 @@ int			r_dleft(char *input) /*heredoc handler*/
 }
 
 
-int			do_redirs(t_dlist *redirs)
+int			do_redirs(t_dlist *redirs, int *stdio)
 {
 	int			id;
+	int			ret;
 
-	//hl_print_next(redirs, &hl_print_str);
+	(void)stdio;
 	id = redir_id(redirs->content);
-	return (g_redir[id].funct(redirs->content));
+	ret = g_redir[id].funct(redirs->content);
+	//dup_stdio(stdio);
+	return (ret);
 }

@@ -346,19 +346,21 @@ int						pipe_processes(t_dlist *curr, int *pfd);
 char 					*handle_heredoc(char *str, t_sh *sh);
 
 //redirections
-int					r_right(char *input);
-int					r_dright(char *input);
-int					r_left(char *input);
-int					r_dleft(char *input);
+int						r_right(char *input);
+int						r_dright(char *input);
+int						r_left(char *input);
+int						r_dleft(char *input);
 char					**extract_redir(t_dlist *curr, int *save);
 int						get_redir(char *av);
 int						redir_id(char *str);
 void					redir_fd(int old_fd, int new_fd);
 int						fd_to_file(char *file, int perm);
 int						check_src_fd(char *input, int default_fd);
-int						do_redirs(t_dlist *redirs);
+int						do_redirs(t_dlist *redirs, int *stdio);
 bool					next_is_fd(char *input, int src);
 int						save_builtin_stdio(int index, t_dlist *curr);
+void					init_stdio(int *stdio);
+void					dup_stdio(int *stdio);
 
 //parsing
 char					*is_redir(t_dlist **redir, char *input);

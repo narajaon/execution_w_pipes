@@ -27,7 +27,16 @@ bool		next_is_fd(char *input, int src)
 	return (TRUE);
 }
 
-void		heredoc_err_handler(char *input)
+void		init_stdio(int *stdio)
 {
-	(void)input;
+	stdio[0] = dup(STDIN_FILENO);
+	stdio[1] = dup(STDOUT_FILENO);
+	stdio[2] = dup(STDERR_FILENO);
+}
+
+void		dup_stdio(int *stdio)
+{
+	dup2(stdio[0], STDIN_FILENO);
+	dup2(stdio[1], STDOUT_FILENO);
+	dup2(stdio[2], STDERR_FILENO);
 }
