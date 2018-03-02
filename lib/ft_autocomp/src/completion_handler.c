@@ -37,7 +37,7 @@ t_dlist			*completion_res(int event, t_dlist *input, t_hist *hstruct)
 {
 	static t_dlist		*result;
 
-	if (event == 2)
+	if (event == IR_RESET)
 		return (result = NULL);
 	if (result == NULL)
 		result = completion_handler(event, input, hstruct->history_root, NULL);

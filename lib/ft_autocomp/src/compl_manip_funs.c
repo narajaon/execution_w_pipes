@@ -2,7 +2,7 @@
 
 void			*g_compl_manip[IR_SIZE] =
 {
-	&compl_prev, &compl_next, &substr_next, &substr_prev
+	&compl_prev, &compl_next, &substr_prev, &substr_next
 };
 
 t_dlist			*compl_next(char *input, int in_size, t_dlist *root,
@@ -62,17 +62,16 @@ t_dlist			*substr_next(char *input, int in_size, t_dlist *root,
 		data = root;
 	while (data)
 	{
-		if (ft_strstr(input, data->content) == 0)
+		if (ft_strstr(data->content, input) == 0)
 		{
 			if (root != NULL)
 				return (data);
-			if (to_cmp && ft_strcmp(to_cmp->content, data->content) != 0)
+			if (to_cmp && ft_strcmp(to_cmp->content, data->content) == 0)
 				return (data);
 		}
 		data = data->next;
 	}
 	return (to_cmp);
-
 }
 
 t_dlist			*substr_prev(char *input, int in_size, t_dlist *root,
@@ -86,11 +85,11 @@ t_dlist			*substr_prev(char *input, int in_size, t_dlist *root,
 		data = to_cmp->prev;
 	while (data)
 	{
-		if (ft_strstr(input, data->content) == 0)
+		if (ft_strstr(data->content, input) == 0)
 		{
 			if (root != NULL)
 				return (data);
-			if (to_cmp && ft_strcmp(to_cmp->content, data->content) != 0)
+			if (to_cmp && ft_strcmp(to_cmp->content, data->content) == 0)
 				return (data);
 		}
 		data = data->prev;

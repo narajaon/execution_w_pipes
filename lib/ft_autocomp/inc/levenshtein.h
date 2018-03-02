@@ -19,8 +19,9 @@ typedef enum			e_ir
 {
 	IR_DOWN,
 	IR_UP,
-	IR_RIGHT,
 	IR_LEFT,
+	IR_RIGHT,
+	IR_RESET,
 	IR_SIZE
 }						t_ir;
 

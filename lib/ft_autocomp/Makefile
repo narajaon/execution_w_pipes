@@ -39,7 +39,8 @@ O_FILES := \
 	ft_hlstnew.o\
 	hl_dup.o\
 	hl_utils.o\
-	print_hlist.o
+	print_hlist.o \
+	compl_manip_funs.o
 
 C_FILES := \
 	add_branch_to_input.c\
@@ -55,7 +56,8 @@ C_FILES := \
 	tree_to_dlist.c\
 	free_str.c\
 	free_autocmp.c\
-	completion_handler.c
+	completion_handler.c \
+	compl_manip_funs.c
 
 L_FILES := \
 	ft_hlstadd.c\
