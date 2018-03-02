@@ -3,13 +3,22 @@
 char			*skip_cmd_name(t_dlist **arg, char *input)
 {
 	int			i;
+	char		*sub;
 
 	i = 0;
 	while (*input != '\0' && ft_isspace(*input) == TRUE)
 		input++;
-	while (input[i] != '\0' && ft_isspace(input[i]) == FALSE)
-		i++;
-	ft_hlstadd_back_void(arg, ft_strsub(input, 0, i));;
+	if (*input == '\"')
+		i += skip_quotes(input, '\"') + 1;
+	else if (*input == '\'')
+		i += skip_quotes(input, '\"') + 1;
+	else
+	{
+		while (input[i] != '\0' && ft_isspace(input[i]) == FALSE)
+			i++;
+	}
+	sub = ft_strsub(input, 0, i);
+	ft_hlstadd_back_void(arg, sub);
 	return (&input[i]);
 }
 

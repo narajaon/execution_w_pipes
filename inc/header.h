@@ -22,7 +22,7 @@
 # define DICI dprintf(g_fd, "ICI\n");
 # define DLA dprintf(g_fd, "LA\n");
 # define DSTR(x) dprintf(g_fd, #x " = %s\n", x);
-# define HEREFILE ".myherefile"
+# define HEREFILE "/Users/narajaon/.myherefile"
 
 extern char					**environ;
 
@@ -356,7 +356,7 @@ int						redir_id(char *str);
 void					redir_fd(int old_fd, int new_fd);
 int						fd_to_file(char *file, int perm);
 int						check_src_fd(char *input, int default_fd);
-int						do_redirs(t_dlist *redirs, int *stdio);
+int						do_redirs(t_dlist *redirs);
 bool					next_is_fd(char *input, int src);
 int						save_builtin_stdio(int index, t_dlist *curr);
 void					init_stdio(int *stdio);

@@ -3,7 +3,7 @@
 int			exec_builtin(int index, t_dlist *curr, int *save)
 {
 	char	**av;
-	char		**to_free;
+	char	**to_free;
 	int		ret;
 
 	if (!(av = extract_redir(curr, save)))
@@ -21,7 +21,7 @@ int			save_builtin_stdio(int index, t_dlist *curr)
 	int		saved_fd[3];
 
 	init_stdio(saved_fd);
-	ret = exec_builtin(index, curr, NULL);
+	ret = exec_builtin(index, curr, saved_fd);
 	dup_stdio(saved_fd);
 	close(saved_fd[0]);
 	close(saved_fd[1]);
