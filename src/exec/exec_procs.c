@@ -6,6 +6,11 @@ void			exec_procs(t_dlist *pipes)
 	int			pfd[2];
 
 	status = 0;
+	if (pipes == NULL)
+	{
+		ft_putstr_fd("mysh: invalid syntax\n", STDERR_FILENO);
+		return ;
+	}
 	pipe(pfd);
 	status = pipe_processes(pipes, pfd);
 	close_fd(pfd);
@@ -59,7 +64,12 @@ int				exec_cmd(t_dlist *input)
 	if (!(buffer = (char *)malloc(sizeof(char) * (buff_size  + 1))))
 		return (EXIT_FAILURE);
 	dlist_to_str(buffer, input);
-	process.semicol = init_proc_list(buffer, ';');
+	if ((process.semicol = init_proc_list(buffer, ';')) == NULL)
+	{
+		free_str(&buffer);
+		ft_putstr_fd("mysh: invalid syntax\n", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
 	process.pipes = NULL;
 	iter_thru_procs(&process);
 	free_hlist(&process.semicol);
