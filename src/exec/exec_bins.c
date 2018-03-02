@@ -8,13 +8,15 @@ int				exec_prog(t_dlist *curr, int *save)
 	char		*path;
 
 	if (!(split = extract_redir(curr, save)))
-		exit_error("bad redirection\n", EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	split = fmt_input_quote(split);
 	path_dirs = ft_getenv(g_sh->env.env, "PATH");
 	if (is_binary_file(split[0]) == TRUE)
 	{
 		if (is_valid_path(split[0]) == TRUE)
 			execve(split[0], split, g_sh->env.env);
+		ft_putstr_fd(split[0], STDERR_FILENO);
+		exit_error(": permission denied\n", EXIT_FAILURE);
 	}
 	else if (path_dirs != NULL)
 	{

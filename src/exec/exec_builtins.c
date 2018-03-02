@@ -21,7 +21,7 @@ int			save_builtin_stdio(int index, t_dlist *curr)
 	int		saved_fd[3];
 
 	init_stdio(saved_fd);
-	ret = exec_builtin(index, curr, saved_fd);
+	ret = exec_builtin(index, curr, g_sh->stdio);
 	dup_stdio(saved_fd);
 	close(saved_fd[0]);
 	close(saved_fd[1]);

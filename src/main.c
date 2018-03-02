@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 11:46:12 by vbastion          #+#    #+#             */
-/*   Updated: 2018/03/02 14:41:11 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/02 15:38:20 by narajaon         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "../inc/header.h"
@@ -44,9 +44,7 @@ int				ft_init(t_sh *sh, t_hist *hist)
 	ft_terms_init(&(sh->term));
 	ft_terms_toggle(&(sh->term), 1);
 	ft_setupenv(&sh->env);
-	sh->stdio[0] = dup(STDIN_FILENO);
-	sh->stdio[1] = dup(STDOUT_FILENO);
-	sh->stdio[2] = dup(STDERR_FILENO);
+	init_stdio(sh->stdio);
 	return (1);
 }
 
