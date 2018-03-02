@@ -10,7 +10,8 @@ t_dlist		*history_to_hlst(int fd)
 	str = NULL;
 	new = NULL;
 	history = NULL;
-	if ((fd = open(HISTORY, O_RDONLY | O_CREAT)) < 0)
+	if ((fd = open(HISTORY, O_RDWR | O_CREAT,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
 	{
 		ft_putstr("[histfile] bad fd\n");
 		exit(-1);
