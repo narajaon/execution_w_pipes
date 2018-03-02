@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/18 11:39:44 by narajaon          #+#    #+#             */
-/*   Updated: 2018/03/02 13:54:44 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/02 14:02:18 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define LA			ft_printf("LA\n");
 # define SEP		ft_printf("\n-----------------------------------------\n");
 
-# define HISTORY "/Users/narajaon/.mysh_history"
+# define HISTORY "/tmp/.mysh_history"
 # define STDI 0
 # define STDO 1
 # define STDE 2

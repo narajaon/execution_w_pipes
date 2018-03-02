@@ -34,6 +34,8 @@ char			*ft_getenv(char **env, char *var)
 	int			var_len;
 
 	value = NULL;
+	if (env == NULL)
+		return (NULL);
 	var_len = ft_strlen(var);
 	while (*env)
 	{

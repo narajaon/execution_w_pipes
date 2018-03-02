@@ -11,13 +11,11 @@ void		add_to_path(char *path, char *file_name)
 
 void		history_init(t_hist *hstruct)
 {
-	static char			hist_path[PATH_MAX + 1];
-
-	hstruct->hist_path = getcwd(hist_path, PATH_MAX + 1);
-	add_to_path(hstruct->hist_path, HISTORY);
+	ft_strcpy(hstruct->hist_path, HISTORY);
 	hstruct->history_root = history_to_list(hstruct->history_fd);
 	hstruct->cur_branch = NULL;
 	hstruct->branch_root = NULL;
+	
 }
 
 void		remove_zero(t_dlist **dlist)

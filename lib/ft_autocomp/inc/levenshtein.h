@@ -35,7 +35,7 @@ typedef struct			s_hist
 	t_dlist				*cur_branch;
 	t_dlist				*branch_root;
 	t_dlist				*history_root;
-	char				*hist_path;
+	char				hist_path[PATH_MAX + 1];
 	int					history_fd;
 }						t_hist;
 

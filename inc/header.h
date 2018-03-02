@@ -22,7 +22,7 @@
 # define DICI dprintf(g_fd, "ICI\n");
 # define DLA dprintf(g_fd, "LA\n");
 # define DSTR(x) dprintf(g_fd, #x " = %s\n", x);
-# define HEREFILE "/Users/narajaon/.myherefile"
+# define HEREFILE "/tmp/.myherefile"
 
 extern char					**environ;
 
