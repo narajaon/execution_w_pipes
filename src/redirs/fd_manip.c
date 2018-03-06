@@ -25,12 +25,19 @@ int				redir_id(char *str)
 int				fd_to_file(char *file, int perm)
 {
 	int			new_fd;
+	char		**formated;
+	char		**tmp;
 
-	if ((new_fd = open(file, perm, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
+	tmp = ft_tab_dup((char *[2]){file, NULL});
+	formated = fmt_input_quote(tmp);
+	if ((new_fd = open(*formated,
+					perm, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
 	{
 		ft_dprintf(STDERR_FILENO, "mysh: could not open file %s\n", file);
-		return (-1);
+		new_fd = -1;
 	}
+	free_tab_str(&formated);
+	free_tab_str(&tmp);
 	return (new_fd);
 }
 
