@@ -56,6 +56,7 @@ int				dlist_to_str(char *buff, t_dlist *input)
 int				exec_cmd(t_dlist *input)
 {
 	char		*buffer;
+	char		*to_free;
 	int			buff_size;
 	t_proc		process;
 
@@ -64,15 +65,17 @@ int				exec_cmd(t_dlist *input)
 	if (!(buffer = (char *)malloc(sizeof(char) * (buff_size  + 1))))
 		return (EXIT_FAILURE);
 	dlist_to_str(buffer, input);
+	to_free = buffer;
+	while (*buffer && ft_isspace(*buffer) == TRUE)
+		buffer++;
 	if ((process.semicol = init_proc_list(buffer, ';')) == NULL)
 	{
-		free_str(&buffer);
-		ft_putstr_fd("mysh: invalid syntax\n", STDERR_FILENO);
+		free_str(&to_free);
 		return (EXIT_FAILURE);
 	}
 	process.pipes = NULL;
 	iter_thru_procs(&process);
 	free_hlist(&process.semicol);
-	free_str(&buffer);
+	free_str(&to_free);
 	return (EXIT_SUCCESS);
 }
