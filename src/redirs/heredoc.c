@@ -26,7 +26,7 @@ char 		*heredoc(t_sh *sh)
 	char 			*ref;
 	char 			buf[3];
 
-	sh->ret = Q_HEREDOC;
+	g_sh->ret = Q_HEREDOC;
 	ft_bzero(&wrap, sizeof(t_dlist_wrap));
 	ioctl(1, TIOCGWINSZ, &(sh->term.win));
 	wrap.col = sh->term.win.ws_col;
@@ -70,7 +70,7 @@ char 	*handle_heredoc(char *str, t_sh *sh)
 			line2 = NULL;
 		}
 	}
-	sh->ret = Q_OK;
+	g_sh->ret = Q_OK;
 	g_test = 0;
 	ft_strdel(&ref);
 	return (line);

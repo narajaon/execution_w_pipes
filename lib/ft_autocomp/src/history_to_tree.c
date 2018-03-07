@@ -67,7 +67,6 @@ void		update_history(t_hist *hist, t_dlist *new_cmd)
 	{
 		exit(printf("[HIST] Bad file descriptor\n"));
 	}
-	ft_dprintf(hist->history_fd, "%s\n", hist->history_root->content);
 	close(hist->history_fd);
 }
 

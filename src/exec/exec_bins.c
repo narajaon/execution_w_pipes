@@ -26,7 +26,7 @@ int				exec_prog(t_dlist *curr, int *save)
 		execve(path, split, g_sh->env.env);
 	}
 	ft_putstr_fd(split[0], STDERR_FILENO);
-	exit_error(": command not found\n", EXIT_FAILURE);;
+	exit_error(": command not found\n", EXIT_FAILURE);
 	return (-1);
 }
 

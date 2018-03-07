@@ -59,7 +59,6 @@ int			ft_read(t_sh *sh)
 		return (0);
 	sh->wrap = wrap;
 	wrap->yanked = sh->yanked;
-	init_cap();
 	while (1)
 	{
 		ioctl(1, TIOCGWINSZ, &(sh->term.win));
