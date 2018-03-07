@@ -8,30 +8,26 @@ int				exec_prog(t_dlist *curr, int *save)
 	char		*path;
 
 	if (!(split = extract_redir(curr, save)))
-		exit_error("bad redirection\n", EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	split = fmt_input_quote(split);
-	//pas opti, devrait se faire a l'initialisation
-	if (!(path_dirs = ft_getenv(g_sh->env.env, "PATH")))
-		exit_error("PATH not set\n", EXIT_FAILURE);
-	if (!(bin_paths = ft_strsplit(path_dirs, ':')))
-		exit_error("PATH not valid\n", EXIT_FAILURE);
-	if (check_bin(sh->hash, split[0]) == NULL)
+	path_dirs = ft_getenv(g_sh->env.env, "PATH");
+	if (is_binary_file(split[0]) == TRUE)
 	{
+		if (is_valid_path(split[0]) == TRUE)
+			execve(split[0], split, g_sh->env.env);
+		ft_putstr_fd(split[0], STDERR_FILENO);
+		exit_error(": permission denied\n", EXIT_FAILURE);
+	}
+	else if (path_dirs != NULL)
+	{
+		if (!(bin_paths = ft_strsplit(path_dirs, ':')))
+			exit_error("PATH not valid\n", EXIT_FAILURE);
 		path = check_bin(bin_paths, split[0]);
-		//add_in_ash(path, split, sh->hash)
+		execve(path, split, g_sh->env.env);
 	}
-	if (path == NULL)
-	{
-		if ((is_binary_file(split[0]) == TRUE) &&
-				(is_valid_path(split[0]) == TRUE))
-			path = split[0];
-		else
-		{
-			ft_putstr_fd(split[0], STDERR_FILENO);
-			exit_error(": command not found\n", EXIT_FAILURE);;
-		}
-	}
-	return (execve(path, split, g_sh->env.env));
+	ft_putstr_fd(split[0], STDERR_FILENO);
+	exit_error(": command not found\n", EXIT_FAILURE);;
+	return (-1);
 }
 
 int				exec_in_child(t_dlist *curr, int *cpfd, int *pfd, int cmd_id)

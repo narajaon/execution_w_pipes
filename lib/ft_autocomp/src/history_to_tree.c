@@ -2,7 +2,8 @@
 
 void		add_to_history(char *str, int *fd)
 {
-	if ((*fd = open(HISTORY, O_RDWR | O_APPEND | O_CREAT)) < 0)
+	if ((*fd = open(HISTORY, O_RDWR | O_APPEND | O_CREAT,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
 		exit(ft_printf("[open] Bad file descriptor\n"));
 	ft_dprintf(*fd, "%s\n", str);
 	close(*fd);
@@ -18,7 +19,8 @@ t_dlist		*history_to_tree(int fd)
 	str = NULL;
 	new = NULL;
 	history = NULL;
-	if ((fd = open(HISTORY, O_RDONLY | O_CREAT)) < 0)
+	if ((fd = open(HISTORY, O_RDWR | O_CREAT,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
 		exit(printf("[HIST] Bad file descriptor\n"));
 	while ((ret = get_next_line(fd, &str)) > 0)
 	{
@@ -60,12 +62,12 @@ void		update_history(t_hist *hist, t_dlist *new_cmd)
 		return ;
 	}
 	ft_hlstadd_void(&hist->history_root, str);
-	if ((hist->history_fd = open(hist->hist_path,
-					O_RDWR | O_APPEND | O_CREAT)) < 0)
+	if ((hist->history_fd = open(HISTORY, O_RDWR | O_APPEND | O_CREAT,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
 	{
 		exit(printf("[HIST] Bad file descriptor\n"));
 	}
-	dprintf(hist->history_fd, "%s\n", hist->history_root->content);
+	ft_dprintf(hist->history_fd, "%s\n", hist->history_root->content);
 	close(hist->history_fd);
 }
 
@@ -79,7 +81,8 @@ t_dlist		*history_to_list(int fd)
 	str = NULL;
 	new = NULL;
 	history = NULL;
-	if ((fd = open(HISTORY, O_RDONLY | O_CREAT)) < 0)
+	if ((fd = open(HISTORY, O_RDWR | O_CREAT,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
 		exit(printf("[HIST] Bad file descriptor\n"));
 	while ((ret = get_next_line(fd, &str)) > 0)
 		ft_hlstadd_void(&history, str);

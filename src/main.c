@@ -50,6 +50,7 @@ int				ft_init(t_sh *sh, t_hist *hist)
 	ft_setupenv(&sh->env);
 	init_cap();
 	get_sh_lvl(sh);
+	init_stdio(sh->stdio);
 	return (1);
 }
 

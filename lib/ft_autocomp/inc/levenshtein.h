@@ -19,8 +19,9 @@ typedef enum			e_ir
 {
 	IR_DOWN,
 	IR_UP,
+	IR_LEFT,
+	IR_RIGHT,
 	IR_RESET,
-	IR_CLEAR,
 	IR_SIZE
 }						t_ir;
 
@@ -37,7 +38,7 @@ typedef struct			s_hist
 	t_dlist 			*last;
 	t_dlist				*branch_root;
 	t_dlist				*history_root;
-	char				*hist_path;
+	char				hist_path[PATH_MAX + 1];
 	int					history_fd;
 }						t_hist;
 
@@ -47,11 +48,22 @@ typedef struct			s_lev
 	t_dlist				*child;
 }						t_lev;
 
+void					*g_compl_manip[IR_SIZE];
+
 int						input_to_buff(char *buff, t_dlist *input);
 int						hlst_size(t_dlist *list);
 void					free_str(char **str);
 void					free_hlist(t_dlist **list);
 void					free_hlist_not_content(t_dlist **list);
+
+t_dlist					*compl_next(char *input, int in_size, t_dlist *root,
+		t_dlist *to_cmp);
+t_dlist					*compl_prev(char *input, int in_size, t_dlist *root,
+		t_dlist *to_cmp);
+t_dlist					*substr_next(char *input, int in_size, t_dlist *root,
+		t_dlist *to_cmp);
+t_dlist					*substr_prev(char *input, int in_size, t_dlist *root,
+		t_dlist *to_cmp);
 
 t_dlist					*history_up(t_dlist *word, t_dlist *cur_branch,
 		t_dlist *history);

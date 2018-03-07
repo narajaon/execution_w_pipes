@@ -34,14 +34,6 @@ int			reset_cursor(t_dlist_wrap *wrap, t_sh *sh)
 	return (wrap->size - wrap->pos);
 }
 
-
-static void	ft_print_color(t_dlist *list)
-{
-	
-
-
-}
-
 int			ft_print_list(t_dlist_wrap *wrap, t_sh *sh)
 {
 	t_chr	*schar;
@@ -52,11 +44,6 @@ int			ft_print_list(t_dlist_wrap *wrap, t_sh *sh)
 		list = wrap->head;
 	else
 		list = wrap->tmp->next;
-	if (sh->col == 1)
-	{
-		ft_print_color(list);
-		return (0);
-	}
 	while (list != NULL)
 	{
 		schar = list->content;

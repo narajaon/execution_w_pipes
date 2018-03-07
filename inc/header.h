@@ -23,8 +23,7 @@
 # define DICI dprintf(g_fd, "ICI\n");
 # define DLA dprintf(g_fd, "LA\n");
 # define DSTR(x) dprintf(g_fd, #x " = %s\n", x);
-
-# define HEREFILE ".myherefile"
+# define HEREFILE "/tmp/.myherefile"
 
 extern char					**environ;
 
@@ -222,7 +221,6 @@ typedef struct			s_sh
 	int					ret;
 	int 				test;
 	int 				hist_multi;
-	int 				col;
 }						t_sh;
 
 //init
@@ -339,10 +337,10 @@ char					*handle_heredoc(char *str, t_sh *sh);
 void					exec_procs(t_dlist *pipes);
 
 //redirections
-int					r_right(char *input);
-int					r_dright(char *input);
-int					r_left(char *input);
-int					r_dleft(char *input);
+int						r_right(char *input);
+int						r_dright(char *input);
+int						r_left(char *input);
+int						r_dleft(char *input);
 char					**extract_redir(t_dlist *curr, int *save);
 int						get_redir(char *av);
 int						redir_id(char *str);
@@ -352,6 +350,8 @@ int						check_src_fd(char *input, int default_fd);
 int						do_redirs(t_dlist *redirs);
 bool					next_is_fd(char *input, int src);
 int						save_builtin_stdio(int index, t_dlist *curr);
+void					init_stdio(int *stdio);
+void					dup_stdio(int *stdio);
 
 //parsing
 char					*is_redir(t_dlist **redir, char *input);

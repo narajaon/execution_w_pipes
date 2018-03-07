@@ -43,31 +43,38 @@ char		*get_str_in_quotes(char *str)
 	return (content);
 }
 
+void		iter_tab_to_fmt(char **av, char **av_tmp)
+{
+	char		*formated;
+
+	if (**av == '\"')
+	{
+		formated = ft_strdup(*av);
+		*av_tmp = get_str_in_dquotes(formated);
+		fmt_input_spec_chr(av_tmp);
+		free_str(&formated);
+	}
+	else if (**av == '\'')
+		*av_tmp = get_str_in_quotes(*av);
+	else
+	{
+		formated = ft_strdup(*av);
+		fmt_input_spec_chr(&formated);
+		*av_tmp = formated;
+	}
+}
+
 char		**fmt_input_quote(char **av)
 {
 	char	**av_tmp;
 	char	**stock_av;
-	char	*formated;
 
-	av_tmp = (char **)malloc(sizeof(char *) * (ft_tablen(av) + 1));
+	if (!(av_tmp = (char **)malloc(sizeof(char *) * (ft_tablen(av) + 1))))
+		return (NULL);
 	stock_av = av_tmp;
 	while (*av != NULL)
 	{
-		if (**av == '\"')
-		{
-			formated = ft_strdup(*av);
-			*av_tmp = get_str_in_dquotes(formated);
-			fmt_input_spec_chr(av_tmp);
-			free_str(&formated);
-		}
-		else if (**av == '\'')
-			*av_tmp = get_str_in_quotes(*av);
-		else
-		{
-			formated = ft_strdup(*av);
-			fmt_input_spec_chr(&formated);
-			*av_tmp = formated;
-		}
+		iter_tab_to_fmt(av, av_tmp);
 		av++;
 		av_tmp++;
 	}

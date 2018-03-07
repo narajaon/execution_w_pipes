@@ -74,6 +74,7 @@ int			r_dleft(char *input) /*heredoc handler*/
 	int			output;
 
 	src = check_src_fd(input, STDIN_FILENO);
+	close(STDIN_FILENO);
 	while (*input && ft_isdigit(*input) == TRUE)
 		input++;
 	input += 2; /*skip character '<<'*/
@@ -85,14 +86,13 @@ int			r_dleft(char *input) /*heredoc handler*/
 	str = handle_heredoc(input, g_sh);
 	dup2(output, STDOUT_FILENO);
 	close(output);
-	if ((dst = fd_to_file(HEREFILE, O_RDWR | O_TRUNC)) < 0)
+	if ((dst = fd_to_file(HEREFILE, O_WRONLY | O_TRUNC | O_CREAT)) < 0)
 		return (EXIT_FAILURE);
 	ft_putendl_fd(&str[1], dst); /*skip useless '\n' in the begining*/
 	close(dst);
 	if ((dst = fd_to_file(HEREFILE, O_RDONLY)) < 0)
 		return (EXIT_FAILURE);
 	redir_fd(dst, src);
-	close(dst);
 	return (EXIT_SUCCESS);
 }
 
