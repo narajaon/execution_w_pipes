@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 03:40:39 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:40:01 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/07 19:13:41 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			ft_init_term(void)
 	int		success;
 	char	*term_type;
 
-	if ((term_type = ft_getenv(environ, "TERM")) == NULL)
+	if ((term_type = ft_getenv(g_environ, "TERM")) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO,
 			"Specify a terminal type with 'setenv TERM <yourtype>\n");

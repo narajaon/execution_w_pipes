@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 03:43:21 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:39:56 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/07 19:13:27 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static char	**envdup(void)
 	int		size;
 	int		i;
 
-	size = ft_tablen(environ);
+	size = ft_tablen(g_environ);
 	i = 0;
 	if (!(env = (char **)ft_memalloc(sizeof(char *) * (size + 1))))
 		return (NULL);
 	while (i < size)
 	{
-		env[i] = ft_strdup(environ[i]);
+		env[i] = ft_strdup(g_environ[i]);
 		i++;
 	}
 	return (env);
