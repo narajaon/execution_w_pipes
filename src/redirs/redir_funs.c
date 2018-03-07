@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:46:58 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:59:06 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/07 18:43:59 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int			r_dleft(char *input)
 	while (*input && ft_isspace(*input) == TRUE)
 		input++;
 	output = dup(STDOUT_FILENO);
-	close(STDOUT_FILENO);
 	dup2(g_sh->stdio[STDOUT_FILENO], STDOUT_FILENO);
 	str = handle_heredoc(input, g_sh);
 	dup2(output, STDOUT_FILENO);

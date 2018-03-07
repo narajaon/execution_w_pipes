@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:40:10 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/07 18:43:09 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int				exec_prog(t_dlist *curr, int *save)
 		execve(path, split, g_sh->env.env);
 	}
 	ft_putstr_fd(split[0], STDERR_FILENO);
-	exit_error(": command not found\n", EXIT_FAILURE);
-	return (-1);
+	return (exit_error(": command not found\n", EXIT_FAILURE));
 }
 
 int				exec_in_child(t_dlist *curr, int *cpfd, int *pfd, int cmd_id)

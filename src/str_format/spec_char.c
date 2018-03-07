@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 18:00:07 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/07 19:02:11 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ char		*replace_spec_char(char *user_in, int size)
 		else if ((esc_index = is_esc_char(user_in)) >= 0)
 		{
 			formated[i] = g_spec_char[esc_index].asc;
-			user_in++;
-			if (*user_in == '\0')
+			if (*(++user_in) == '\0')
 				break ;
 		}
 		else

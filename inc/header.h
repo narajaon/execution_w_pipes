@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:53 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:43:01 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/07 18:42:02 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,7 @@ char					*ft_getenv(char **env, char *var);
 //signal
 void					ft_getsignal(void);
 void					ft_signal(int sig);
-void					exit_error(char *erro_msg, int exit_id);
+int						exit_error(char *erro_msg, int exit_id);
 
 bool					jump_loop(void);
 void					sig_intercepter(void);
