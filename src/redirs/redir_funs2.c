@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redir_funs2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/07 15:46:58 by awyart            #+#    #+#             */
+/*   Updated: 2018/03/07 17:55:19 by awyart           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/header.h"
 
-void			redir_fd(int old_fd, int new_fd)
+void		redir_fd(int old_fd, int new_fd)
 {
 	dup2(old_fd, new_fd);
 }
@@ -12,7 +24,7 @@ bool		next_is_fd(char *input, int src)
 	dst = 0;
 	if (*input != '&')
 		return (FALSE);
-	input++; /*skip '&'*/
+	input++;
 	if (*input == '-')
 		close(src);
 	else

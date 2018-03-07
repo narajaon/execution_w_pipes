@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   history_handler.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
+/*   Updated: 2018/03/07 17:46:37 by awyart           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/autocompletion.h"
 
 const void		*g_hist_manip[IR_SIZE] = {&history_down, &history_up, 0, 0};
@@ -15,7 +27,6 @@ void		history_init(t_hist *hstruct)
 	hstruct->history_root = history_to_list(hstruct->history_fd);
 	hstruct->cur_branch = NULL;
 	hstruct->branch_root = NULL;
-	
 }
 
 void		remove_zero(t_dlist **dlist)

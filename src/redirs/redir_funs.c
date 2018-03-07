@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redir_funs.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/07 15:46:58 by awyart            #+#    #+#             */
+/*   Updated: 2018/03/07 17:59:06 by awyart           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/header.h"
 
 const t_red		g_redir[R_NB + 1] =
@@ -17,7 +29,7 @@ int			r_right(char *input)
 	src = check_src_fd(input, STDOUT_FILENO);
 	while (*input && ft_isdigit(*input) == TRUE)
 		input++;
-	input++; /*skip character '>'*/
+	input++;
 	if (next_is_fd(input, src) == TRUE)
 		return (EXIT_SUCCESS);
 	while (*input && ft_isspace(*input) == TRUE)
@@ -36,7 +48,7 @@ int			r_dright(char *input)
 	src = check_src_fd(input, STDOUT_FILENO);
 	while (*input && ft_isdigit(*input) == TRUE)
 		input++;
-	input += 2; /*skip character '>>'*/
+	input += 2;
 	if (next_is_fd(input, src) == TRUE)
 		return (EXIT_SUCCESS);
 	while (*input && ft_isspace(*input) == TRUE)
@@ -55,7 +67,7 @@ int			r_left(char *input)
 	src = check_src_fd(input, STDIN_FILENO);
 	while (*input && ft_isdigit(*input) == TRUE)
 		input++;
-	input++; /*skip character '<'*/
+	input++;
 	if (next_is_fd(input, src) == TRUE)
 		return (EXIT_SUCCESS);
 	while (*input && ft_isspace(*input) == TRUE)
@@ -66,7 +78,7 @@ int			r_left(char *input)
 	return (EXIT_SUCCESS);
 }
 
-int			r_dleft(char *input) /*heredoc handler*/
+int			r_dleft(char *input)
 {
 	int			src;
 	int			dst;
@@ -77,7 +89,7 @@ int			r_dleft(char *input) /*heredoc handler*/
 	close(STDIN_FILENO);
 	while (*input && ft_isdigit(*input) == TRUE)
 		input++;
-	input += 2; /*skip character '<<'*/
+	input += 2;
 	while (*input && ft_isspace(*input) == TRUE)
 		input++;
 	output = dup(STDOUT_FILENO);
@@ -88,7 +100,7 @@ int			r_dleft(char *input) /*heredoc handler*/
 	close(output);
 	if ((dst = fd_to_file(HEREFILE, O_WRONLY | O_TRUNC | O_CREAT)) < 0)
 		return (EXIT_FAILURE);
-	ft_putendl_fd(&str[1], dst); /*skip useless '\n' in the begining*/
+	ft_putendl_fd(&str[1], dst);
 	close(dst);
 	if ((dst = fd_to_file(HEREFILE, O_RDONLY)) < 0)
 		return (EXIT_FAILURE);
@@ -96,12 +108,10 @@ int			r_dleft(char *input) /*heredoc handler*/
 	return (EXIT_SUCCESS);
 }
 
-
 int			do_redirs(t_dlist *redirs)
 {
 	int			id;
 
-	//hl_print_next(redirs, &hl_print_str);
 	id = redir_id(redirs->content);
 	return (g_redir[id].funct(redirs->content));
 }

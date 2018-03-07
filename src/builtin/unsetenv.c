@@ -6,13 +6,13 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 07:46:17 by awyart            #+#    #+#             */
-/*   Updated: 2018/02/21 16:32:16 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/07 17:47:36 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-static int handle_exception(char *var)
+static int	handle_exception(char *var)
 {
 	if (ft_strncmp(var, "SHLVL\0", 6) == 0)
 	{
@@ -26,7 +26,6 @@ int			ft_unsetenv(t_sh *sh, char **var)
 {
 	int			var_len;
 
-	
 	if (var[1] == NULL)
 		return (1);
 	if (var[1] != NULL && var[2] != NULL)

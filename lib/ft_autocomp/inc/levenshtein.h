@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   levenshtein.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
+/*   Updated: 2018/03/07 17:46:21 by awyart           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LEVENSHTEIN_H
 # define LEVENSHTEIN_H
 
@@ -29,13 +41,12 @@ typedef struct			s_chr
 {
 	char				c;
 	char				is_escaped;
-	int 				color;
 }						t_chr;
 
 typedef struct			s_hist
 {
 	t_dlist				*cur_branch;
-	t_dlist 			*last;
+	t_dlist				*last;
 	t_dlist				*branch_root;
 	t_dlist				*history_root;
 	char				hist_path[PATH_MAX + 1];

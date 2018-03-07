@@ -5,8 +5,9 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/15 11:46:12 by vbastion          #+#    #+#             */
-/*   Updated: 2018/02/21 18:24:22 by narajaon         ###   ########.fr       */
+/*   Created: 2018/03/07 17:38:28 by awyart            #+#    #+#             */
+/*   Updated: 2018/03/07 18:00:43 by awyart           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
@@ -16,8 +17,6 @@ void			flush_sh(t_sh *sh)
 	free_hlist(&sh->list);
 	free_hlist(&sh->hist->cur_branch);
 	free(sh->wrap);
-	//free_autocmp_res(&sh->hist->branch_root);
-	//free yanked list in list_wrap
 }
 
 void			ft_start_process(t_sh *sh)

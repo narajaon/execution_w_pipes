@@ -1,9 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   refresh_line.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
+/*   Updated: 2018/03/07 17:54:30 by awyart           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
-static void	nextline(void)
+static void	nextline(int mode)
 {
-	ft_terms_toggle_key("cr");
-	ft_terms_toggle_key("do");
+	if (mode == 0)
+	{
+		ft_terms_toggle_key("cr");
+		ft_terms_toggle_key("do");
+	}
+	if (mode == 1)
+	{
+		ft_terms_toggle_key("cr");
+		ft_terms_toggle_key("cd");
+		ft_terms_toggle_key("al");
+		ft_terms_toggle_key("up");
+	}
+	if (mode == 2)
+	{
+		ft_terms_toggle_key("cr");
+		ft_terms_toggle_key("cd");
+		ft_terms_toggle_key("al");
+	}
 }
 
 int			reset_cursor(t_dlist_wrap *wrap, t_sh *sh)
@@ -16,7 +44,7 @@ int			reset_cursor(t_dlist_wrap *wrap, t_sh *sh)
 	i = wrap->size + len_prompt(sh);
 	col = sh->term.win.ws_col;
 	if ((wrap->size + len_prompt(sh)) % col == 0)
-		nextline();
+		nextline(0);
 	while (--offset > 0)
 	{
 		col = sh->term.win.ws_col;
@@ -82,14 +110,9 @@ int			refresh_line(t_dlist_wrap *wrap, t_sh *sh)
 	{
 		if (i <= 0)
 			break ;
-		ft_terms_toggle_key("cr");
-		ft_terms_toggle_key("cd");
-		ft_terms_toggle_key("al");
-		ft_terms_toggle_key("up");
+		nextline(1);
 	}
-	ft_terms_toggle_key("cr");
-	ft_terms_toggle_key("cd");
-	ft_terms_toggle_key("al");
+	nextline(2);
 	ft_print_list(wrap, sh);
 	pos = wrap->pos;
 	sh->hist_multi = 0;

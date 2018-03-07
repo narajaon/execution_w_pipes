@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shlvl.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
+/*   Updated: 2018/03/07 17:48:19 by awyart           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 static char	*ft_strjoinc(char *s1, char s2)
@@ -17,12 +29,12 @@ static char	*ft_strjoinc(char *s1, char s2)
 	return (str);
 }
 
-int 	printlvl(void)
+int			printlvl(void)
 {
 	return (g_lvl);
 }
 
-int 	get_sh_lvl(t_sh *sh)
+int			get_sh_lvl(t_sh *sh)
 {
 	int		i;
 	char	*tmp;

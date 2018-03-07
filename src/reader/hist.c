@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hist.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
+/*   Updated: 2018/03/07 17:52:05 by awyart           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 static void		printlist(t_dlist *list)
@@ -12,7 +24,7 @@ static void		printlist(t_dlist *list)
 	}
 }
 
-int			move_hist(t_dlist_wrap *wrap, t_sh *sh, int mode, int action)
+int				move_hist(t_dlist_wrap *wrap, t_sh *sh, int mode, int action)
 {
 	t_dlist		*begin;
 	t_dlist		*list;

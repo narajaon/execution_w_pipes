@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/26 15:42:20 by awyart            #+#    #+#             */
+/*   Updated: 2018/03/07 17:50:36 by awyart           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/header.h"
 
 char		*get_cmd_name(char *input)
@@ -35,7 +47,7 @@ char		*check_bin(char **paths, char *input)
 	if (paths == NULL)
 		return (NULL);
 	path = input;
-	if ((ft_strcmp(path, "..") == 0) ||(ft_strcmp(path, ".") == 0))
+	if ((ft_strcmp(path, "..") == 0) || (ft_strcmp(path, ".") == 0))
 		return (NULL);
 	while (*paths != NULL)
 	{

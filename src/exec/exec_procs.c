@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_procs.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
+/*   Updated: 2018/03/07 17:49:09 by awyart           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/header.h"
 
 void			exec_procs(t_dlist *pipes)
 {
 	int			status;
 	int			pfd[2];
-	int 		ret;
+	int			ret;
 
 	status = 0;
 	if (pipes == NULL)
@@ -66,7 +78,7 @@ int				exec_cmd(t_dlist *input)
 
 	g_cur_pid = 0;
 	buff_size = hlst_size(input);
-	if (!(buffer = (char *)malloc(sizeof(char) * (buff_size  + 1))))
+	if (!(buffer = (char *)malloc(sizeof(char) * (buff_size + 1))))
 		return (EXIT_FAILURE);
 	dlist_to_str(buffer, input);
 	to_free = buffer;
