@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:36:25 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/15 13:02:17 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 15:02:23 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ static void		manage_overflow(t_env *e, int *pos, char *arg)
 {
 	if (e->flags.opt.precis)
 		e->cast_size = e->flags.precis;
-	e->output_size += write(1, e->output, *pos);
+	e->output_size += write(e->cur_fd, e->output, *pos);
 	if (!e->flags.opt.min)
 	{
 		while (e->flags.width-- > e->cast_size)
-			e->output_size += write(1, " ", 1);
+			e->output_size += write(e->cur_fd, " ", 1);
 	}
-	e->output_size += write(1, arg, e->cast_size);
+	e->output_size += write(e->cur_fd, arg, e->cast_size);
 	if (e->flags.opt.min)
 	{
 		while (e->flags.width-- > e->cast_size)
-			e->output_size += write(1, " ", 1);
+			e->output_size += write(e->cur_fd, " ", 1);
 	}
 	ft_bzero(e->output, sizeof(e->output));
 	e->overflow = 1;

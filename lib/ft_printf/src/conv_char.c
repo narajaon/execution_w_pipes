@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:36:14 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/15 13:02:11 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 15:01:47 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	print_null(t_env *e, int *pos)
 	if (e->flags.width && !e->flags.opt.min)
 	{
 		while (--e->flags.width)
-			e->output_size += write(1, &e->flags.opt.decal, 1);
+			e->output_size += write(e->cur_fd, &e->flags.opt.decal, 1);
 	}
-	e->output_size += write(1, "\0", 1);
+	e->output_size += write(e->cur_fd, "\0", 1);
 	if (e->flags.width && e->flags.opt.min)
 	{
 		while (--e->flags.width)
-			e->output_size += write(1, &e->flags.opt.fill_prec, 1);
+			e->output_size += write(e->cur_fd, &e->flags.opt.fill_prec, 1);
 	}
 }
 
