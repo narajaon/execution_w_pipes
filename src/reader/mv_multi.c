@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:41:12 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 14:01:53 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	move_sup(t_dlist_wrap *wrap)
 {
 	int col;
 
+	if (wrap->tmp != NULL)
+		return (0);
 	col = wrap->col;
 	if (wrap->pos < col)
 		return (0);
@@ -29,6 +31,8 @@ int	move_sdown(t_dlist_wrap *wrap)
 {
 	int col;
 
+	if (wrap->tmp != NULL)
+		return (0);
 	col = wrap->col;
 	if ((wrap->size % col) <= (wrap->pos % col))
 		return (0);

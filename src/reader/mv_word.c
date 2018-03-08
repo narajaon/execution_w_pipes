@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:41:18 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 14:02:35 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int			move_sright(t_dlist_wrap *wrap)
 	int		i;
 	t_dlist	*list;
 
+	if (wrap->tmp != NULL)
+		return (0);
 	list = cur_list(wrap);
 	if (list)
 		list = list->next;
@@ -91,6 +93,8 @@ int			move_sleft(t_dlist_wrap *wrap)
 {
 	int	i;
 
+	if (wrap->tmp != NULL)
+		return (0);
 	i = sizeleftword(cur_list(wrap));
 	if (i == 0)
 		return (0);
