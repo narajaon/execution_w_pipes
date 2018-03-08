@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:46:58 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:55:19 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 16:14:28 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,11 @@ void		dup_stdio(int *stdio)
 	dup2(stdio[0], STDIN_FILENO);
 	dup2(stdio[1], STDOUT_FILENO);
 	dup2(stdio[2], STDERR_FILENO);
+}
+
+void		close_stdio(int *stdio)
+{
+	close(stdio[0]);
+	close(stdio[1]);
+	close(stdio[2]);
 }

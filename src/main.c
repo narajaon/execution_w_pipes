@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:38:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 13:54:43 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 16:17:01 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ void			flush_sh(t_sh *sh)
 	free_hlist(&sh->list);
 	free_hlist(&sh->hist->cur_branch);
 	free(sh->wrap);
+	close_stdio(sh->stdio);
 }
 
 void			ft_start_process(t_sh *sh)
 {
 	while (1)
 	{
+		init_stdio(sh->stdio);
 		sh->test = 1;
 		ft_prompt(sh);
 		ft_read(sh);
@@ -49,7 +51,6 @@ int				ft_init(t_sh *sh, t_hist *hist)
 	ft_setupenv(&sh->env);
 	init_cap();
 	get_sh_lvl(sh);
-	init_stdio(sh->stdio);
 	return (1);
 }
 
