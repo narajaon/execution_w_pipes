@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 15:43:13 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:44:38 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 12:52:11 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void		print_history(t_dlist *input, t_dlist *branch)
 	while (input)
 	{
 		c = input->content;
-		printf("%c", *c);
+		ft_printf("%c", *c);
 		input = input->next;
 	}
 	while (branch)
 	{
 		node = branch->content;
-		printf("%c", node->content);
+		ft_printf("%c", node->content);
 		branch = node->child;
 	}
 	printf("]\n");
@@ -61,7 +61,7 @@ void		print_hlst_content(t_dlist *list)
 	t_chr	*content;
 
 	content = list->content;
-	printf("|%c|", content->c);
+	ft_printf("|%c|", content->c);
 }
 
 void		hl_print_next(t_dlist *list, void (*print)())
@@ -71,7 +71,7 @@ void		hl_print_next(t_dlist *list, void (*print)())
 		print(list);
 		list = list->next;
 	}
-	printf("\n");
+	ft_printf("\n");
 }
 
 void		print_branch(t_dlist *branch)
@@ -84,7 +84,7 @@ void		print_branch(t_dlist *branch)
 	while (branch)
 	{
 		content = branch->content;
-		printf("|%c|", content->content);
+		ft_printf("|%c|", content->content);
 		child = content->child;
 		branch = child;
 	}

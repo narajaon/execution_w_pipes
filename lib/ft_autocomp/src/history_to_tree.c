@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 10:43:03 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 12:51:24 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_dlist		*history_to_tree(int fd)
 	history = NULL;
 	if ((fd = open(HISTORY, O_RDWR | O_CREAT,
 					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
-		exit(printf("[HIST] Bad file descriptor\n"));
+		exit(ft_printf("[HIST] Bad file descriptor\n"));
 	while ((ret = get_next_line(fd, &str)) > 0)
 	{
 		new = str_to_dlist(str);
@@ -77,7 +77,7 @@ void		update_history(t_hist *hist, t_dlist *new_cmd)
 	if ((hist->history_fd = open(HISTORY, O_RDWR | O_APPEND | O_CREAT,
 					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
 	{
-		exit(printf("[HIST] Bad file descriptor\n"));
+		exit(ft_printf("[HIST] Bad file descriptor\n"));
 	}
 	ft_putendl_fd(str, hist->history_fd);
 	close(hist->history_fd);
@@ -95,7 +95,7 @@ t_dlist		*history_to_list(int fd)
 	history = NULL;
 	if ((fd = open(HISTORY, O_RDWR | O_CREAT,
 					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
-		exit(printf("[HIST] Bad file descriptor\n"));
+		exit(ft_printf("[HIST] Bad file descriptor\n"));
 	while ((ret = get_next_line(fd, &str)) > 0)
 		ft_hlstadd_void(&history, str);
 	free_str(&str);
