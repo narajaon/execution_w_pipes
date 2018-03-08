@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:30:43 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 19:12:23 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 10:20:19 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int						g_lvl;
 t_sh					*g_sh;
 int						g_cur_pid;
 int						g_test;
-extern char 			**g_environ;
+char					**g_environ;
 void					*g_handlenonchar[SCHAR_MAX];
 t_schar					g_spec_char[SCHAR_NB];
 t_cap					g_handleinput[CAP_SIZE + 1];
@@ -264,7 +264,7 @@ char					**tab_str_remove(char **base, int (*cmp)(),
 char					*ft_getenv(char **env, char *var);
 void					ft_getsignal(void);
 void					ft_signal(int sig);
-void					exit_error(char *erro_msg, int exit_id);
+int						exit_error(char *erro_msg, int exit_id);
 bool					jump_loop(void);
 void					sig_intercepter(void);
 void					sighandler(int sigval);

@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:38:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 19:12:39 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 10:37:11 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,23 @@ int				ft_init(t_sh *sh, t_hist *hist)
 	return (1);
 }
 
-int				main(int ac, char **av)
+int				main(int ac, char **av, char **environ)
 {
 	t_sh				sh;
 	t_hist				hist;
 
 	if (ac >= 2)
 	{
-		ft_printf("Options %s non disponibles", av[1]);
+		ft_dprintf(STDERR_FILENO, "Options %s non disponibles", av[1]);
 		return (0);
 	}
+	g_environ = environ;
 	ft_bzero(&sh, sizeof(t_sh));
 	g_sh = &sh;
 	if (!(ft_init(&sh, &hist)))
 		return (0);
 	ft_getsignal();
-	tputs(tgetstr("cl", NULL), 1, &ft_putc);
+	//tputs(tgetstr("cl", NULL), 1, &ft_putc);
 	g_shlvl = g_lvl;
 	ft_start_process(&sh);
 	return (0);

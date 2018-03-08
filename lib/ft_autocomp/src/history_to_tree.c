@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:44:28 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 10:43:03 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void		update_history(t_hist *hist, t_dlist *new_cmd)
 	{
 		exit(printf("[HIST] Bad file descriptor\n"));
 	}
+	ft_putendl_fd(str, hist->history_fd);
 	close(hist->history_fd);
 }
 
