@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 11:11:58 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 12:45:10 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,24 @@ int				ft_handle_quote(t_dlist *list)
 {
 	char	last;
 	t_chr	*schar;
+	t_chr	*prev_char;
 
 	schar = NULL;
+	prev_char = NULL;
 	last = check_quote(list);
 	while (list != NULL && list->next != NULL)
 		list = list->next;
 	if (list != NULL)
 		schar = list->content;
-	if (last == '\'')
-		return (QUOTE);
-	if (last == '\"')
-		return (DQUOTE);
+	if (last == '\'' || last == '\"')
+		return ((last == '\'') ? QUOTE : DQUOTE);
 	if (schar && schar->c == '|')
-		return (Q_PIPE);
+	{
+		if (list->prev != NULL)
+			prev_char = list->prev->content;
+		if (prev_char->c != '\\')
+			return (Q_PIPE);
+	}
 	if (schar && schar->c == '\\')
 	{
 		schar->c = '\n';
