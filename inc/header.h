@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:30:43 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 10:20:19 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 13:55:18 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,5 +310,6 @@ char					*skip_cmd_name(t_dlist **arg, char *input);
 int						printlvl(void);
 int						ft_quit(void);
 void					ft_signal2(int sig);
+int						check_mv_tmp(t_dlist_wrap *wrap);
 
 #endif

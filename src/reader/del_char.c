@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:40:51 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 13:52:59 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int				handle_del(t_dlist_wrap *wrap)
 	t_dlist *todel;
 
 	todel = NULL;
-	if ((todel = cur_list(wrap)) == NULL)
+	if ((todel = cur_list(wrap)) == NULL || wrap->pos <= 0)
+		return (0);
+	if (wrap->tmp != NULL && wrap->pos <= check_mv_tmp(wrap))
 		return (0);
 	if (todel == wrap->head && todel->next == NULL)
 		wrap->head = NULL;
