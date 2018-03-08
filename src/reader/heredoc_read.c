@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 13:38:33 by narajaon         ###   ########.fr       */
+/*   Created: 2018/03/08 13:58:08 by awyart            #+#    #+#             */
+/*   Updated: 2018/03/08 14:10:58 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,7 @@ int				ft_handle_quote(t_dlist *list)
 		if (prev_char && prev_char->c != '\\')
 			return (Q_PIPE);
 	}
-	if (schar && schar->c == '\\')
-	{
-		schar->c = '\n';
+	if (schar && schar->c == '\\' && (schar->c = '\n'))
 		return (SLASH);
-	}
 	return (Q_OK);
 }
