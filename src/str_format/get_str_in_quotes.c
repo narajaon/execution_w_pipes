@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:46:58 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 10:36:53 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 11:34:49 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char		*get_str_in_quotes(char *str)
 	while (str[i] && str[i] != '\'')
 		i++;
 	content = ft_strsub(str, 0, i);
-	STR(str);
 	return (content);
 }
 

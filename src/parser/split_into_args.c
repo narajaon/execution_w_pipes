@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 17:53:45 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:40:28 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 11:57:46 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char			*get_next_arg(t_dlist **arg, t_dlist **redirs, char *input)
 {
 	char		*skip;
 
+	skip = NULL;
 	while (*input)
 	{
 		while (*input != '\0' && ft_isspace(*input) == TRUE)

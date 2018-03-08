@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 15:42:20 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:39:31 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 12:14:27 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,14 @@ int			ft_echo(t_sh *sh, char **av)
 	(void)sh;
 	while (av[i] != NULL)
 	{
-		ft_putstr(av[i++]);
-		if (av[i] != NULL)
-			ft_putstr(" ");
+		if (*av[i] == '\0')
+			i++;
+		else
+		{
+			ft_putstr(av[i++]);
+			if (av[i] != NULL)
+				ft_putstr(" ");
+		}
 	}
 	ft_putstr("\n");
 	return (0);

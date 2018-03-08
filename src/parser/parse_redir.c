@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:46:58 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:40:21 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 12:23:48 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,22 @@ char			*is_redir(t_dlist **redir, char *input)
 	return (NULL);
 }
 
+int				get_arg(char *input)
+{
+	int			i;
+
+	i = 0;
+	while (input[i] && ft_isspace(input[i]) == FALSE)
+	{
+		if (input[i] == '\\' && input[i + 1] == '\'')
+			i++;
+		else if (input[i] == '\'' || input[i] == '\"')
+			break ;
+		i++;
+	}
+	return (i);
+}
+
 char			*is_arg(t_dlist **arg, char *input)
 {
 	int			i;
@@ -94,8 +110,7 @@ char			*is_arg(t_dlist **arg, char *input)
 		ft_hlstadd_back_void(arg, sub);
 		return (&input[i + 1]);
 	}
-	while (input[i] && ft_isspace(input[i]) == FALSE)
-		i++;
+	i = get_arg(input);
 	if (i == 0)
 		return (input);
 	sub = ft_strsub(input, 0, i);

@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:40:53 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 11:11:58 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char		check_quote(t_dlist *list)
 	while (list != NULL)
 	{
 		schar = list->content;
-		if (prev && prev->c != '\\')
+		if (prev && (prev->c != '\\' || last == '\''))
 			change_last(schar, &last);
 		prev = schar;
 		list = list->next;
