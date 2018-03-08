@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:30:43 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 10:20:19 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 13:53:07 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,6 @@ char					**tab_str_remove(char **base, int (*cmp)(),
 char					*ft_getenv(char **env, char *var);
 void					ft_getsignal(void);
 void					ft_signal(int sig);
-int						exit_error(char *erro_msg, int exit_id);
 bool					jump_loop(void);
 void					sig_intercepter(void);
 void					sighandler(int sigval);
@@ -310,5 +309,6 @@ char					*skip_cmd_name(t_dlist **arg, char *input);
 int						printlvl(void);
 int						ft_quit(void);
 void					ft_signal2(int sig);
+int						exit_error(char *erro_msg, int exit_id, char *cmd_name);
 
 #endif

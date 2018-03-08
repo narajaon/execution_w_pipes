@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 15:42:20 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:50:36 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 14:10:06 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char		*check_bin(char **paths, char *input)
 	{
 		slashed = ft_strjoin(*paths, "/");
 		if (is_valid_path((tmp = ft_strjoin(slashed, path))) == TRUE)
+			return (tmp);
+		if (access(tmp, F_OK) == 0)
 			return (tmp);
 		free_str(&tmp);
 		free_str(&slashed);

@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 11:45:58 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 14:10:07 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ int				exec_prog(t_dlist *curr, int *save)
 	{
 		if (is_valid_path(split[0]) == TRUE)
 			execve(split[0], split, g_sh->env.env);
-		ft_putstr_fd(split[0], STDERR_FILENO);
-		exit_error(": permission denied\n", EXIT_FAILURE);
+		exit_error("execution denied\n", EXIT_FAILURE, split[0]);
 	}
 	else if (path_dirs != NULL)
 	{
 		if (!(bin_paths = ft_strsplit(path_dirs, ':')))
-			exit_error("PATH not valid\n", EXIT_FAILURE);
+			exit_error("PATH not valid\n", EXIT_FAILURE, NULL);
 		path = check_bin(bin_paths, split[0]);
+		if (path && access(path, X_OK) != 0)
+			exit(exit_error("permission denied\n", EXIT_FAILURE, split[0]));
 		execve(path, split, g_sh->env.env);
 	}
-	ft_putstr_fd(split[0], STDERR_FILENO);
-	return (exit_error(": command not found\n", EXIT_FAILURE));
+	return (exit_error("command not found\n", EXIT_FAILURE, split[0]));
 }
 
 int				exec_in_child(t_dlist *curr, int *cpfd, int *pfd, int cmd_id)
