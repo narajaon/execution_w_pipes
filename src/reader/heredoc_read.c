@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 12:46:03 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 12:53:24 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int				ft_handle_quote(t_dlist *list)
 	{
 		if (list->prev != NULL)
 			prev_char = list->prev->content;
-		if (prev_char->c != '\\')
+		if (prev_char && prev_char->c != '\\')
 			return (Q_PIPE);
 	}
 	if (schar && schar->c == '\\')
