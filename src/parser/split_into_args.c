@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 17:53:45 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 11:57:46 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 12:27:10 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_dlist			*parse_arg_redirs(char *input)
 
 	arg = NULL;
 	redirs = NULL;
-	input = skip_cmd_name(&arg, input);
 	while (*input != '\0')
 		input = get_next_arg(&arg, &redirs, input);
 	to_free = redirs;
