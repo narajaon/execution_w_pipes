@@ -6,13 +6,13 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:54:30 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/09 15:40:06 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-static void	nextline(int mode)
+void		nextline(int mode)
 {
 	if (mode == 0)
 	{
@@ -68,6 +68,11 @@ int			ft_print_list(t_dlist_wrap *wrap, t_sh *sh)
 	t_dlist	*list;
 
 	ft_prompt(sh);
+	if (sh->ret == Q_OK && sh->color == 1)
+	{
+		ft_printcolor(wrap->head);
+		return (0);
+	}
 	if (sh->ret == Q_OK || wrap->tmp == NULL)
 		list = wrap->head;
 	else

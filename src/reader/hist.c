@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:52:05 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/09 15:41:00 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void		printlist(t_dlist *list)
 	while (list != NULL)
 	{
 		schar = list->content;
-		ft_printf("%s%c%s", KGRN, schar->c, KNRM);
+		ft_dprintf(STDOUT_FILENO, "%s%c%s", KGRN, schar->c, KNRM);
 		list = list->next;
 	}
 }
@@ -39,14 +39,9 @@ int				move_hist(t_dlist_wrap *wrap, t_sh *sh, int mode, int action)
 	{
 		if (i <= 0)
 			break ;
-		ft_terms_toggle_key("cr");
-		ft_terms_toggle_key("cd");
-		ft_terms_toggle_key("al");
-		ft_terms_toggle_key("up");
+		nextline(1);
 	}
-	ft_terms_toggle_key("cr");
-	ft_terms_toggle_key("cd");
-	ft_terms_toggle_key("al");
+	nextline(2);
 	ft_prompt(sh);
 	printlist((list == NULL) ? wrap->head : list);
 	return (1);
@@ -64,7 +59,7 @@ static void		modif_hist(t_dlist_wrap *wrap, t_sh *sh)
 	free_hlist(&todel);
 }
 
-int				move_updown(t_dlist_wrap *wrap, char buf[3], t_sh *sh)
+int				move_updown(t_dlist_wrap *wrap, char buf[4], t_sh *sh)
 {
 	if (sh->ret == Q_HEREDOC)
 		return (0);

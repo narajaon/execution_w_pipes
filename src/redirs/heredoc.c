@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:36:13 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:58:00 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/09 14:54:18 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char			*heredoc(t_sh *sh)
 {
 	t_dlist_wrap	wrap;
 	char			*ref;
-	char			buf[3];
+	char			buf[8];
 
 	g_sh->ret = Q_HEREDOC;
 	ft_bzero(&wrap, sizeof(t_dlist_wrap));
@@ -47,8 +47,8 @@ char			*heredoc(t_sh *sh)
 	{
 		ioctl(1, TIOCGWINSZ, &(sh->term.win));
 		wrap.col = sh->term.win.ws_col;
-		ft_bzero(buf, 3);
-		read(STDIN_FILENO, buf, 3);
+		ft_bzero(buf, 8);
+		read(STDIN_FILENO, buf, 8);
 		if (apply_cap(buf, &wrap, sh) == 0)
 			break ;
 	}

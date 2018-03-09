@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:40:42 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/09 14:40:37 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ static int		add_in_list(t_dlist_wrap *wrap, t_dlist *new)
 	return (1);
 }
 
-int				handle_char(char buf[3], t_dlist_wrap *wrap)
+int				handle_char(char c, t_dlist_wrap *wrap)
 {
 	t_dlist *new;
 
 	new = NULL;
-	if ((new = create_node(buf[0])) == NULL)
+	if ((new = create_node(c)) == NULL)
 		return (-1);
 	if (wrap->head == NULL)
 	{

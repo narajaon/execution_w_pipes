@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 13:41:08 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/09 16:03:34 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			ft_quit(void)
 	exit(0);
 }
 
-int			get_func(char buf[3])
+int			get_func(char buf[8])
 {
 	int i;
 	int k;
@@ -30,13 +30,13 @@ int			get_func(char buf[3])
 		return (-1);
 	while (++i < CAP_SIZE)
 	{
-		if (ft_strncmp(buf, g_handleinput[i].cap, 3) == 0)
+		if (ft_strncmp(buf, g_handleinput[i].cap, 8) == 0)
 			return (i);
 	}
 	return (-2);
 }
 
-int			apply_cap(char buf[3], t_dlist_wrap *wrap, t_sh *sh)
+int			apply_cap(char buf[8], t_dlist_wrap *wrap, t_sh *sh)
 {
 	int ret;
 	int (*ptr)();
@@ -55,7 +55,7 @@ int			apply_cap(char buf[3], t_dlist_wrap *wrap, t_sh *sh)
 		ret = ptr(wrap, buf, sh);
 	}
 	else if (ret == -1)
-		handle_char(buf, wrap);
+		handle_char(buf[0], wrap);
 	refresh_line(wrap, sh);
 	reset_cursor(wrap, sh);
 	sh->test = 0;
@@ -64,7 +64,7 @@ int			apply_cap(char buf[3], t_dlist_wrap *wrap, t_sh *sh)
 
 int			ft_read(t_sh *sh)
 {
-	char			buf[3];
+	char			buf[8];
 	t_dlist_wrap	*wrap;
 
 	if (!(wrap = (t_dlist_wrap *)ft_memalloc(sizeof(t_dlist_wrap))))
@@ -75,8 +75,9 @@ int			ft_read(t_sh *sh)
 	{
 		ioctl(1, TIOCGWINSZ, &(sh->term.win));
 		wrap->col = sh->term.win.ws_col;
-		ft_bzero(buf, 3);
-		read(STDIN_FILENO, buf, 3);
+		ft_bzero(buf, 8);
+		read(STDIN_FILENO, buf, 8);
+		//dprintf(g_fd, "<%d><%d><%d><%d><%d><%d><%d><%d>\n", buf[0], buf[1], buf[2], buf[3], buf[4], buf[5], buf[6], buf[7]);
 		if (apply_cap(buf, wrap, sh) == 0)
 			break ;
 	}

@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 14:14:38 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/09 15:04:56 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,13 @@ void		ft_doprompt(t_sh *sh)
 
 void		ft_signal(int sig)
 {
+	dprintf(g_fd, "salutation <%d><%d>\n", sig, g_test);
 	if (g_test == 1)
 		return ;
 	if (sig == SIGWINCH)
 	{
+		dprintf(g_fd, "\33[H\33[2J \n");
+		dprintf(g_fd, "RESIZED\n");
 		ioctl(1, TIOCGWINSZ, &(g_sh->term.win));
 		return ;
 	}

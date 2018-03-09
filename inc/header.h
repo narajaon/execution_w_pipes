@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:30:43 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 16:14:26 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/09 17:19:57 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ typedef struct			s_dlist_wrap
 
 typedef struct			s_cap
 {
-	char				cap[3];
+	char				cap[8];
 	int					(*f)();
 }						t_cap;
 
@@ -170,6 +170,7 @@ typedef struct			s_sh
 	int					ret;
 	int					test;
 	int					hist_multi;
+	int 				color;
 }						t_sh;
 
 typedef struct			s_op
@@ -183,6 +184,7 @@ int						g_lvl;
 t_sh					*g_sh;
 int						g_cur_pid;
 int						g_test;
+int 					g_fd;
 char					**g_environ;
 void					*g_handlenonchar[SCHAR_MAX];
 t_schar					g_spec_char[SCHAR_NB];
@@ -219,7 +221,7 @@ int						ft_echo(t_sh *sh, char **av);
 int						detect_bi(char *str, const t_op *cmd_tab);
 int						is_builtin(char *av);
 int						ft_count_string(t_dlist *lst);
-int						handle_char(char buf[3], t_dlist_wrap *wrap);
+int						handle_char(char c, t_dlist_wrap *wrap);
 int						handle_del(t_dlist_wrap *wrap);
 int						handle_del_right(t_dlist_wrap *wrap);
 int						move_left(t_dlist_wrap *wrap);
@@ -227,16 +229,16 @@ int						move_right(t_dlist_wrap *wrap);
 int						move_sright(t_dlist_wrap *wrap);
 int						move_sleft(t_dlist_wrap *wrap);
 int						ft_read(t_sh *sh);
-int						get_func(char buf[3]);
-int						is_printable(char buf[3]);
-int						is_break(char buf[3]);
-int						is_updown(char buf[3]);
+int						get_func(char buf[8]);
+int						is_printable(char buf[8]);
+int						is_break(char buf[8]);
+int						is_updown(char buf[8]);
 int						refresh_line(t_dlist_wrap *wrap, t_sh *sh);
 int						reset_cursor(t_dlist_wrap *wrap, t_sh *sh);
 int						move_end(t_dlist_wrap *wrap);
 int						move_home(t_dlist_wrap *wrap);
 t_dlist					*cur_list(t_dlist_wrap *wrap);
-int						move_updown(t_dlist_wrap *wrap, char buf[3], t_sh *sh);
+int						move_updown(t_dlist_wrap *wrap, char buf[8], t_sh *sh);
 int						ft_handle_quote(t_dlist *list);
 int						ft_quote(t_dlist_wrap *wrap, t_sh *sh);
 int						count_tmp(t_dlist_wrap *wrap, int pos);
@@ -247,7 +249,7 @@ int						move_right(t_dlist_wrap *wrap);
 int						move_left(t_dlist_wrap *wrap);
 int						move_sdown(t_dlist_wrap *wrap);
 int						move_sup(t_dlist_wrap *wrap);
-int						apply_cap(char buf[3], t_dlist_wrap *wrap, t_sh *sh);
+int						apply_cap(char buf[8], t_dlist_wrap *wrap, t_sh *sh);
 int						cut_list(t_dlist_wrap *wrap);
 int						paste_list(t_dlist_wrap *wrap);
 char					*get_str_in_quotes(char *str);
@@ -312,5 +314,26 @@ int						ft_quit(void);
 void					ft_signal2(int sig);
 int						exit_error(char *erro_msg, int exit_id, char *cmd_name);
 int						check_mv_tmp(t_dlist_wrap *wrap);
+void					nextline(int mode);
+//color
+void					ft_printcolor(t_dlist *list);
+void					printblue(t_dlist *list);
+void					printred(t_dlist *list);
+void					printyellow(t_dlist *list);
+void					printwhite(t_dlist *list);
+void					printgreen(t_dlist *list);
+void					printcyn(t_dlist *list);
+int						is_dlist_space(t_dlist *list);
+int						is_dlist_word(t_dlist *list);
+int						is_dlist_opt(t_dlist *list);
+int						is_dlist_red(t_dlist *list);
+void					check_norm(t_dlist **list);
+void					check_cmd(t_dlist **list);
+void					check_args(t_dlist **list);
+void 					check_redir(t_dlist **list);
+int 					is_token_redir(t_dlist *list);
+int 					is_token(t_dlist *list);
+void 					printspace(t_dlist **list);
+
 
 #endif

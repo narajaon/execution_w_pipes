@@ -72,6 +72,12 @@ ITEM = \
 		exit_erro.o \
 		heredoc.o \
 		shlvl.o \
+		printcolor.o \
+		wcolor.o \
+		is_dlist.o \
+		norm.o \
+		is_tok.o \
+		redir_col.o
 
 OBJ:=$(addprefix $(OBJ_D)/, $(ITEM))
 
@@ -84,7 +90,8 @@ vpath %.c src \
 		src/reader \
 		src/redirs \
 		src/exec \
-		src/parser
+		src/parser \
+		src/color
 
 vpath %.h inc ../libft/inc
 

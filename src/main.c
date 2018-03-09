@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:38:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 16:17:01 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/09 15:32:34 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,23 @@ int				main(int ac, char **av, char **environ)
 	t_sh				sh;
 	t_hist				hist;
 
-	if (ac >= 2)
-	{
-		ft_dprintf(STDERR_FILENO, "Options %s non disponibles", av[1]);
-		return (0);
-	}
+	g_fd = open("/dev/ttys001", O_WRONLY);
+	dprintf(g_fd, "\33[H\33[2J\n");
 	g_environ = environ;
 	ft_bzero(&sh, sizeof(t_sh));
+	if (ac >= 2)
+	{
+		if (ft_strcmp(av[1], "-g") == 0)
+		{
+			sh.color = 1;
+			dprintf(g_fd, "Color mode loaded\n");
+		}
+		else	
+		{
+			ft_dprintf(STDERR_FILENO, "Options %s non disponibles", av[1]);
+			return (0);
+		}
+	}
 	g_sh = &sh;
 	if (!(ft_init(&sh, &hist)))
 		return (0);
