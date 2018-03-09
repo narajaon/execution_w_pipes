@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 10:47:51 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/09 14:14:38 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		ft_signal2(int sig)
 	else if (sig == SIGFPE)
 		ft_printf("Floating point exception\n");
 	else
-		ft_printf("ERREUR non identifiée par awsh <%d>\n", sig);
+		ft_printf("ERREUR non identifiée par mysh <%d>\n", sig);
 }
 
 void		ft_getsignal(void)

@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:46:58 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 11:51:58 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 16:16:52 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ int			save_builtin_stdio(int index, t_dlist *curr)
 	int		ret;
 	int		saved_fd[3];
 
-	init_stdio(saved_fd);
+	saved_fd[0] = dup(g_sh->stdio[0]);
+	saved_fd[1] = dup(g_sh->stdio[1]);
+	saved_fd[2] = dup(g_sh->stdio[2]);
 	ret = exec_builtin(index, curr, g_sh->stdio);
 	dup_stdio(saved_fd);
 	close(saved_fd[0]);

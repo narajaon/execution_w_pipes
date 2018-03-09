@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:46:58 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 18:43:59 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 16:07:38 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int			r_left(char *input)
 		return (EXIT_SUCCESS);
 	while (*input && ft_isspace(*input) == TRUE)
 		input++;
-	if ((dst = fd_to_file(input, O_RDONLY | O_CREAT)) < 0)
+	if ((dst = fd_to_file(input, O_RDONLY)) < 0)
 		return (EXIT_FAILURE);
 	redir_fd(dst, src);
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:30:43 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 14:11:42 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/08 16:14:26 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,6 +303,7 @@ bool					next_is_fd(char *input, int src);
 int						save_builtin_stdio(int index, t_dlist *curr);
 void					init_stdio(int *stdio);
 void					dup_stdio(int *stdio);
+void					close_stdio(int *stdio);
 char					*is_redir(t_dlist **redir, char *input);
 char					*is_arg(t_dlist **arg, char *input);
 char					*skip_cmd_name(t_dlist **arg, char *input);

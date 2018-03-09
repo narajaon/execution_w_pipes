@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:46:58 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:41:27 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/08 16:05:19 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int				fd_to_file(char *file, int perm)
 	if ((new_fd = open(*formated,
 					perm, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0)
 	{
-		ft_dprintf(STDERR_FILENO, "mysh: could not open file %s\n", file);
+		ft_dprintf(STDERR_FILENO, "mysh: could not open file '%s'\n", file);
 		new_fd = -1;
 	}
 	free_tab_str(&formated);
