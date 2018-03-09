@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:33:45 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 17:27:29 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/09 18:42:26 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@ void check_redir(t_dlist **list)
 			*list = (*list)->next;
 		}
 	}
-	if (is_token(*list))
-		return ;
 	dprintf(g_fd, "check_args\n");
-	check_args(list);
+	printspace(list);
+	while (is_dlist_word(*list) && !is_token(*list))
+	{
+		printcyn(*list);
+		*list = (*list)->next;
+	}
+	printspace(list);
 }

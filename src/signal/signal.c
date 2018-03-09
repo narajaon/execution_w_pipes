@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 15:04:56 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/09 17:39:33 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void		ft_signal2(int sig)
 		ft_printf("BUS ERROR\n");
 	else if (sig == SIGFPE)
 		ft_printf("Floating point exception\n");
+	else if (sig == SIGPIPE)
+		ft_printf("Get PIPED\n");
 	else
 		ft_printf("ERREUR non identifiée par mysh <%d>\n", sig);
 }

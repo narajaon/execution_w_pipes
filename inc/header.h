@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:30:43 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 17:19:57 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/09 17:46:40 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ typedef struct			s_sh
 	t_dlist				*list;
 	t_dlist				*yanked;
 	t_hist				*hist;
+	char 				**hash;
 	int					stdio[3];
 	int					ret;
 	int					test;
