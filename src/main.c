@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:38:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 15:32:34 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/09 20:28:37 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,26 @@ void			flush_sh(t_sh *sh)
 	close_stdio(sh->stdio);
 }
 
+void 			printhash(t_dlist *list)
+{
+	t_hash *hash;
+
+	dprintf(g_fd, "Les Binaires précache sont :\n");
+	while (list != NULL)
+	{
+		hash = list->content;
+		dprintf(g_fd, "cmd [%s] : path [%s]\n", hash->cmd, hash->path);
+		list = list->next;
+	}
+}
+
 void			ft_start_process(t_sh *sh)
 {
+
 	while (1)
 	{
+		g_hash = sh->hash;
+		printhash(sh->hash);
 		init_stdio(sh->stdio);
 		sh->test = 1;
 		ft_prompt(sh);
@@ -70,11 +86,8 @@ int				main(int ac, char **av, char **environ)
 			sh.color = 1;
 			dprintf(g_fd, "Color mode loaded\n");
 		}
-		else	
-		{
-			ft_dprintf(STDERR_FILENO, "Options %s non disponibles", av[1]);
+		else
 			return (0);
-		}
 	}
 	g_sh = &sh;
 	if (!(ft_init(&sh, &hist)))

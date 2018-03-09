@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 14:10:07 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/09 20:27:35 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int				exec_prog(t_dlist *curr, int *save)
 		exit(EXIT_FAILURE);
 	split = fmt_input_quote(split);
 	path_dirs = ft_getenv(g_sh->env.env, "PATH");
-	if (is_binary_file(split[0]) == TRUE)
+	if ((path = get_in_hash(split[0])) != NULL)
+		execve(path, split, g_sh->env.env);
+	else if (is_binary_file(split[0]) == TRUE)
 	{
 		if (is_valid_path(split[0]) == TRUE)
 			execve(split[0], split, g_sh->env.env);
@@ -36,6 +38,11 @@ int				exec_prog(t_dlist *curr, int *save)
 		path = check_bin(bin_paths, split[0]);
 		if (path && access(path, X_OK) != 0)
 			exit(exit_error("permission denied\n", EXIT_FAILURE, split[0]));
+		if (path != NULL)
+		{
+			dprintf(g_fd, "addinpath\n");
+			add_in_path(split[0], path);
+		}
 		execve(path, split, g_sh->env.env);
 	}
 	return (exit_error("command not found\n", EXIT_FAILURE, split[0]));
