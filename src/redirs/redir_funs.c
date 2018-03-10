@@ -86,7 +86,6 @@ int			r_dleft(char *input)
 	int			output;
 
 	src = check_src_fd(input, STDIN_FILENO);
-	close(STDIN_FILENO);
 	while (*input && ft_isdigit(*input) == TRUE)
 		input++;
 	input += 2;

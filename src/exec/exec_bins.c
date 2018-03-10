@@ -69,9 +69,7 @@ int				exec_in_parent(t_dlist *curr, int *cpfd, int *pfd, int cmd_id)
 	close_fd(pfd);
 	if (cmd_id >= 0)
 	{
-		if (cmd_id == B_CD)
-			status = save_builtin_stdio(cmd_id, curr);
-		else if (curr->next == NULL)
+		if (curr->next == NULL)
 			status = save_builtin_stdio(cmd_id, curr);
 	}
 	if (curr->next != NULL)

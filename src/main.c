@@ -70,7 +70,7 @@ int				main(int ac, char **av, char **environ)
 			sh.color = 1;
 			dprintf(g_fd, "Color mode loaded\n");
 		}
-		else	
+		else
 		{
 			ft_dprintf(STDERR_FILENO, "Options %s non disponibles", av[1]);
 			return (0);
@@ -80,7 +80,7 @@ int				main(int ac, char **av, char **environ)
 	if (!(ft_init(&sh, &hist)))
 		return (0);
 	ft_getsignal();
-	tputs(tgetstr("cl", NULL), 1, &ft_putc);
+	//tputs(tgetstr("cl", NULL), 1, &ft_putc);
 	g_shlvl = g_lvl;
 	ft_start_process(&sh);
 	return (0);
