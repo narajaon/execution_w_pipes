@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 16:03:34 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/12 16:32:56 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int			ft_read(t_sh *sh)
 		wrap->col = sh->term.win.ws_col;
 		ft_bzero(buf, 8);
 		read(STDIN_FILENO, buf, 8);
-		//dprintf(g_fd, "<%d><%d><%d><%d><%d><%d><%d><%d>\n", buf[0], buf[1], buf[2], buf[3], buf[4], buf[5], buf[6], buf[7]);
 		if (apply_cap(buf, wrap, sh) == 0)
 			break ;
 	}

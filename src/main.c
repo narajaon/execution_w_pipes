@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:38:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/12 15:12:41 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/12 16:45:33 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,11 @@ void			flush_sh(t_sh *sh)
 	close_stdio(sh->stdio);
 }
 
-void 			printhash(t_dlist *list)
-{
-	t_hash *hash;
-
-	dprintf(g_fd, "Les Binaires précache sont :\n");
-	while (list != NULL)
-	{
-		hash = list->content;
-		dprintf(g_fd, "cmd [%s] : path [%s]\n", hash->cmd, hash->path);
-		list = list->next;
-	}
-}
-
 void			ft_start_process(t_sh *sh)
 {
 
 	while (1)
 	{
-		printhash(sh->hash);
 		init_stdio(sh->stdio);
 		sh->test = 1;
 		ft_prompt(sh);
@@ -74,8 +60,6 @@ int				main(int ac, char **av, char **environ)
 	t_sh				sh;
 	t_hist				hist;
 
-	g_fd = open("/dev/ttys001", O_WRONLY);
-	dprintf(g_fd, "\33[H\33[2J\n");
 	g_environ = environ;
 	ft_bzero(&sh, sizeof(t_sh));
 	if (ac >= 2)

@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 13:58:08 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 14:10:58 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/12 16:47:14 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int				ft_quote(t_dlist_wrap *wrap, t_sh *sh)
 {
-	char	buf[3];
+	char	buf[8];
 
 	if (sh->ret == Q_OK)
 		return (sh->ret);
@@ -27,8 +27,8 @@ int				ft_quote(t_dlist_wrap *wrap, t_sh *sh)
 	{
 		ioctl(1, TIOCGWINSZ, &(sh->term.win));
 		wrap->col = sh->term.win.ws_col;
-		ft_bzero(buf, 3);
-		read(STDIN_FILENO, buf, 3);
+		ft_bzero(buf, 8);
+		read(STDIN_FILENO, buf, 8);
 		if (apply_cap(buf, wrap, sh) == 0)
 			break ;
 	}
@@ -95,7 +95,7 @@ int				ft_handle_quote(t_dlist *list)
 		if (prev_char && prev_char->c != '\\')
 			return (Q_PIPE);
 	}
-	if (schar && schar->c == '\\' && (schar->c = '\n'))
+	if (schar && schar->c == '\\' && (schar->c = ' '))
 		return (SLASH);
 	return (Q_OK);
 }

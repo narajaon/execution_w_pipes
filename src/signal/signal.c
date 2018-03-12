@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 17:39:33 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/12 16:46:53 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,10 @@ void		ft_doprompt(t_sh *sh)
 
 void		ft_signal(int sig)
 {
-	dprintf(g_fd, "salutation <%d><%d>\n", sig, g_test);
 	if (g_test == 1)
 		return ;
 	if (sig == SIGWINCH)
 	{
-		dprintf(g_fd, "\33[H\33[2J \n");
-		dprintf(g_fd, "RESIZED\n");
 		ioctl(1, TIOCGWINSZ, &(g_sh->term.win));
 		return ;
 	}
@@ -64,19 +61,19 @@ void		ft_signal(int sig)
 void		ft_signal2(int sig)
 {
 	if (sig == SIGINT)
-		ft_printf("Vous avez cliqué sur Ctrl + C\n");
+		ft_printf("Vous avez cliqué sur Ctrl + C<%d>\n", g_cur_pid);
 	else if (sig == SIGABRT)
-		ft_printf("Abort\n");
+		ft_printf("Abort pid <%d> \n", g_cur_pid);
 	else if (sig == SIGSEGV)
-		ft_printf("AHAHAHA c'est un segfault\n");
+		ft_printf("C'est un segfault de <%d>\n", g_cur_pid);
 	else if (sig == SIGBUS)
-		ft_printf("BUS ERROR\n");
+		ft_printf("C'est un bus error de <%d>\n", g_cur_pid);
 	else if (sig == SIGFPE)
-		ft_printf("Floating point exception\n");
+		ft_printf("Floating point exception de <%d>\n", g_cur_pid);
 	else if (sig == SIGPIPE)
-		ft_printf("Get PIPED\n");
+	 	;
 	else
-		ft_printf("ERREUR non identifiée par mysh <%d>\n", sig);
+		ft_printf("ERREUR non identifiée <%d>par mysh <%d>\n", g_cur_pid, sig);
 }
 
 void		ft_getsignal(void)
@@ -89,4 +86,5 @@ void		ft_getsignal(void)
 	signal(SIGTSTP, &ft_signal);
 	signal(SIGKILL, &ft_signal);
 	signal(SIGSTOP, &ft_signal);
+	signal(SIGSEGV, &ft_signal);
 }

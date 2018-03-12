@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/12 15:03:09 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/12 16:35:15 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int				exec_prog(t_dlist *curr, int *save)
 {
 	char		**split;
-	//char		**bin_paths;
 	char		*path_dirs;
 	char		*path;
 
@@ -35,15 +34,6 @@ int				exec_prog(t_dlist *curr, int *save)
 			execve(split[0], split, g_sh->env.env);
 		exit_error("execution denied\n", EXIT_FAILURE, split[0]);
 	}
-	// else if (path_dirs != NULL)
-	// {
-	// 	if (!(bin_paths = ft_strsplit(path_dirs, ':')))
-	// 		exit_error("PATH not valid\n", EXIT_FAILURE, NULL);
-	// 	path = check_bin(bin_paths, split[0]);
-	// 	if (path && access(path, X_OK) != 0)
-	// 		exit(exit_error("permission denied\n", EXIT_FAILURE, split[0]));
-	// 	execve(path, split, g_sh->env.env);
-	// }
 	return (exit_error("command not found\n", EXIT_FAILURE, split[0]));
 }
 

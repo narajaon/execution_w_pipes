@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 19:00:19 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/12 14:50:42 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/12 16:51:22 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,11 @@ int				ft_hash(t_sh *sh, char **av)
 	t_hash	*hash;
 	t_dlist	*list;
 
-	(void)av;
+	if (av[1] != NULL)
+	{
+		ft_dprintf(STDERR_FILENO, "FABIEN JE SAIS OU TU TE CACHES\n");
+		return (0);
+	}
 	list = sh->hash;
 	hash = NULL;
 	if (list == NULL)
