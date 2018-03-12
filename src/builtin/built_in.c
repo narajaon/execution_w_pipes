@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 15:42:20 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/07 17:39:21 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/09 19:00:55 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_op	g_built_in[BUILD_IN_SIZE + 1] =
 	{"setenv", &ft_setenv},
 	{"unsetenv", &ft_unsetenv},
 	{"exit", &ft_exit},
+	{"hash", &ft_hash},
 	{NULL, NULL}
 };
 

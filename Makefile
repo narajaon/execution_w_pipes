@@ -42,6 +42,7 @@ ITEM = \
 		env.o \
 		exit.o \
 		setenv.o \
+		hash.o \
 		unsetenv.o \
 		built_in.o \
 		get_str_in_quotes.o \
