@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/12 16:46:53 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/12 17:14:54 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void		ft_signal(int sig)
 void		ft_signal2(int sig)
 {
 	if (sig == SIGINT)
-		ft_printf("Vous avez cliqué sur Ctrl + C<%d>\n", g_cur_pid);
+		ft_printf("Vous avez cliqué sur Ctrl + C <%d>\n", g_cur_pid);
 	else if (sig == SIGABRT)
 		ft_printf("Abort pid <%d> \n", g_cur_pid);
 	else if (sig == SIGSEGV)
