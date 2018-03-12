@@ -6,11 +6,39 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 19:00:19 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 20:28:06 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/12 14:50:42 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+void 			hash_check(char *str)
+{
+	char		*cmd_name;
+	char 		*path;
+	char		**bin_paths;
+	char		*path_dirs;
+
+	cmd_name = get_cmd_name(str);
+	path = NULL;
+	path_dirs = NULL;
+	if ((path = get_in_hash(cmd_name)) == NULL)
+	{
+		path_dirs = ft_getenv(g_sh->env.env, "PATH");
+		if (!(bin_paths = ft_strsplit(path_dirs, ':')))
+			exit_error("PATH not valid\n", EXIT_FAILURE, NULL);
+		if (path != NULL)
+			ft_strdel(&path);
+		path = check_bin(bin_paths, cmd_name);
+		if (path != NULL)
+			add_in_path(cmd_name, path);
+		free_tab_str(&bin_paths);
+		ft_strdel(&path);
+	}
+	else
+		ft_strdel(&path);
+	ft_strdel(&cmd_name);
+}
 
 t_dlist			*create_new_hash(char *str, char *path)
 {
@@ -23,7 +51,6 @@ t_dlist			*create_new_hash(char *str, char *path)
 	{
 		ft_memdel((void **)&hash);
 		ft_memdel((void **)&tmp);
-		ICI
 		return (NULL);
 	}
 	hash->cmd = ft_strdup(str);
@@ -31,34 +58,13 @@ t_dlist			*create_new_hash(char *str, char *path)
 	return (tmp);
 }
 
-int 			add_in_haslist(t_dlist *new)
-{
-	t_dlist *list;
-
-	if (g_hash == NULL)
-	{
-		dprintf(g_fd, "g_hash = new\n");
-		g_hash = new;
-		return (1);
-	}
-	list = g_hash;
-	while (list != NULL && (list)->next != NULL)
-		(list) = (list)->next;
-	(list)->next = new;
-	new->prev = list;
-	new->next = NULL;
-	return (1);
-}
-
 int 			add_in_path(char *str, char *path)
 {
 	t_dlist *new;
 
-	dprintf(g_fd, "create_new_hash\n");
 	if ((new = create_new_hash(str, path)) == NULL)
 		return (-1);
-	dprintf(g_fd, "add_in_haslist\n");
-	add_in_haslist(new);
+	ft_hlstadd_back(&g_sh->hash, new);
 	return (0);
 }
 
@@ -67,12 +73,12 @@ char 			*get_in_hash(char *str)
 	t_dlist *list;
 	t_hash	*hash;
 
-	list = g_hash;
+	list = g_sh->hash;
 	while (list != NULL)
 	{
 		hash = list->content;
 		if (ft_strcmp(hash->cmd, str) == 0)
-			return (hash->path);
+			return (ft_strdup(hash->path));
 		list = list->next;
 	}
 	return (NULL);
@@ -80,8 +86,8 @@ char 			*get_in_hash(char *str)
 
 int				ft_hash(t_sh *sh, char **av)
 {
-	t_hash *hash;
-	t_dlist *list;
+	t_hash	*hash;
+	t_dlist	*list;
 
 	(void)av;
 	list = sh->hash;

@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:38:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 20:28:37 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/12 15:09:18 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void			ft_start_process(t_sh *sh)
 
 	while (1)
 	{
-		g_hash = sh->hash;
 		printhash(sh->hash);
 		init_stdio(sh->stdio);
 		sh->test = 1;
@@ -82,10 +81,7 @@ int				main(int ac, char **av, char **environ)
 	if (ac >= 2)
 	{
 		if (ft_strcmp(av[1], "-g") == 0)
-		{
 			sh.color = 1;
-			dprintf(g_fd, "Color mode loaded\n");
-		}
 		else
 			return (0);
 	}

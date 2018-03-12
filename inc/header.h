@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:30:43 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 20:24:55 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/12 14:39:25 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,6 @@ int						g_lvl;
 t_sh					*g_sh;
 int						g_cur_pid;
 int						g_test;
-t_dlist 				*g_hash;
 int 					g_fd;
 char					**g_environ;
 void					*g_handlenonchar[SCHAR_MAX];
@@ -349,8 +348,8 @@ void 					printspace(t_dlist **list);
 int				ft_hash(t_sh *sh, char **av);
 char 			*get_in_hash(char *str);
 int 			add_in_path(char *str, char *path);
-int 			add_in_haslist(t_dlist *new);
 t_dlist 		*create_new_hash(char *str, char *path);
+void 			hash_check(char *str);
 
 
 
