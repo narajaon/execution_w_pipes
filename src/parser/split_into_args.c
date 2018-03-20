@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 17:53:45 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/20 17:52:55 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 18:07:35 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_dlist			*parse_arg_redirs(char *input)
 	{
 		if (do_redirs(redirs) == EXIT_FAILURE)
 		{
+			free_hlist(&arg);
 			free_hlist(&to_free);
 			return (NULL);
 		}
