@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:46:58 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/20 17:24:47 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 18:31:37 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int			r_dleft(char *input)
 	int			output;
 
 	src = check_src_fd(input, STDIN_FILENO);
+	close(STDIN_FILENO);
 	while (*input && ft_isdigit(*input) == TRUE)
 		input++;
 	input += 2;
