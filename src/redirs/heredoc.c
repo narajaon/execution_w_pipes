@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:36:13 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 14:54:18 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 16:52:48 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ char			*heredoc(t_sh *sh)
 	return (ref);
 }
 
+static void		init_heredoc(char **ref, char **line)
+{
+	g_test = 1;
+	*ref = NULL;
+	*line = ft_strdup("\0");
+	tcsetattr(0, TCSANOW, &(g_sh->term.this_term));
+}
+
 char			*handle_heredoc(char *str, t_sh *sh)
 {
 	char	*ref;
@@ -65,9 +73,7 @@ char			*handle_heredoc(char *str, t_sh *sh)
 	char	*line2;
 	int		i;
 
-	g_test = 1;
-	ref = NULL;
-	line = ft_strdup("\0");
+	init_heredoc(&ref, &line);
 	while (1)
 	{
 		ref = heredoc(sh);
@@ -83,6 +89,7 @@ char			*handle_heredoc(char *str, t_sh *sh)
 	}
 	g_sh->ret = Q_OK;
 	g_test = 0;
+	tcsetattr(0, TCSANOW, &(g_sh->term.prev_term));
 	ft_strdel(&ref);
 	return (line);
 }

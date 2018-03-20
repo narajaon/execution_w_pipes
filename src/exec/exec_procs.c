@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/20 14:57:37 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 16:46:12 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ int				iter_thru_procs(t_proc *process)
 	while (semi != NULL)
 	{
 		pipes = init_proc_list(semi->content, '|');
+		tcsetattr(0, TCSANOW, &(g_sh->term.prev_term));
+		init_stdio(g_sh->stdio);
 		exec_procs(pipes);
+		close_stdio(g_sh->stdio);
+		tcsetattr(0, TCSANOW, &(g_sh->term.this_term));
 		free_hlist(&pipes);
 		semi = semi->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/20 15:56:40 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 16:36:49 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ int				exec_prog(t_dlist *curr, int *save)
 	{
 		if (path && access(path, X_OK) != 0)
 			exit(exit_error("permission denied\n", EXIT_FAILURE, split[0]));
-		tcsetattr(0, TCSANOW, &(g_sh->term.prev_term));
 		execve(path, split, g_sh->env.env);
 	}
 	else if (is_binary_file(split[0]) == TRUE)
 	{
 		if (is_valid_path(split[0]) == TRUE)
+		{
 			execve(split[0], split, g_sh->env.env);
+		}
 		exit_error("execution denied\n", EXIT_FAILURE, split[0]);
 	}
 	return (exit_error("command not found\n", EXIT_FAILURE, split[0]));
@@ -93,7 +94,9 @@ int				pipe_processes(t_dlist *curr, int *pfd)
 		exit(EXIT_SUCCESS);
 	}
 	else
+	{
 		exec_in_parent(curr, cpfd, pfd, cmd_id);
+	}
 	g_lvl--;
 	return (status);
 }

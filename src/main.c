@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:38:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/20 15:56:14 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 16:47:39 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,12 @@ void			flush_sh(t_sh *sh)
 	free_hlist(&sh->list);
 	free_hlist(&sh->hist->cur_branch);
 	free(sh->wrap);
-	close_stdio(sh->stdio);
 }
 
 void			ft_start_process(t_sh *sh)
 {
 	while (1)
 	{
-		tcsetattr(0, TCSANOW, &(g_sh->term.this_term));
-		init_stdio(sh->stdio);
 		sh->test = 1;
 		ft_prompt(sh);
 		ft_read(sh);
@@ -73,7 +70,6 @@ int				main(int ac, char **av, char **environ)
 	if (!(ft_init(&sh, &hist)))
 		return (0);
 	ft_getsignal();
-	tputs(tgetstr("cl", NULL), 1, &ft_putc);
 	g_shlvl = g_lvl;
 	ft_start_process(&sh);
 	return (0);
