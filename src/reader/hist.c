@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 15:41:00 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 17:51:25 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,5 @@ int				move_updown(t_dlist_wrap *wrap, char buf[4], t_sh *sh)
 	sh->hist_multi = ft_count_string(sh->hist->cur_branch);
 	sh->hist->cur_branch = NULL;
 	completion_res(IR_RESET, NULL, NULL);
-	return (apply_cap(buf, wrap, sh));
+	return (1);
 }

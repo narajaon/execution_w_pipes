@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 17:53:45 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/08 12:27:10 by narajaon         ###   ########.fr       */
+/*   Updated: 2018/03/20 17:52:55 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ char			**extract_redir(t_dlist *curr, int *save)
 		return (NULL);
 	av_str = ft_list_to_tab(av_lst);
 	free_hlist_not_content(&av_lst);
-	if (curr->next != NULL)
-		dup2(save[1], STDOUT_FILENO);
 	if (save != NULL)
 		close(save[1]);
 	return (av_str);
