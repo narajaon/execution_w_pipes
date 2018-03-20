@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/20 17:51:25 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 19:00:56 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int				move_hist(t_dlist_wrap *wrap, t_sh *sh, int mode, int action)
 
 	begin = wrap->head;
 	list = completion_res(action, begin, sh->hist);
+	if (list == NULL)
+		return (0);
 	var = ((mode == 0) ? wrap->pos : ft_count_string(list));
 	i = (var + len_prompt(sh)) / sh->term.win.ws_col + 1;
 	while (--i)

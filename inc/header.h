@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:30:43 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/20 15:57:03 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 18:16:02 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ enum	e_built
 	B_UNSETENV,
 	B_EXIT,
 	B_HASH,
+	B_COLOR,
 	BUILD_IN_SIZE
 };
 
@@ -221,6 +222,7 @@ t_terms					*ft_terms_get(void);
 int						ft_cd(t_sh *sh, char **av);
 char					*get_cur_dir(char *cur_dir_buff);
 int						ft_env(t_sh *sh, char **av);
+int						ft_color(t_sh *sh, char **av);
 int						ft_setenv(t_sh *sh, char **av);
 int						ft_exit(t_sh *sh, char **av);
 int						ft_unsetenv(t_sh *sh, char **av);

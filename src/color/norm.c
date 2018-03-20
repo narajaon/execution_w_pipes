@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:22:07 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/20 15:06:54 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 18:58:50 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int		check_token(t_dlist **list)
 	if (is_token(*list))
 	{
 		if (is_token_redir(*list))
-			check_redir(list);
+		{
+			while (is_token_redir(*list))
+				check_redir(list);
+			return (0);
+		}
 		else
 		{
 			while (*list != NULL && is_token(*list))
@@ -43,8 +47,6 @@ int		check_token(t_dlist **list)
 void	check_cmd(t_dlist **list)
 {
 	printspace(list);
-	if (check_token(list))
-		return ;
 	while (is_dlist_word(*list) && !is_token(*list))
 	{
 		printred(*list);

@@ -38,6 +38,7 @@ ITEM = \
 		heredoc_read.o \
 		utility.o \
 		cd.o \
+		color.o\
 		echo.o \
 		env.o \
 		exit.o \
