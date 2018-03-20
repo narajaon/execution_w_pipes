@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 14:41:51 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 15:11:59 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,25 +76,6 @@ static int	init_cap_del(char b, int i, int (*f)())
 	return (1);
 }
 
-static void	init_tab(void)
-{
-	int i;
-
-	i = -1;
-	while (++i < CAP_SIZE)
-	{
-		g_handleinput[i].f = NULL;
-		g_handleinput[i].cap[0] = 0;
-		g_handleinput[i].cap[1] = 0;
-		g_handleinput[i].cap[2] = 0;
-		g_handleinput[i].cap[3] = 0;
-		g_handleinput[i].cap[4] = 0;
-		g_handleinput[i].cap[5] = 0;
-		g_handleinput[i].cap[6] = 0;
-		g_handleinput[i].cap[7] = 0;
-	}
-}
-
 int			init_cap(void)
 {
 	init_tab();
@@ -117,8 +98,3 @@ int			init_cap(void)
 	init_cap_del(9, K_TAB, &printlvl);
 	return (0);
 }
-
-
-
-
-

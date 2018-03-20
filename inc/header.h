@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:30:43 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/12 17:02:27 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 15:12:33 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,8 @@ typedef struct			s_proc
 
 typedef struct			s_hash
 {
-	char 				*cmd;
-	char 				*path;
+	char				*cmd;
+	char				*path;
 }						t_hash;
 
 typedef struct			s_sh
@@ -173,12 +173,12 @@ typedef struct			s_sh
 	t_dlist				*list;
 	t_dlist				*yanked;
 	t_hist				*hist;
-	t_dlist 			*hash;
+	t_dlist				*hash;
 	int					stdio[3];
 	int					ret;
 	int					test;
 	int					hist_multi;
-	int 				color;
+	int					color;
 }						t_sh;
 
 typedef struct			s_op
@@ -236,6 +236,7 @@ int						move_right(t_dlist_wrap *wrap);
 int						move_sright(t_dlist_wrap *wrap);
 int						move_sleft(t_dlist_wrap *wrap);
 int						ft_read(t_sh *sh);
+void					init_tab(void);
 int						get_func(char buf[8]);
 int						is_printable(char buf[8]);
 int						is_break(char buf[8]);
@@ -322,8 +323,6 @@ void					ft_signal2(int sig);
 int						exit_error(char *erro_msg, int exit_id, char *cmd_name);
 int						check_mv_tmp(t_dlist_wrap *wrap);
 void					nextline(int mode);
-
-//color
 void					ft_printcolor(t_dlist *list);
 void					printblue(t_dlist *list);
 void					printred(t_dlist *list);
@@ -338,18 +337,14 @@ int						is_dlist_red(t_dlist *list);
 void					check_norm(t_dlist **list);
 void					check_cmd(t_dlist **list);
 void					check_args(t_dlist **list);
-void 					check_redir(t_dlist **list);
-int 					is_token_redir(t_dlist *list);
-int 					is_token(t_dlist *list);
-void 					printspace(t_dlist **list);
-
-//hash
-int				ft_hash(t_sh *sh, char **av);
-char 			*get_in_hash(char *str);
-int 			add_in_path(char *str, char *path);
-t_dlist 		*create_new_hash(char *str, char *path);
-void 			hash_check(char *str);
-
-
+void					check_redir(t_dlist **list);
+int						is_token_redir(t_dlist *list);
+int						is_token(t_dlist *list);
+void					printspace(t_dlist **list);
+int						ft_hash(t_sh *sh, char **av);
+char					*get_in_hash(char *str);
+int						add_in_path(char *str, char *path);
+t_dlist					*create_new_hash(char *str, char *path);
+void					hash_check(char *str);
 
 #endif

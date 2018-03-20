@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/12 16:35:15 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 15:00:53 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int				exec_prog(t_dlist *curr, int *save)
 	{
 		if (path && access(path, X_OK) != 0)
 			exit(exit_error("permission denied\n", EXIT_FAILURE, split[0]));
+		tcsetattr(0, TCSANOW, &(g_sh->term.prev_term));
 		execve(path, split, g_sh->env.env);
 	}
 	else if (is_binary_file(split[0]) == TRUE)

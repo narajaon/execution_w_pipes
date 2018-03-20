@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:38:28 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/12 16:45:33 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 15:14:17 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void			flush_sh(t_sh *sh)
 
 void			ft_start_process(t_sh *sh)
 {
-
 	while (1)
 	{
+		tcsetattr(0, TCSANOW, &(g_sh->term.this_term));
 		init_stdio(sh->stdio);
 		sh->test = 1;
 		ft_prompt(sh);

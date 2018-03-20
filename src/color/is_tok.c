@@ -6,13 +6,13 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:33:01 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/09 16:33:16 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 15:05:50 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int is_token(t_dlist *list)
+int	is_token(t_dlist *list)
 {
 	t_chr *schar;
 
@@ -26,7 +26,7 @@ int is_token(t_dlist *list)
 	return (0);
 }
 
-int is_token_redir(t_dlist *list)
+int	is_token_redir(t_dlist *list)
 {
 	t_chr *schar;
 

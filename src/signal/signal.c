@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/12 17:14:54 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 15:13:39 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@ void		ft_signal(int sig)
 		ioctl(1, TIOCGWINSZ, &(g_sh->term.win));
 		return ;
 	}
-	else if (sig == SIGTSTP)
-	{
-		ft_printf("Ne pas mettre de shell en fg, merci");
-		ft_doprompt(g_sh);
-	}
 	else if (sig == SIGINT)
 	{
 		if (g_cur_pid > 0 && g_shlvl != g_lvl)
@@ -71,7 +66,7 @@ void		ft_signal2(int sig)
 	else if (sig == SIGFPE)
 		ft_printf("Floating point exception de <%d>\n", g_cur_pid);
 	else if (sig == SIGPIPE)
-	 	;
+		;
 	else
 		ft_printf("ERREUR non identifiée <%d>par mysh <%d>\n", g_cur_pid, sig);
 }
@@ -82,8 +77,8 @@ void		ft_getsignal(void)
 	signal(SIGABRT, &ft_signal);
 	signal(SIGINT, &ft_signal);
 	signal(SIGBUS, &ft_signal);
-	signal(SIGCONT, &ft_signal);
-	signal(SIGTSTP, &ft_signal);
+	signal(SIGCONT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 	signal(SIGKILL, &ft_signal);
 	signal(SIGSTOP, &ft_signal);
 	signal(SIGSEGV, &ft_signal);

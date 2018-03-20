@@ -6,13 +6,13 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:22:07 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/12 14:32:19 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 15:06:54 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void printspace(t_dlist **list)
+void	printspace(t_dlist **list)
 {
 	while (is_dlist_space(*list))
 	{
@@ -21,7 +21,7 @@ void printspace(t_dlist **list)
 	}
 }
 
-int check_token(t_dlist **list)
+int		check_token(t_dlist **list)
 {
 	if (is_token(*list))
 	{
@@ -35,12 +35,12 @@ int check_token(t_dlist **list)
 				*list = (*list)->next;
 			}
 			return (1);
-		};
+		}
 	}
 	return (0);
 }
 
-void check_cmd(t_dlist **list)
+void	check_cmd(t_dlist **list)
 {
 	printspace(list);
 	if (check_token(list))
@@ -53,7 +53,7 @@ void check_cmd(t_dlist **list)
 	printspace(list);
 }
 
-void check_args(t_dlist **list)
+void	check_args(t_dlist **list)
 {
 	while (is_token(*list) == 0)
 	{
@@ -82,7 +82,7 @@ void check_args(t_dlist **list)
 	}
 }
 
-void check_norm(t_dlist **list)
+void	check_norm(t_dlist **list)
 {
 	if (check_token(list))
 		return ;

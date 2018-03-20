@@ -6,13 +6,13 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:11:35 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/12 16:33:19 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 15:05:29 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int is_dlist_space(t_dlist *list)
+int	is_dlist_space(t_dlist *list)
 {
 	t_chr *schar;
 
@@ -22,7 +22,7 @@ int is_dlist_space(t_dlist *list)
 	return (ft_isspace(schar->c));
 }
 
-int is_dlist_word(t_dlist *list)
+int	is_dlist_word(t_dlist *list)
 {
 	t_chr *schar;
 
@@ -32,7 +32,7 @@ int is_dlist_word(t_dlist *list)
 	return (!(ft_isspace(schar->c)));
 }
 
-int is_dlist_opt(t_dlist *list)
+int	is_dlist_opt(t_dlist *list)
 {
 	t_chr *schar;
 
@@ -44,7 +44,7 @@ int is_dlist_opt(t_dlist *list)
 	return (0);
 }
 
-int is_dlist_red(t_dlist *list)
+int	is_dlist_red(t_dlist *list)
 {
 	t_chr *schar;
 

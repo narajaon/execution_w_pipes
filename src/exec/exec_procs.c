@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 17:34:54 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/12 16:36:08 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 14:57:37 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void			exec_procs(t_dlist *pipes)
 		;
 	if ((WIFSIGNALED(status)))
 	{
-		//ft_printf("le process <%d> s'est terminé anormalement :\n", g_cur_pid);
 		ft_signal2(WTERMSIG(status));
 	}
 }

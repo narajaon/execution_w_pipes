@@ -6,16 +6,16 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 19:00:19 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/12 16:53:53 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 15:04:12 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void 			hash_check(char *str)
+void			hash_check(char *str)
 {
 	char		*cmd_name;
-	char 		*path;
+	char		*path;
 	char		**bin_paths;
 	char		*path_dirs;
 
@@ -43,7 +43,7 @@ void 			hash_check(char *str)
 t_dlist			*create_new_hash(char *str, char *path)
 {
 	t_dlist	*tmp;
-	t_hash *hash;
+	t_hash	*hash;
 
 	hash = ft_memalloc(sizeof(t_hash));
 	tmp = ft_dlist_create((void *)(hash));
@@ -58,7 +58,7 @@ t_dlist			*create_new_hash(char *str, char *path)
 	return (tmp);
 }
 
-int 			add_in_path(char *str, char *path)
+int				add_in_path(char *str, char *path)
 {
 	t_dlist *new;
 
@@ -68,9 +68,9 @@ int 			add_in_path(char *str, char *path)
 	return (0);
 }
 
-char 			*get_in_hash(char *str)
+char			*get_in_hash(char *str)
 {
-	t_dlist *list;
+	t_dlist	*list;
 	t_hash	*hash;
 
 	list = g_sh->hash;
@@ -105,7 +105,8 @@ int				ft_hash(t_sh *sh, char **av)
 	while (list != NULL)
 	{
 		hash = list->content;
-		ft_dprintf(STDOUT_FILENO, "cmd [%s] : path [%s]\n", hash->cmd, hash->path);
+		ft_dprintf(STDOUT_FILENO, "cmd [%s] :", hash->cmd);
+		ft_dprintf(STDOUT_FILENO, " path [%s]\n", hash->path);
 		list = list->next;
 	}
 	return (1);
