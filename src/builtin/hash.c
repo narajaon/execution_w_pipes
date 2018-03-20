@@ -6,7 +6,7 @@
 /*   By: awyart <awyart@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 19:00:19 by awyart            #+#    #+#             */
-/*   Updated: 2018/03/20 15:04:12 by awyart           ###   ########.fr       */
+/*   Updated: 2018/03/20 15:55:12 by awyart           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,21 @@ void			hash_check(char *str)
 	path_dirs = NULL;
 	if ((path = get_in_hash(cmd_name)) == NULL)
 	{
-		path_dirs = ft_getenv(g_sh->env.env, "PATH");
+		if ((path_dirs = ft_getenv(g_sh->env.env, "PATH")) == NULL)
+		{
+			free_str(&cmd_name);
+			return ;
+		}
 		if (!(bin_paths = ft_strsplit(path_dirs, ':')))
 			exit_error("PATH not valid\n", EXIT_FAILURE, NULL);
-		if (path != NULL)
-			ft_strdel(&path);
 		path = check_bin(bin_paths, cmd_name);
 		if (path != NULL)
 			add_in_path(cmd_name, path);
 		free_tab_str(&bin_paths);
 		ft_strdel(&path);
 	}
-	else
-		ft_strdel(&path);
-	ft_strdel(&cmd_name);
+	free_str(&path);
+	free_str(&cmd_name);
 }
 
 t_dlist			*create_new_hash(char *str, char *path)
